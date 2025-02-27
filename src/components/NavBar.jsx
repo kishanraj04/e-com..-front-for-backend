@@ -5,9 +5,9 @@ import LinkTag from "../custom/LinkTag";
 import { CiHeart } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
 import { CiUser } from "react-icons/ci";
-import IconLink from "./IconLink";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
+import IconLink from "../custom/IconLink";
 
 export default function Navbar() {
   const [toggleNav, setToggleNav] = useState(false);
@@ -37,7 +37,7 @@ export default function Navbar() {
 
               {/* Nav Links (Desktop) */}
               <div className="flex space-x-6 max-sm:hidden">
-                {["Home", "Shop", "About", "Contact"].map((title, idx) => (
+                {["Home", "Category", "About", "Contact"].map((title, idx) => (
                   <LinkTag title={title} key={idx} />
                 ))}
               </div>
@@ -92,7 +92,7 @@ export default function Navbar() {
 
         {/* links */}
         <div className="flex flex-col p-5 gap-5">
-          {["Home", "Shop", "About", "Contact"].map((title, idx) => (
+          {["Home", "Category", "About", "Contact"].map((title, idx) => (
             <LinkTag title={title} key={idx} />
           ))}
         </div>
