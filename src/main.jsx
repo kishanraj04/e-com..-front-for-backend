@@ -8,6 +8,8 @@ import AboutUs from "./pages/AboutUs.jsx";
 import Contact from "./pages/Contact.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
 import Home from "./pages/Home.jsx";
+import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { apicalling } from "../api/apiCalling.js";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -22,7 +24,7 @@ const routes = createBrowserRouter([
         element:<Contact/>
       },
       {
-        path:"/Category",
+        path:"/:Category",
         element:<CategoryPage/>
       },
       {
@@ -34,5 +36,7 @@ const routes = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={routes} />
+ <ApiProvider api={apicalling}>
+   <RouterProvider router={routes} />
+ </ApiProvider>
 );

@@ -23,12 +23,14 @@ export default function Banner() {
 
   return (
     <>
+      <div className="w-[100%] flex justify-center">
        <Swiper
           loop="true"
           autoplay={{ delay: 1500, disableOnInteraction: false }}
           modules={[Pagination, Autoplay]}
-          className="mySwiper"
+          className="mySwiper w-[95%]"
         >
+        
           {bannerImage.map((imagePath, idx) => (
             <SwiperSlide key={idx} className="w-full h-full mt-5">
               <img
@@ -38,7 +40,9 @@ export default function Banner() {
               />
             </SwiperSlide>
           ))}
+        
         </Swiper>
+        </div>
     </>
   );
 }
