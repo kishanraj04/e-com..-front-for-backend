@@ -1,13 +1,25 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apicallingForUser = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
+  reducerPath:'userApi',
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1" }),
   endpoints: (builder) => ({
     // user specific endpoints
     loginUser: builder.mutation({
-      
+      query:(userData)=>({
+        url:'/signIn',
+        method:"POST",
+        body:userData,
+        credentials: 'include'
+      })
     }),
-    singnUpUser: builder.mutation({}),
+    singnUpUser: builder.mutation({
+      query:(userData)=> ({
+        url:'/signUp',
+        method:'POST',
+        body:userData
+      })
+    }),
     directLoginUser: builder.mutation({}),
     logOutUser:builder.mutation({}),
     getMyProfile:builder.query({}),

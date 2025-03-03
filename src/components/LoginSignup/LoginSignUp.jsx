@@ -1,11 +1,70 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useGetAllProductQuery } from "../../../api/apiCallingForProduct";
+import Button from "../../custom/Button";
+import { useLoginUserMutation, useSingnUpUserMutation } from "../../../api/apiCallingForUser";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignInSignUp = () => {
   const [pageStatus, setPageStatus] = useState({ signIn: true });
+  const navigate = useNavigate()
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const nameRef = useRef();
+  const contactRef = useRef();
+  const roleRef = useRef();
+
+  const [signUpUser, registerRes] = useSingnUpUserMutation();
+  const [loginUser , loginRes] = useLoginUserMutation();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if(e.target.innerText=='SIGN IN')
+      {
+        const singInResponse = await loginUser({
+          email: emailRef.current.value,
+          password: passwordRef.current.value
+        }).unwrap()
+        if(singInResponse.success==true)
+        {
+          toast.success("Login Success")
+          navigate('/home')
+        }
+      }
+      else
+      {
+        const signUpResponse = await signUpUser({
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+          name:nameRef.current.value,
+          contact:contactRef.current.value,
+          role:roleRef.current.value
+        }).unwrap();
+        console.log(signUpResponse);
+        if(signUpResponse?.message=='user Exist')
+          {
+            toast.error("User Already Exist")
+          }
+          else{
+            toast.success("SignUp SuccessFully")
+          }
+      }
+     
+    } catch (err) {
+      if(err.status==401)
+      {
+        console.log("run");
+        toast.error("invalid credentials")
+      }
+     
+    }
+  };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100">
-      <div className="relative w-4/5 max-w-4xl h-[500px] shadow-lg rounded-lg overflow-hidden">
+    <div className="flex h-screen items-center justify-center bg-gray-100 select-none">
+      <div className="relative w-4/5 max-w-4xl h-[600px] shadow-lg rounded-lg overflow-hidden">
         {/* Left Section: Sign In */}
         <div
           className={`absolute w-1/2 h-full bg-white p-8 flex flex-col justify-center transform transition-transform duration-500 ease-in-out ${
@@ -17,15 +76,9 @@ const SignInSignUp = () => {
           </h2>
           {/* Social Media Icons */}
           <div className="flex justify-center gap-4 mb-6">
-            <button className="bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-300">
-              F
-            </button>
-            <button className="bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-300">
-              G+
-            </button>
-            <button className="bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-300">
-              in
-            </button>
+            {["F ", "G+", "in"].map((title, idx) => (
+              <Button key={idx} title={title} />
+            ))}
           </div>
           <p className="text-center text-gray-500 mb-6">or use your account</p>
           {/* Form */}
@@ -34,25 +87,43 @@ const SignInSignUp = () => {
               type="email"
               placeholder="Email"
               className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
+              ref={emailRef}
             />
             <input
               type="password"
               placeholder="Password"
               className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
+              ref={passwordRef}
             />
-            {
-              !pageStatus.signIn ? <input
-              type="tel"
-              placeholder="Contact"
-              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
-            /> : ''
-            }
+            {!pageStatus.signIn
+              ? [
+                  <input
+                    type="tel"
+                    placeholder="Contact"
+                    className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
+                    ref={contactRef}
+                  />,
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
+                    ref={nameRef}
+                  />,
+                  <input
+                    type="text"
+                    placeholder="Role"
+                    className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
+                    ref={roleRef}
+                  />,
+                ]
+              : ""}
             <p className="text-sm text-right text-gray-500 hover:underline cursor-pointer mb-4">
               Forgot your password?
             </p>
             <button
               type="submit"
               className="w-full bg-red-500 text-white py-2 rounded-lg font-semibold hover:bg-red-600"
+              onClick={handleSubmit}
             >
               {pageStatus.signIn ? "SIGN IN" : "SIGN UP"}
             </button>

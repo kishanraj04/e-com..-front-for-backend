@@ -9,34 +9,44 @@ import Contact from "./pages/Contact.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
 import Home from "./pages/Home.jsx";
 import { ApiProvider } from "@reduxjs/toolkit/query/react";
-import { apicalling } from "../api/apiCalling.js";
+import SignInSignUp from "./components/LoginSignup/LoginSignUp.jsx";
+import { apicallingForOrder } from "../api/apiCallingForOrder.js";
+import { apicallingForProduct } from "../api/apiCallingForProduct.js";
+import { apicallingForUser } from "../api/apiCallingForUser.js";
+import { Provider } from "react-redux";
+import rootStore from "../store/configStore.js";
+import { ToastContainer } from "react-toastify";
 const routes = createBrowserRouter([
   {
     path: "/",
+    element: <SignInSignUp />,
+  },
+  {
+    path: "/home",
     element: <App />,
     children: [
       {
-        path: "/About",
+        path:'/home',
+        element:<Home/>
+      },
+      {
+        path: "/home/About",
         element: <AboutUs />,
       },
       {
-        path:"/Contact",
+        path:"/home/Contact",
         element:<Contact/>
       },
       {
-        path:"/:Category",
+        path:"/home/:Category",
         element:<CategoryPage/>
-      },
-      {
-        path:"/",
-        element:<Home/>
       }
     ],
   },
 ]);
-
 createRoot(document.getElementById("root")).render(
- <ApiProvider api={apicalling}>
-   <RouterProvider router={routes} />
- </ApiProvider>
+  <Provider store={rootStore}>
+    <ToastContainer position="top-right" autoClose={1000} />
+    <RouterProvider router={routes} />
+  </Provider>
 );

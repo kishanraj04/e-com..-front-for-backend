@@ -42,7 +42,7 @@ function CategorySection() {
     const formattedCategories = categoryImage.map(image => {
         return {
             image: basePath + image,
-            path: image.replace(/\.(jpg|png)$/, "") // Remove file extension for path
+            path: image.replace(/\.(jpg|png)$/, "") 
         };
     });
     
@@ -52,7 +52,7 @@ function CategorySection() {
     <div className="mt-[5%] shadow-md h-[30rem] ">
       <div className="w-full flex justify-center items-center p-10">
         <h1 className="text-3xl font-bold font-serif underline decoration-green-500">
-          Out Different Category
+          Our Different Category
         </h1>
       </div>
 

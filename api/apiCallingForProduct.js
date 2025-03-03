@@ -1,11 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apicallingForProduct = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
+  reducerPath:'productApi',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com' }),
   endpoints: (builder) => ({
 
     // products endpoints
-    getAllProduct:builder.query({}),
+    getAllProduct:builder.query({
+      query:()=> '/products'
+    }),
     createProduct:builder.mutation({}),
     updateProduct:builder.mutation({}),
     getSinglePorduct:builder.query({}),

@@ -8,12 +8,10 @@ import { CiUser } from "react-icons/ci";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
 import IconLink from "../custom/IconLink";
-import { useGetAllProductsQuery } from "../../api/apiCalling";
 
 export default function Navbar() {
   const [toggleNav, setToggleNav] = useState(false);
 
-  console.log(useGetAllProductsQuery());
 
   return (
     <>
