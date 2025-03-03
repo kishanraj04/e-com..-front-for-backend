@@ -49,7 +49,7 @@ function CategorySection() {
     
     
   return (
-    <div className="mt-[5%] shadow-md h-[30rem] ">
+    <div className="mt-[5%]  h-[20rem] ">
       <div className="w-full flex justify-center items-center p-10">
         <h1 className="text-3xl font-bold font-serif underline decoration-green-500">
           Our Different Category

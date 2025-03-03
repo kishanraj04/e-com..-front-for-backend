@@ -3,7 +3,6 @@ import Banner from '../components/banner/Banner.jsx'
 import CategorySection from '../components/categorysection/CategorySection.jsx'
 
 function Home() {
-  console.log("cookie " ,document.cookie);
 
   return (
     <>

@@ -32,11 +32,11 @@ export default function Banner() {
         >
         
           {bannerImage.map((imagePath, idx) => (
-            <SwiperSlide key={idx} className="w-full h-full mt-5">
+            <SwiperSlide key={idx} className="w-[100%] h-full mt-5">
               <img
                 src={imagePath}
                 alt={imagePath}
-                className="w-[100rem] h-[15rem]"
+                className="w-[100%] h-[15rem]"
               />
             </SwiperSlide>
           ))}

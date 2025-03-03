@@ -2,12 +2,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apicallingForUser = createApi({
   reducerPath:'userApi',
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1/" }),
   endpoints: (builder) => ({
     // user specific endpoints
     loginUser: builder.mutation({
       query:(userData)=>({
-        url:'/signIn',
+        url:'signIn',
         method:"POST",
         body:userData,
         credentials: 'include'
@@ -15,12 +15,18 @@ export const apicallingForUser = createApi({
     }),
     singnUpUser: builder.mutation({
       query:(userData)=> ({
-        url:'/signUp',
+        url:'signUp',
         method:'POST',
         body:userData
       })
     }),
-    directLoginUser: builder.mutation({}),
+    directLoginUser: builder.query({
+      query:()=>({
+        url:"direct-login",
+        method:"GET",
+        credentials:'include'
+      })
+    }),
     logOutUser:builder.mutation({}),
     getMyProfile:builder.query({}),
     updateUserPassword:builder.mutation({}),
@@ -34,4 +40,4 @@ export const apicallingForUser = createApi({
   }),
 });
 
-export const {useLoginUserMutation,useLogOutUserMutation,useSingnUpUserMutation,useDirectLoginUserMutation,useGetAllUserQuery,useGetMyProfileQuery,useChangeUserRoleMutation,useDeleteUserMutation,useGetSinglUserQuery,use } = apicallingForUser;
+export const {useLoginUserMutation,useLogOutUserMutation,useSingnUpUserMutation,useDirectLoginUserQuery,useGetAllUserQuery,useGetMyProfileQuery,useChangeUserRoleMutation,useDeleteUserMutation,useGetSinglUserQuery,use } = apicallingForUser;

@@ -12,7 +12,6 @@ import IconLink from "../custom/IconLink";
 export default function Navbar() {
   const [toggleNav, setToggleNav] = useState(false);
 
-
   return (
     <>
       <header className="bg-white shadow-md w-full select-none">
@@ -21,13 +20,13 @@ export default function Navbar() {
           Free Shipping on Orders Over $50!
         </div>
 
-        <div className="flex justify-between w-full items-center">
-          <nav className="max-w-7xl mx-auto  px-4 sm:px-6 lg:px-8 w-full">
-            <div className="flex justify-between h-16 items-center">
+        <div className="flex justify-between items-center w-full p-4">
+          <nav className="max-w-7xl mx-auto w-full px-4 ">
+            <div className="flex justify-between items-center h-16">
               {/* Logo */}
               <div className="text-2xl font-bold text-gray-800">E-Shop</div>
 
-              {/* Search Bar */}
+              {/* Search Bar (Hidden on small screens) */}
               <div className="hidden md:flex flex-1 mx-4">
                 <input
                   type="text"
@@ -37,37 +36,40 @@ export default function Navbar() {
               </div>
 
               {/* Nav Links (Desktop) */}
-              <div className="flex space-x-6 max-sm:hidden">
-                {["Home", "MarketPlace", "About", "Contact"].map((title, idx) => (
-                  <LinkTag title={title} key={idx} />
-                ))}
+              <div className="hidden sm:flex space-x-6">
+                {["Home", "MarketPlace", "About", "Contact"].map(
+                  (title, idx) => (
+                    <LinkTag title={title} key={idx} />
+                  )
+                )}
               </div>
 
               {/* Icons */}
-              <div className="flex items-center space-x-4 max-sm:hidden ml-5 relative">
+              <div className="hidden sm:flex items-center space-x-4 relative">
                 {[
-                  { title: "wish-list", icon: <CiHeart size={'2rem'}/> },
-                  { title: "cart", icon: <CiShoppingCart size={'2rem'} /> },
-                  { title: "profile", icon: <CiUser size={'2rem'}/> },
+                  { title: "wish-list", icon: <CiHeart size="2rem" /> },
+                  { title: "cart", icon: <CiShoppingCart size="2rem" /> },
+                  { title: "profile", icon: <CiUser size="2rem" /> },
                 ].map(({ title, icon }, idx) => (
                   <IconLink title={title} icon={icon} key={idx} />
                 ))}
 
-                <p className="absolute right-12 bottom-6 border-[1px] border-red-400 w-5 h-5  flex justify-center items-center rounded-lg">0</p>
+                {/* Cart Item Count */}
+                <p className="absolute right-12 bottom-6 border border-red-400 w-5 h-5 flex justify-center items-center rounded-lg text-sm">
+                  0
+                </p>
               </div>
             </div>
           </nav>
 
-          <div className="sm:hidden max-sm:visible">
-            {!toggleNav ? (
-              <IoReorderThreeOutline
-                size={"2rem"}
-                onClick={() => setToggleNav(!toggleNav)}
-              />
+          {/* Mobile Menu Toggle */}
+          <div className="sm:hidden">
+            {toggleNav ? (
+              <RxCross1 size="2rem" onClick={() => setToggleNav(false)} />
             ) : (
-              <RxCross1
-                size={"2rem"}
-                onClick={() => setToggleNav(!toggleNav)}
+              <IoReorderThreeOutline
+                size="2rem"
+                onClick={() => setToggleNav(true)}
               />
             )}
           </div>
@@ -83,11 +85,11 @@ export default function Navbar() {
         {/* icons */}
         <div className="p-2 flex gap-5">
           {[
-            { title: "wish-list", icon: <CiHeart size={'2rem'}/> },
-            { title: "cart", icon: <CiShoppingCart size={'2rem'}/> },
-            { title: "profile", icon: <CiUser size={'2rem'} /> },
+            { title: "wish-list", icon: <CiHeart size={"2rem"} /> },
+            { title: "cart", icon: <CiShoppingCart size={"2rem"} /> },
+            { title: "profile", icon: <CiUser size={"2rem"} /> },
           ].map(({ title, icon }, idx) => (
-            <IconLink title={title}  icon={icon} key={idx} />
+            <IconLink title={title} icon={icon} key={idx} />
           ))}
         </div>
 

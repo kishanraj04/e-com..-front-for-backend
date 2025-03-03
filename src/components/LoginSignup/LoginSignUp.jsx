@@ -1,14 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGetAllProductQuery } from "../../../api/apiCallingForProduct";
 import Button from "../../custom/Button";
-import { useLoginUserMutation, useSingnUpUserMutation } from "../../../api/apiCallingForUser";
+import {
+  useDirectLoginUserQuery,
+  useLoginUserMutation,
+  useSingnUpUserMutation,
+} from "../../../api/apiCallingForUser";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignInSignUp = () => {
   const [pageStatus, setPageStatus] = useState({ signIn: true });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
   const nameRef = useRef();
@@ -16,49 +20,40 @@ const SignInSignUp = () => {
   const roleRef = useRef();
 
   const [signUpUser, registerRes] = useSingnUpUserMutation();
-  const [loginUser , loginRes] = useLoginUserMutation();
-
+  const [loginUser, loginRes] = useLoginUserMutation();
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if(e.target.innerText=='SIGN IN')
-      {
+      if (e.target.innerText == "SIGN IN") {
         const singInResponse = await loginUser({
           email: emailRef.current.value,
-          password: passwordRef.current.value
-        }).unwrap()
-        if(singInResponse.success==true)
-        {
-          toast.success("Login Success")
-          navigate('/home')
+          password: passwordRef.current.value,
+        }).unwrap();
+        if (singInResponse.success == true) {
+          toast.success("Login Success");
+          navigate("/home");
         }
-      }
-      else
-      {
+      } else {
         const signUpResponse = await signUpUser({
           email: emailRef.current.value,
           password: passwordRef.current.value,
-          name:nameRef.current.value,
-          contact:contactRef.current.value,
-          role:roleRef.current.value
+          name: nameRef.current.value,
+          contact: contactRef.current.value,
+          role: roleRef.current.value,
         }).unwrap();
         console.log(signUpResponse);
-        if(signUpResponse?.message=='user Exist')
-          {
-            toast.error("User Already Exist")
-          }
-          else{
-            toast.success("SignUp SuccessFully")
-          }
+        if (signUpResponse?.message == "user Exist") {
+          toast.error("User Already Exist");
+        } else {
+          toast.success("SignUp SuccessFully");
+        }
       }
-     
     } catch (err) {
-      if(err.status==401)
-      {
+      if (err.status == 401) {
         console.log("run");
-        toast.error("invalid credentials")
+        toast.error("invalid credentials");
       }
-     
     }
   };
 

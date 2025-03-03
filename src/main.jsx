@@ -1,49 +1,77 @@
-import { StrictMode } from "react";
+import { useEffect } from "react";
 import { createRoot } from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+
 import "./index.css";
 import App from "./App.jsx";
-import { createBrowserRouter } from "react-router";
-import { RouterProvider } from "react-router-dom";
 import AboutUs from "./pages/AboutUs.jsx";
 import Contact from "./pages/Contact.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
 import Home from "./pages/Home.jsx";
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
 import SignInSignUp from "./components/LoginSignup/LoginSignUp.jsx";
-import { apicallingForOrder } from "../api/apiCallingForOrder.js";
-import { apicallingForProduct } from "../api/apiCallingForProduct.js";
-import { apicallingForUser } from "../api/apiCallingForUser.js";
-import { Provider } from "react-redux";
+import { useDirectLoginUserQuery } from "../api/apiCallingForUser.js";
 import rootStore from "../store/configStore.js";
-import { ToastContainer } from "react-toastify";
+import { updateLoggedInUserStatus } from "../store/authSlice.js";
+
+// ✅ Corrected AuthRedirect inside Router
+const AuthRedirect = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isSuccess } = useDirectLoginUserQuery();
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(updateLoggedInUserStatus({ status: true }));
+      navigate("/home");
+    } else {
+      dispatch(updateLoggedInUserStatus({ status: false }));
+      navigate("/");
+    }
+  }, [isSuccess, dispatch, navigate]);
+
+  return null; // 🔥 This prevents rendering issues
+};
+
+const AuthLayout = ({ children }) => (
+  <>
+    <AuthRedirect />
+    {children}
+  </>
+);
+
+// ✅ Define Routes (Keeping `createBrowserRouter`)
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <SignInSignUp />,
+    element: (
+      <AuthLayout>
+        <SignInSignUp />
+      </AuthLayout>
+    ),
   },
   {
     path: "/home",
-    element: <App />,
+    element: (
+      <AuthLayout>
+        <App />
+      </AuthLayout>
+    ),
     children: [
-      {
-        path:'/home',
-        element:<Home/>
-      },
-      {
-        path: "/home/About",
-        element: <AboutUs />,
-      },
-      {
-        path:"/home/Contact",
-        element:<Contact/>
-      },
-      {
-        path:"/home/:Category",
-        element:<CategoryPage/>
-      }
+      { path: "/home", element: <Home /> },
+      { path: "/home/About", element: <AboutUs /> },
+      { path: "/home/Contact", element: <Contact /> },
+      { path: "/home/:Category", element: <CategoryPage /> },
     ],
   },
 ]);
+
+// ✅ Render with RouterProvider
 createRoot(document.getElementById("root")).render(
   <Provider store={rootStore}>
     <ToastContainer position="top-right" autoClose={1000} />
