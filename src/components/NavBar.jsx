@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, Menu, X, Heart, User, Search } from "lucide-react";
 import LinkTag from "../custom/LinkTag";
 import { CiHeart } from "react-icons/ci";
@@ -8,21 +8,30 @@ import { CiUser } from "react-icons/ci";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
 import IconLink from "../custom/IconLink";
+import { IoMdLogOut } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { useLogOutUserMutation } from "../../api/apiCallingForUser";
+import { logoutUser } from "../../utils/logoutUser";
+
 
 export default function Navbar() {
   const [toggleNav, setToggleNav] = useState(false);
-
+  const loggedInUserName = useSelector((state)=>state.auth.loggedInUserName)
+  const [logOutUser , {isError,isSuccess,data}] = useLogOutUserMutation()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   return (
     <>
       <header className="bg-white shadow-md w-full select-none">
         {/* Promotional Banner */}
-        <div className="bg-blue-600 text-white text-center py-2 text-sm">
-          Free Shipping on Orders Over $50!
+        <div className="bg-blue-600 text-white text-center py-2 text-sm flex justify-around">
+          <p className="text-black font-bold font-serif text-xl">Welcome ❤️ <span className="text-orange-400 font-serif text-xl">{loggedInUserName}</span></p>
+          <p >Free Shipping on Orders Over $50!</p>
         </div>
 
         <div className="flex justify-between items-center w-full p-4">
           <nav className="max-w-7xl mx-auto w-full px-4 ">
-            <div className="flex justify-between items-center h-16">
+            <div className="flex justify-between items-center h-8">
               {/* Logo */}
               <div className="text-2xl font-bold text-gray-800">E-Shop</div>
 
@@ -36,7 +45,7 @@ export default function Navbar() {
               </div>
 
               {/* Nav Links (Desktop) */}
-              <div className="hidden sm:flex space-x-6">
+              <div className="hidden sm:flex space-x-4 p-4">
                 {["Home", "MarketPlace", "About", "Contact"].map(
                   (title, idx) => (
                     <LinkTag title={title} key={idx} />
@@ -45,15 +54,15 @@ export default function Navbar() {
               </div>
 
               {/* Icons */}
-              <div className="hidden sm:flex items-center space-x-4 relative">
+              <div className="hidden sm:flex items-center space-x-3 relative">
                 {[
-                  { title: "wish-list", icon: <CiHeart size="2rem" /> },
+                  { title: "wish-list", icon: <CiHeart size="2rem" color="red"/> },
                   { title: "cart", icon: <CiShoppingCart size="2rem" /> },
                   { title: "profile", icon: <CiUser size="2rem" /> },
                 ].map(({ title, icon }, idx) => (
                   <IconLink title={title} icon={icon} key={idx} />
                 ))}
-
+                  <IoMdLogOut size={'2rem'} color="blue" onClick={()=>logoutUser(logOutUser,navigate,dispatch)}/>
                 {/* Cart Item Count */}
                 <p className="absolute right-12 bottom-6 border border-red-400 w-5 h-5 flex justify-center items-center rounded-lg text-sm">
                   0
@@ -85,12 +94,14 @@ export default function Navbar() {
         {/* icons */}
         <div className="p-2 flex gap-5">
           {[
-            { title: "wish-list", icon: <CiHeart size={"2rem"} /> },
+            { title: "wish-list", icon: <CiHeart size={"2rem"} color="red" /> },
             { title: "cart", icon: <CiShoppingCart size={"2rem"} /> },
             { title: "profile", icon: <CiUser size={"2rem"} /> },
           ].map(({ title, icon }, idx) => (
             <IconLink title={title} icon={icon} key={idx} />
           ))}
+          <h1>HIII</h1>
+          <IoMdLogOut size={'10rem'}/>
         </div>
 
         {/* links */}

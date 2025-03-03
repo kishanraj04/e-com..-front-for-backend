@@ -9,6 +9,8 @@ import {
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { updateLoggedInUserStatus } from "../../../store/authSlice";
 
 const SignInSignUp = () => {
   const [pageStatus, setPageStatus] = useState({ signIn: true });
@@ -21,7 +23,8 @@ const SignInSignUp = () => {
 
   const [signUpUser, registerRes] = useSingnUpUserMutation();
   const [loginUser, loginRes] = useLoginUserMutation();
-  
+  const dispatch = useDispatch()
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -30,8 +33,10 @@ const SignInSignUp = () => {
           email: emailRef.current.value,
           password: passwordRef.current.value,
         }).unwrap();
-        if (singInResponse.success == true) {
+        console.log("sr ",singInResponse);
+        if (singInResponse.success) {
           toast.success("Login Success");
+          dispatch(updateLoggedInUserStatus({status:true}))
           navigate("/home");
         }
       } else {

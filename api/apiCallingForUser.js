@@ -27,7 +27,13 @@ export const apicallingForUser = createApi({
         credentials:'include'
       })
     }),
-    logOutUser:builder.mutation({}),
+    logOutUser:builder.mutation({
+      query:()=>({
+        url:'logout-user',
+        method:"POST",
+        credentials:'include'
+      })
+    }),
     getMyProfile:builder.query({}),
     updateUserPassword:builder.mutation({}),
     updateUserProfile:builder.mutation({}),

@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-
 import "./index.css";
 import App from "./App.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
@@ -16,23 +15,24 @@ import Home from "./pages/Home.jsx";
 import SignInSignUp from "./components/LoginSignup/LoginSignUp.jsx";
 import { useDirectLoginUserQuery } from "../api/apiCallingForUser.js";
 import rootStore from "../store/configStore.js";
-import { updateLoggedInUserStatus } from "../store/authSlice.js";
+import { loggedInUserName, updateLoggedInUserStatus } from "../store/authSlice.js";
 import MarketPlace from "./pages/MarketPlace.jsx";
 
-// ✅ Corrected AuthRedirect inside Router
 const AuthRedirect = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isSuccess } = useDirectLoginUserQuery();
-
+  const { isSuccess,data} = useDirectLoginUserQuery();
+  
   useEffect(() => {
+
     if (isSuccess) {
-      dispatch(updateLoggedInUserStatus({ status: true }));
+      dispatch(updateLoggedInUserStatus({ status: true ,name:"KKK"}));
+      dispatch(loggedInUserName({loggedInUser:data.user.name}))
       navigate("/home");
     } 
-  }, [isSuccess, dispatch, navigate]);
+  }, [isSuccess]);
 
-  return null; // 🔥 This prevents rendering issues
+  return null; 
 };
 
 const AuthLayout = ({ children }) => (
