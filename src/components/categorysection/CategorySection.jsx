@@ -7,47 +7,49 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-
 // import required modules
 import { Pagination, Autoplay } from "swiper/modules";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function CategorySection() {
-    const categoryImage = [
-        "beauty.jpg",
-        "fragrances.png",
-        "groceries.png",
-        "home-decoration.jpg",
-        "kitchen-accessories.jpg",
-        "laptops.jpg",
-        "mens-shirts.jpg",
-        "mens-shoes.jpg",
-        "mens-watches.jpg",
-        "mobile-accessories.jpg",
-        "motorcycle.jpg",
-        "skin-care.jpg",
-        "smartphones.jpg",
-        "sports-accessories.png",
-        "sunglasses.png",
-        "tablets.jpg",
-        "tops.jpg",
-        "vehicle.jpg",
-        "womens-dresses.png",
-        "womens-jewellery.jpg",
-        "womens-shoes.jpg",
-    ];
-    
-    const basePath = "../../../public/categoryImage/";
-    
-    const formattedCategories = categoryImage.map(image => {
-        return {
-            image: basePath + image,
-            path: image.replace(/\.(jpg|png)$/, "") 
-        };
-    });
-    
-    
-    
+  const navigate = useNavigate();
+  const isLoggedInUserStatus = useSelector((state) => state.auth.isLoggedIn);
+  if (!isLoggedInUserStatus) navigate("/");
+
+  const categoryImage = [
+    "beauty.jpg",
+    "fragrances.png",
+    "groceries.png",
+    "home-decoration.jpg",
+    "kitchen-accessories.jpg",
+    "laptops.jpg",
+    "mens-shirts.jpg",
+    "mens-shoes.jpg",
+    "mens-watches.jpg",
+    "mobile-accessories.jpg",
+    "motorcycle.jpg",
+    "skin-care.jpg",
+    "smartphones.jpg",
+    "sports-accessories.png",
+    "sunglasses.png",
+    "tablets.jpg",
+    "tops.jpg",
+    "vehicle.jpg",
+    "womens-dresses.png",
+    "womens-jewellery.jpg",
+    "womens-shoes.jpg",
+  ];
+
+  const basePath = "../../../public/categoryImage/";
+
+  const formattedCategories = categoryImage.map((image) => {
+    return {
+      image: basePath + image,
+      path: image.replace(/\.(jpg|png)$/, ""),
+    };
+  });
+
   return (
     <div className="mt-[5%]  h-[20rem] ">
       <div className="w-full flex justify-center items-center p-10">
@@ -82,8 +84,11 @@ function CategorySection() {
           modules={[Pagination]}
           className="mySwiper"
         >
-          {formattedCategories.map(({image, path},idx) => (
-            <SwiperSlide key={idx} className="hover:border-[1px] border-black-500 duration-500 ease-in-out shadow-md">
+          {formattedCategories.map(({ image, path }, idx) => (
+            <SwiperSlide
+              key={idx}
+              className="hover:border-[1px] border-black-500 duration-500 ease-in-out shadow-md"
+            >
               {
                 <Link to={path}>
                   <div className="h-[10rem] flex flex-col gap-2 justify-center items-center">
@@ -97,11 +102,7 @@ function CategorySection() {
 
                     {/* content */}
                     <div>
-                      {
-                        <span className="font-bold text-xl">
-                          {path}
-                        </span>
-                      }
+                      {<span className="font-bold text-xl">{path}</span>}
                     </div>
                   </div>
                 </Link>

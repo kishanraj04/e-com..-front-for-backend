@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router'
 
-function Contact() {
+function MarketPlace() {
 
   const navigate = useNavigate()
   const isLoggedInUserStatus = useSelector((state)=>state.auth.isLoggedIn)
@@ -12,10 +12,10 @@ function Contact() {
     console.log("lo ",isLoggedInUserStatus);
     if(isLoggedInUserStatus==false) {navigate('/')}
   },[])
-
+ 
   return (
-    <div>Contact</div>
+    <div>Market Place</div>
   )
 }
 
-export default Contact
+export default MarketPlace

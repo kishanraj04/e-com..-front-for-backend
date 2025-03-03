@@ -12,12 +12,12 @@ import "./index.css";
 import App from "./App.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
 import Contact from "./pages/Contact.jsx";
-import CategoryPage from "./pages/CategoryPage.jsx";
 import Home from "./pages/Home.jsx";
 import SignInSignUp from "./components/LoginSignup/LoginSignUp.jsx";
 import { useDirectLoginUserQuery } from "../api/apiCallingForUser.js";
 import rootStore from "../store/configStore.js";
 import { updateLoggedInUserStatus } from "../store/authSlice.js";
+import MarketPlace from "./pages/MarketPlace.jsx";
 
 // ✅ Corrected AuthRedirect inside Router
 const AuthRedirect = () => {
@@ -29,10 +29,7 @@ const AuthRedirect = () => {
     if (isSuccess) {
       dispatch(updateLoggedInUserStatus({ status: true }));
       navigate("/home");
-    } else {
-      dispatch(updateLoggedInUserStatus({ status: false }));
-      navigate("/");
-    }
+    } 
   }, [isSuccess, dispatch, navigate]);
 
   return null; // 🔥 This prevents rendering issues
@@ -66,7 +63,7 @@ const routes = createBrowserRouter([
       { path: "/home", element: <Home /> },
       { path: "/home/About", element: <AboutUs /> },
       { path: "/home/Contact", element: <Contact /> },
-      { path: "/home/:Category", element: <CategoryPage /> },
+      { path: "/home/:Category", element: <MarketPlace /> },
     ],
   },
 ]);
