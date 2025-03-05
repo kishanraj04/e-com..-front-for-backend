@@ -1,13 +1,17 @@
+import { Link } from "react-router"; 
+
 export default function Card4({ item }) {
   return (
-    <div className="w-72 p-6 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-white text-center">
+    <div className="w-64 p-6 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-white text-center  select-none">
       {/* Product Image */}
       <div className="flex justify-center">
+      <Link to={`/home/product/detail/${item?._id}`} state={item?._id}>
         <img
           src={item?.images[0]}
           alt="Eyeshadow Palette"
           className="w-32 h-32 object-contain"
         />
+        </Link>
       </div>
 
       <div className="flex justify-between items-center p-3">
@@ -22,7 +26,7 @@ export default function Card4({ item }) {
 
       {/* Action Buttons */}
       <div className="flex justify-center gap-4 mt-4">
-        <button className="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600">
+        <button className="bg-orange-500 text-white p-2 h-[2.5rem] rounded shadow hover:bg-orange-600">
           Add to Cart
         </button>
         <button className="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600">

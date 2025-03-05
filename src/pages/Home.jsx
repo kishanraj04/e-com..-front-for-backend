@@ -34,7 +34,7 @@ function Home() {
 
       {/*  */}
       <div className="w-[100%]">
-        <div>
+        <div className="text-2xl font-sans font-bold px-10 mt-[5%] mb-[2%] select-none">
           <h1>Best Seller</h1>
         </div>
 
@@ -51,7 +51,7 @@ function Home() {
       {/* recomended product */}
       <div className="w-[100%]">
         <div>
-          <h1>Recomended Product</h1>
+          <h1 className="text-2xl font-sans font-bold px-10 mt-[5%] mb-[2%] select-none">Recomended Product</h1>
         </div>
 
         <div className="w-[100%] flex justify-center items-center">
@@ -67,7 +67,7 @@ function Home() {
 
        {/*Trending product */}
        <div className="w-[100%]">
-        <div>
+        <div className="text-2xl font-sans font-bold px-10 mt-[5%] mb-[2%] select-none">
           <h1>Trending Product</h1>
         </div>
 
@@ -84,7 +84,7 @@ function Home() {
 
       {/*Trending product */}
       <div className="w-[100%]">
-        <div>
+        <div className="text-2xl font-sans font-bold px-10 mt-[5%] mb-[2%] select-none">
           <h1>Limited Stock</h1>
         </div>
 

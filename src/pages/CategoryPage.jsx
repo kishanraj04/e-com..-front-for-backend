@@ -12,8 +12,7 @@ function CategoryPage() {
   const { data, error, isLoading, isSuccess } = useGetCategoryQuery(state);
   const categoryData = useSelector((state) => state.product.categoryData.data);
 
-
-  
+  console.log(state,"s");
   useEffect(() => {
     if (isSuccess && data) {
       console.log("dispatching data to Redux");

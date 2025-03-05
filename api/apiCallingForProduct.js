@@ -11,13 +11,18 @@ export const apicallingForProduct = createApi({
     }),
     getCategory:builder.query({
       query:(category)=>({
-        url:`product/${category}`,
+        url:`product/category/${category}`,
         credentials:'include'
       })
     }),
     createProduct:builder.mutation({}),
     updateProduct:builder.mutation({}),
-    getSinglePorduct:builder.query({}),
+    getSinglePorduct:builder.query({
+      query:(id)=>({
+        url:`product/${id}`,
+        credentials:'include'
+      })
+    }),
     deleteSingleProduct:builder.query({}),
     searchProduct:builder.query({}),
     priceFilter:builder.query({}),

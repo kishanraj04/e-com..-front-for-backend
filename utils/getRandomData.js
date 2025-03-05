@@ -1,6 +1,6 @@
 export const getRandomData = (ArrayList,num)=>
 {
-    console.log(ArrayList);
+
      if(num>4) num=0
 
     const numArr =[

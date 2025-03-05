@@ -18,6 +18,7 @@ import rootStore from "../store/configStore.js";
 import { loggedInUserName, updateLoggedInUserStatus } from "../store/authSlice.js";
 import MarketPlace from "./pages/MarketPlace.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
+import DetailedPage from "./pages/DetailedPage.jsx";
 
 const AuthRedirect = () => {
   const navigate = useNavigate();
@@ -65,7 +66,8 @@ const routes = createBrowserRouter([
       { path: "/home/About", element: <AboutUs /> },
       { path: "/home/Contact", element: <Contact /> },
       { path: "/home/MarketPlace", element: <MarketPlace /> },
-      {path:"/home/:category",element:<CategoryPage/>}
+      {path:"/home/category/:category",element:<CategoryPage/>},
+      {path:"/home/product/detail/:id",element:<DetailedPage/>}
     ],
   },
 ]);

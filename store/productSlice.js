@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     categoryData:[],
-    allProduct:[]
+    allProduct:[],
+    singleProduct:''
 }
 
 const productSlice = createSlice({
@@ -14,6 +15,10 @@ const productSlice = createSlice({
         },
         saveAllProduct:(state,action)=>{
             state.allProduct = action.payload.data
+        },
+        setSingleProduct:(state,action)=>{
+            console.log(" p ",action.payload);
+            state.singleProduct = action.payload.data
         }
     }
 
@@ -21,4 +26,4 @@ const productSlice = createSlice({
 
 
 export const productReducer = productSlice.reducer
-export const {saveCategoryProduct,saveAllProduct} = productSlice.actions
+export const {saveCategoryProduct,saveAllProduct,setSingleProduct} = productSlice.actions

@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { Heart, ShoppingCart } from "lucide-react";
+import { Link } from "react-router";
 
 const Card1 = ({item}) => {
   const [isFavorite, setIsFavorite] = useState(false);
-    console.log(item);
+   
   return (
-    <div className="bg-white shadow-lg rounded-2xl p-4 w-[17rem] border border-gray-200 select-none">
+    <div className="bg-white shadow-lg rounded-2xl p-4 w-[15rem] border border-gray-200 select-none">
       {/* Product Image & Favorite Icon */}
-      <div className="relative flex justify-center w-[100%] ">
+      <div className="relative flex justify-center w-[100%]  select-none ">
+      <Link to={`/home/product/detail/${item?._id}`} state={item?._id}>
         <img
           src={item?.images[0]} // Replace with actual image
           alt="Red Lipstick"
-          className="w-20 h-32 object-cover"
+          className="w-24 h-24 object-cover"
         />
+        </Link>
         <button
           className="absolute top-2 right-2 text-red-500 hover:text-red-600"
           onClick={() => setIsFavorite(!isFavorite)}
