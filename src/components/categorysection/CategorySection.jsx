@@ -90,7 +90,7 @@ function CategorySection() {
               className="hover:border-[1px] border-black-500 duration-500 ease-in-out shadow-md"
             >
               {
-                <Link to={path}>
+                <Link to={path} state={path}>
                   <div className="h-[10rem] flex flex-col gap-2 justify-center items-center">
                     <div className="h-[7rem] w-[8rem]">
                       <img

@@ -2,12 +2,18 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apicallingForProduct = createApi({
   reducerPath:'productApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com' }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1/" }),
   endpoints: (builder) => ({
 
     // products endpoints
     getAllProduct:builder.query({
-      query:()=> '/products'
+      query:()=> 'all-product'
+    }),
+    getCategory:builder.query({
+      query:(category)=>({
+        url:`product/${category}`,
+        credentials:'include'
+      })
     }),
     createProduct:builder.mutation({}),
     updateProduct:builder.mutation({}),
@@ -20,7 +26,7 @@ export const apicallingForProduct = createApi({
     deleteReview:builder.mutation({}),
 
 
-  }),
+  }),                 
 });
 
-export const {useCreateProductMutation,useDeleteReviewMutation,useDeleteSingleProductQuery,useGetAllProductQuery,useGetAllReviewQuery,useGetSinglePorductQuery,usePriceFilterQuery,useProductViewQuery,useSearchProductQuery,useUpdateProductMutation} = apicallingForProduct;
+export const {useCreateProductMutation,useDeleteReviewMutation,useDeleteSingleProductQuery,useGetAllProductQuery,useGetAllReviewQuery,useGetSinglePorductQuery,usePriceFilterQuery,useProductViewQuery,useSearchProductQuery,useUpdateProductMutation,useGetCategoryQuery} = apicallingForProduct;

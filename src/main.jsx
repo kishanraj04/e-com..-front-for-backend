@@ -17,6 +17,7 @@ import { useDirectLoginUserQuery } from "../api/apiCallingForUser.js";
 import rootStore from "../store/configStore.js";
 import { loggedInUserName, updateLoggedInUserStatus } from "../store/authSlice.js";
 import MarketPlace from "./pages/MarketPlace.jsx";
+import CategoryPage from "./pages/CategoryPage.jsx";
 
 const AuthRedirect = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const AuthLayout = ({ children }) => (
   </>
 );
 
-// ✅ Define Routes (Keeping `createBrowserRouter`)
+
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -63,12 +64,13 @@ const routes = createBrowserRouter([
       { path: "/home", element: <Home /> },
       { path: "/home/About", element: <AboutUs /> },
       { path: "/home/Contact", element: <Contact /> },
-      { path: "/home/:Category", element: <MarketPlace /> },
+      { path: "/home/MarketPlace", element: <MarketPlace /> },
+      {path:"/home/:category",element:<CategoryPage/>}
     ],
   },
 ]);
 
-// ✅ Render with RouterProvider
+
 createRoot(document.getElementById("root")).render(
   <Provider store={rootStore}>
     <ToastContainer position="top-right" autoClose={1000} />

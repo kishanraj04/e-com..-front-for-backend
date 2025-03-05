@@ -5,6 +5,7 @@ import { apicallingForUser } from "../api/apiCallingForUser";
 import { apicallingForProduct } from "../api/apiCallingForProduct";
 import { apicallingForOrder } from "../api/apiCallingForOrder";
 import { authReducer } from "./authSlice";
+import { productReducer } from "./productSlice";
 
 const rootStore = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const rootStore = configureStore({
     [apicallingForOrder.reducerPath]: apicallingForOrder.reducer,
     cart: cartReducer,
     wishList: wishListReducer,
-    auth:authReducer
+    auth:authReducer,
+    product:productReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apicallingForUser.middleware, apicallingForProduct.middleware,apicallingForOrder.middleware),
