@@ -1,18 +1,19 @@
 
-export default function Card2() {
+export default function Card2({item}) {
+    
     return (
       <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-red-50 relative">
         {/* Product Name and Quantity */}
         <div className="flex justify-between items-start">
-          <h2 className="font-semibold">Annibale Colombo Sofa</h2>
+          <h2 className="font-semibold">{item?.title}</h2>
           <span className="text-sm font-medium">3</span>
         </div>
   
         {/* Product Image with Price Tag */}
         <div className="relative flex justify-center mt-4">
-          <div className="w-24 h-24 border-2 border-black rounded-full flex items-center justify-center overflow-hidden">
+          <div className="w-24 h-36 border-2 border-black rounded-full flex items-center justify-center overflow-hidden">
             <img
-              src="https://via.placeholder.com/100"
+              src={item?.images[0]}
               alt="Sofa"
               className="object-cover"
             />
