@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
-import { useGetSinglePorductQuery } from '../../api/apiCallingForProduct';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSingleProduct } from '../../store/productSlice';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import { useGetCategoryQuery, useGetSinglePorductQuery } from "../../api/apiCallingForProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { saveCategoryProduct, setSingleProduct } from "../../store/productSlice";
+import Card3 from "../components/card/Card3";
 
 function DetailedPage() {
   const { state } = useLocation();
-  const { data, isSuccess, isError, isLoading } = useGetSinglePorductQuery(state);
+  const { data, isSuccess, isError, isLoading } =
+  useGetSinglePorductQuery(state);
+  const category = data?.product?.category
+  const { data: categoryData, isSuccess:catSuccess, isLoading:catLoading } = useGetCategoryQuery(category);
+
   const dispatch = useDispatch();
   const singleProduct = useSelector((state) => state.product.singleProduct);
-  const [imageNumber,setImageNumber] = useState(0)
-  console.log('Outside useEffect - data:', data);
-
+  const [imageNumber, setImageNumber] = useState(0);
+  const categoryDataValues = useSelector((state)=>state.product.categoryData)
   useEffect(() => {
     if (isSuccess && data) {
-      console.log('Inside useEffect - dispatching data:', data);
-      dispatch(setSingleProduct({data:data.product}));  
+      dispatch(setSingleProduct({ data: data.product }));
+      dispatch(saveCategoryProduct({data:categoryData.data}))
     }
-  }, [data, isSuccess, dispatch]);  
+  }, [data, isSuccess, dispatch,categoryData]);
 
   return (
     <>
@@ -39,7 +43,7 @@ function DetailedPage() {
                   src={img}
                   alt="thumbnail"
                   className="w-24 h-24 object-cover cursor-pointer border border-gray-200 hover:border-gray-600 rounded-md"
-                  onClick={()=>setImageNumber(index)}
+                  onClick={() => setImageNumber(index)}
                 />
               ))}
             </div>
@@ -47,7 +51,9 @@ function DetailedPage() {
           {/* Product Details */}
           <div className="w-full md:w-1/2">
             <h1 className="text-3xl font-bold">{singleProduct?.title}</h1>
-            <p className="text-xl text-gray-600 mt-2">{Math.floor(singleProduct?.price)}</p>
+            <p className="text-xl text-gray-600 mt-2">
+              {Math.floor(singleProduct?.price)}
+            </p>
             <p className="text-gray-500 mt-4">{singleProduct?.description}</p>
             <ul className="mt-4 space-y-2 text-gray-600">
               <li>{singleProduct?.stock}</li>
@@ -65,10 +71,29 @@ function DetailedPage() {
               </button>
             </div>
             <p className="text-gray-500 mt-6">SKU: {singleProduct?.sku}</p>
-            <p className="text-gray-500">Categories: {singleProduct?.category}</p>
+            <p className="text-gray-500">
+              Categories: {singleProduct?.category}
+            </p>
           </div>
         </div>
       )}
+
+      <div className="w-[100%]">
+        <div>
+          <h1 className="text-2xl font-sans font-bold px-10 mt-[5%] mb-[2%] select-none">
+            {category}
+          </h1>
+        </div>
+
+        <div className="w-[100%] flex justify-center items-center">
+          <div className="flex flex-wrap justify-center gap-3 w-[98%]">
+            {categoryDataValues &&
+             categoryDataValues?.map((product, idx) => (
+                <Card3 key={idx} item={product} />
+              ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 }

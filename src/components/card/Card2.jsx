@@ -1,5 +1,7 @@
 import { Link } from "react-router";
-
+import { FaCartArrowDown } from "react-icons/fa";
+import { BsCartXFill } from "react-icons/bs";
+import { CiHeart } from "react-icons/ci";
 export default function Card2({ item }) {
   return (
     <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-red-50 relative  select-none">
@@ -28,8 +30,12 @@ export default function Card2({ item }) {
 
       {/* Action Buttons */}
       <div className="flex justify-between mt-4">
-        <button className="text-green-600 text-2xl">🛒</button>
-        <button className="text-red-500 text-2xl">❤️</button>
+        <button className="text-green-600 text-2xl">
+        <FaCartArrowDown/>
+        </button>
+        <button className="text-red-500 text-2xl">
+           <CiHeart/> 
+        </button>
       </div>
     </div>
   );

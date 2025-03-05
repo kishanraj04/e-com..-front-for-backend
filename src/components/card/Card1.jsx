@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router";
+import { FaCartArrowDown } from "react-icons/fa";
+import { BsCartXFill } from "react-icons/bs";
+import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
 
 const Card1 = ({item}) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -20,7 +24,7 @@ const Card1 = ({item}) => {
           className="absolute top-2 right-2 text-red-500 hover:text-red-600"
           onClick={() => setIsFavorite(!isFavorite)}
         >
-          {isFavorite ? "❤️" : <Heart size={20} />}
+          <CiHeart/> 
         </button>
       </div>
 

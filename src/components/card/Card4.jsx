@@ -1,5 +1,6 @@
 import { Link } from "react-router"; 
-
+import { FaCartArrowDown } from "react-icons/fa";
+import { BsCartXFill } from "react-icons/bs";
 export default function Card4({ item }) {
   return (
     <div className="w-64 p-6 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-white text-center  select-none">
