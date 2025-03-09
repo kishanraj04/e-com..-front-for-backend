@@ -19,48 +19,58 @@ import { loggedInUserName, updateLoggedInUserStatus } from "../store/authSlice.j
 import MarketPlace from "./pages/MarketPlace.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
 import DetailedPage from "./pages/DetailedPage.jsx";
+import { useGetAllCartItemQuery } from "../api/apiCallingForCart.js";
+import { addToCart } from "../store/cartSlice.js";
+import { useGetAllProductQuery } from "../api/apiCallingForProduct.js";
+import { saveAllProduct } from "../store/productSlice.js";
 
-const AuthRedirect = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isSuccess,data} = useDirectLoginUserQuery();
+
+export const DirectLoginAuth = () => {
+  const { data: directLoginData, isError, isSuccess } = useDirectLoginUserQuery();
+  const { data: allProduct, allProResp } = useGetAllProductQuery();
   
-  useEffect(() => {
+  // Ensure the query only runs when _id is available
+  const { data: allCartItem, cartResp, refetch } = useGetAllCartItemQuery(
+    directLoginData?.user?._id,
+    { skip: !directLoginData?.user?._id }
+  );
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(saveAllProduct({ data: allProduct?.product }));
+    console.log("ua ", allCartItem);
+    dispatch(addToCart({ data: allCartItem?.cartItem?.cartItem }));
+    
+    // ✅ Only refetch if `refetch` is available
+    if (refetch && directLoginData?.user?._id) {
+      refetch();
+    }
+  }, [allProResp, allProduct, dispatch, allCartItem]);
+
+  useEffect(() => {
     if (isSuccess) {
-      dispatch(updateLoggedInUserStatus({ status: true ,name:"KKK"}));
-      dispatch(loggedInUserName({loggedInUser:data.user.name}))
-      navigate("/home");
-    } 
+      dispatch(updateLoggedInUserStatus(directLoginData?.user));
+    }
   }, [isSuccess]);
 
-  return null; 
+  useEffect(() => {
+    if (allCartItem) {
+      console.log("Cart data updated:", allCartItem);
+    }
+  }, [allCartItem]);
 };
 
-const AuthLayout = ({ children }) => (
-  <>
-    <AuthRedirect />
-    {children}
-  </>
-);
 
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <AuthLayout>
-        <SignInSignUp />
-      </AuthLayout>
-    ),
+    element: <SignInSignUp />
   },
   {
     path: "/home",
-    element: (
-      <AuthLayout>
-        <App />
-      </AuthLayout>
-    ),
+    element: <App />,
     children: [
       { path: "/home", element: <Home /> },
       { path: "/home/About", element: <AboutUs /> },
@@ -77,5 +87,6 @@ createRoot(document.getElementById("root")).render(
   <Provider store={rootStore}>
     <ToastContainer position="top-right" autoClose={1000} />
     <RouterProvider router={routes} />
+    <DirectLoginAuth/>
   </Provider>
 );

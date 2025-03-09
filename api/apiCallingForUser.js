@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import apiSlice from "./commonApiSlice";
 
-export const apicallingForUser = createApi({
+export const apicallingForUser = apiSlice.injectEndpoints({
   reducerPath:'userApi',
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1/" }),
   endpoints: (builder) => ({
     // user specific endpoints
     loginUser: builder.mutation({
@@ -11,7 +11,8 @@ export const apicallingForUser = createApi({
         method:"POST",
         body:userData,
         credentials: 'include'
-      })
+      }),
+      invalidatesTags:['User']
     }),
     singnUpUser: builder.mutation({
       query:(userData)=> ({
@@ -25,14 +26,16 @@ export const apicallingForUser = createApi({
         url:"direct-login",
         method:"GET",
         credentials:'include'
-      })
+      }),
+      providesTags:['User']
     }),
     logOutUser:builder.mutation({
       query:()=>({
         url:'logout-user',
         method:"POST",
         credentials:'include'
-      })
+      }),
+      invalidatesTags:["User"]
     }),
     getMyProfile:builder.query({}),
     updateUserPassword:builder.mutation({}),

@@ -1,13 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import apiSlice from "./commonApiSlice";
 
-export const apicallingForProduct = createApi({
+export const apicallingForProduct = apiSlice.injectEndpoints({
   reducerPath:'productApi',
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1/" }),
   endpoints: (builder) => ({
 
     // products endpoints
     getAllProduct:builder.query({
-      query:()=> 'all-product'
+      query:()=> 'all-product',
+      providesTags:['Product']
     }),
     getCategory:builder.query({
       query:(category)=>({

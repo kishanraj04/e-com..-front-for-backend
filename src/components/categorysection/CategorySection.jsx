@@ -7,15 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function CategorySection() {
-  const navigate = useNavigate();
-  const isLoggedInUserStatus = useSelector((state) => state.auth.isLoggedIn);
-
-  // 🔹 Use useEffect to handle navigation safely
-  useEffect(() => {
-    if (!isLoggedInUserStatus) {
-      navigate("/");
-    }
-  }, [isLoggedInUserStatus, navigate]);
+  
 
   const categoryImage = [
     "beauty.jpg",

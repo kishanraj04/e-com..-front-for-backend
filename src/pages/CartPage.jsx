@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router';
 function CartPage() {
 
   const navigate = useNavigate()
-  const isLoggedInUserStatus = useSelector((state)=>state.auth.isLoggedIn)
-  console.log(isLoggedInUserStatus);
+  // const isLoggedInUserStatus = useSelector((state)=>state.auth.isLoggedIn)
+  // console.log(isLoggedInUserStatus);
   
-  useEffect(()=>{
-    console.log("lo ",isLoggedInUserStatus);
-    if(isLoggedInUserStatus==false) {navigate('/')}
-  },[])
+  // useEffect(()=>{
+  //   console.log("lo ",isLoggedInUserStatus);
+  //   if(isLoggedInUserStatus==false) {navigate('/')}
+  // },[])
 
   return (
     <div>CartPage</div>

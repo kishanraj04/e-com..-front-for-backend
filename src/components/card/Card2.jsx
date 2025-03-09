@@ -2,7 +2,17 @@ import { Link } from "react-router";
 import { FaCartArrowDown } from "react-icons/fa";
 import { BsCartXFill } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
-export default function Card2({ item }) {
+import { handleAddToCart } from "../../../utils/handleAddToCart";
+import { useDispatch, useSelector } from "react-redux";
+import { isExisting } from "../../helper/helper";
+import { deleteItemFromCart } from "../../../utils/deleteFromCart";
+import { useAddInCartMutation, useRemoveFromCartMutation } from "../../../api/apiCallingForCart";
+
+export default function Card2({ item ,allCartItem}) {
+  const userId = useSelector((state)=>state?.auth?.loggedInUserName?._id)
+  const [addInCart,{isError,isLoading,isSuccess}] = useAddInCartMutation()
+  const [removeFromCart,respStatus] = useRemoveFromCartMutation()
+  const dispatch = useDispatch()
   return (
     <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-red-50 relative  select-none">
       {/* Product Name and Quantity */}
@@ -24,14 +34,16 @@ export default function Card2({ item }) {
           </Link>
         </div>
         <span className="absolute top-0 right-10 bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded-full shadow">
-        ₹{Math.floor(item?.price)}
+        ₹{item?.price ? Math.floor(item.price) : "N/A"}
         </span>
       </div>
 
       {/* Action Buttons */}
       <div className="flex justify-between mt-4">
         <button className="text-green-600 text-2xl">
-        <FaCartArrowDown/>
+        {
+          !isExisting(allCartItem,item?._id) ? <FaCartArrowDown onClick={()=>handleAddToCart(item,dispatch,addInCart)}/> : <BsCartXFill color="red" onClick={()=>deleteItemFromCart(item,dispatch,removeFromCart)}/>
+        }
         </button>
         <button className="text-red-500 text-2xl">
            <CiHeart/> 

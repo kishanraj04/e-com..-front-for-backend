@@ -22,5 +22,6 @@ export function findIndexValue(data,id)
 
 export function isExisting(data,id)
 {
-  return data.find((item)=>item?.id==id)
+  console.log(data , id);
+  if(data && id) return  data.some((item)=>item==id)
 }

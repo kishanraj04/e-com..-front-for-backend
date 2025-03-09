@@ -6,10 +6,10 @@ import {
   useLoginUserMutation,
   useSingnUpUserMutation,
 } from "../../../api/apiCallingForUser";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateLoggedInUserStatus } from "../../../store/authSlice";
 
 const SignInSignUp = () => {
@@ -24,6 +24,14 @@ const SignInSignUp = () => {
   const [signUpUser, registerRes] = useSingnUpUserMutation();
   const [loginUser, loginRes] = useLoginUserMutation();
   const dispatch = useDispatch()
+  const loggedInUserStatus = useSelector((state)=>state.auth?.loggedInUser)
+
+  useEffect(() => {
+    if (loggedInUserStatus) {
+      navigate('/home');
+    }
+  }, [loggedInUserStatus]);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,10 +41,9 @@ const SignInSignUp = () => {
           email: emailRef.current.value,
           password: passwordRef.current.value,
         }).unwrap();
-        console.log("sr ",singInResponse);
         if (singInResponse.success) {
           toast.success("Login Success");
-          dispatch(updateLoggedInUserStatus({status:true}))
+          dispatch(updateLoggedInUserStatus(singInResponse))
           navigate("/home");
         }
       } else {
@@ -47,7 +54,6 @@ const SignInSignUp = () => {
           contact: contactRef.current.value,
           role: roleRef.current.value,
         }).unwrap();
-        console.log(signUpResponse);
         if (signUpResponse?.message == "user Exist") {
           toast.error("User Already Exist");
         } else {
@@ -56,7 +62,6 @@ const SignInSignUp = () => {
       }
     } catch (err) {
       if (err.status == 401) {
-        console.log("run");
         toast.error("invalid credentials");
       }
     }

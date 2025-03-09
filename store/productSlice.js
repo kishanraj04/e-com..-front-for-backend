@@ -14,6 +14,7 @@ const productSlice = createSlice({
             state.categoryData = action.payload.data
         },
         saveAllProduct:(state,action)=>{
+            console.log("pl ",action.payload);
             state.allProduct = action.payload.data
         },
         setSingleProduct:(state,action)=>{

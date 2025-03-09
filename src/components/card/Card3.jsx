@@ -2,7 +2,15 @@ import { Link } from "react-router";
 import { FaCartArrowDown } from "react-icons/fa";
 import { BsCartXFill } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
+import { useAddInCartMutation, useRemoveFromCartMutation } from "../../../api/apiCallingForCart";
+import { useDispatch } from "react-redux";
+import { handleAddToCart } from "../../../utils/handleAddToCart";
+import { deleteItemFromCart } from "../../../utils/deleteFromCart";
+
 export default function Card3({ item }) {
+  const [addInCart,{isError,isLoading,isSuccess}] = useAddInCartMutation()
+  const [removeFromCart,removeResponse] = useRemoveFromCartMutation()
+  const dispatch = useDispatch()
   return (
     <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-red-50 to-white relative  select-none">
       {/* Sale Tag */}
@@ -29,8 +37,10 @@ export default function Card3({ item }) {
 
       {/* Action Buttons */}
       <div className="flex justify-between mt-4">
-        <button className="text-green-600 text-2xl">
-          <FaCartArrowDown />
+        <button className="text-green-600 text-2xl" >
+          {
+            !item?.qty>=1 ? <FaCartArrowDown onClick={()=>handleAddToCart(item,dispatch,addInCart)}/> : <BsCartXFill color="red" onClick={()=>deleteItemFromCart(item,dispatch,removeFromCart)}/>
+          }
         </button>
         <button className="text-red-500 text-2xl">
           <CiHeart />
