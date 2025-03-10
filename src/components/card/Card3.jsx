@@ -5,7 +5,6 @@ import { CiHeart } from "react-icons/ci";
 import { useAddInCartMutation, useRemoveFromCartMutation } from "../../../api/apiCallingForCart";
 import { useDispatch } from "react-redux";
 import { handleAddToCart } from "../../../utils/handleAddToCart";
-import { deleteItemFromCart } from "../../../utils/deleteFromCart";
 
 export default function Card3({ item }) {
   const [addInCart,{isError,isLoading,isSuccess}] = useAddInCartMutation()

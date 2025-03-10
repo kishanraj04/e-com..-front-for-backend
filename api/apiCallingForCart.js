@@ -5,13 +5,13 @@ export const apiCallingForCart = apiSlice.injectEndpoints({
   reducerPath: "cartApi",
   endpoints: (builder) => ({
     addInCart: builder.mutation({
-      query: (pId) => ({
+      query: (data) => ({
         url: "add/cart",
         method: "POST",
         credentials: "include",
-        body: pId
+        body: data
       }),
-      invalidatesTags: ["Product"],
+      invalidatesTags: ["Cart"],
     }),
 
     removeFromCart: builder.mutation({  
@@ -21,7 +21,7 @@ export const apiCallingForCart = apiSlice.injectEndpoints({
         credentials: "include",
         body: pId
       }),
-      invalidatesTags: ["Product"], 
+      invalidatesTags: ["Cart"], 
     }),
 
     getAllCartItem: builder.query({  
@@ -30,6 +30,7 @@ export const apiCallingForCart = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include"
       }),
+     
       providesTags:['Cart']
     }),
   }),

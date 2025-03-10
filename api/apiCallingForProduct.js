@@ -9,7 +9,8 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
     // products endpoints
     getAllProduct:builder.query({
       query:()=> 'all-product',
-      providesTags:['Product']
+      providesTags:['Product'],
+      transformResponse:(response)=>response?.product
     }),
     getCategory:builder.query({
       query:(category)=>({

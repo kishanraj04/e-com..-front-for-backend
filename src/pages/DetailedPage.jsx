@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { useGetCategoryQuery, useGetSinglePorductQuery } from "../../api/apiCallingForProduct";
 import { useDispatch, useSelector } from "react-redux";
-import { saveCategoryProduct, setSingleProduct } from "../../store/productSlice";
+// import { saveCategoryProduct, setSingleProduct } from "../../store/productSlice";
 import Card3 from "../components/card/Card3";
 
 function DetailedPage() {

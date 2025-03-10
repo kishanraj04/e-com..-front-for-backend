@@ -11,13 +11,12 @@ import {
   useAddInCartMutation,
   useRemoveFromCartMutation,
 } from "../../../api/apiCallingForCart";
-import { deleteItemFromCart } from "../../../utils/deleteFromCart";
 
 const Card1 = ({ item }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [addInCart, { isError, isLoading, isSuccess }] = useAddInCartMutation();
   const [removeFromCart, removeRespo] = useRemoveFromCartMutation();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   return (
     <div className="bg-white shadow-lg rounded-2xl p-4 w-[15rem] border border-gray-200 select-none">
       {/* Product Image & Favorite Icon */}
@@ -60,21 +59,12 @@ const Card1 = ({ item }) => {
         </div>
 
         {/* Add to Cart Button */}
-        {item?.qty >= 1 ? (
-          <button
-            className="mt-4 w-full bg-gradient-to-r from-red-500 to-red-500 text-white py-2 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg transition"
-            onClick={() => deleteItemFromCart(item, dispatch, removeFromCart)}
-          >
-            Remove To Cart
-          </button>
-        ) : (
-          <button
+        <button
             className="mt-4 w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg transition"
             onClick={() => handleAddToCart(item, dispatch, addInCart)}
           >
             Add to Cart
           </button>
-        )}
       </div>
     </div>
   );
