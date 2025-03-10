@@ -12,14 +12,15 @@ import Card1 from "../components/card/Card1.jsx";
 import { useGetAllCartItemQuery } from "../../api/apiCallingForCart.js";
 
 function Home() {
-  const loggedInUserId = useSelector((state)=>state?.auth?.loggedInUser?._id  )
-    
-    const {data:allCartItem} = useGetAllCartItemQuery(loggedInUserId,{skip:!loggedInUserId})
-    console.log("all cart item ",allCartItem?.cartItem);
-    const { data: allProduct, allProductResp } = useGetAllProductQuery();
-  
+  const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
+
+  const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
+    skip: !loggedInUserId,
+  });
+  console.log("all cart item ", allCartItem?.cartItem);
+  const { data: allProduct, allProductResp } = useGetAllProductQuery();
+
   return (
-   
     <>
       {/* banner */}
       <Banner />
@@ -27,8 +28,7 @@ function Home() {
       {/* category section*/}
       <CategorySection />
 
-      
-       <div className="w-[100%]">
+      <div className="w-[100%]">
         <div className="text-2xl font-sans font-bold px-10 mt-[5%] mb-[2%] select-none">
           <h1>Best Seller</h1>
         </div>
@@ -36,33 +36,41 @@ function Home() {
         <div className="w-[100%] flex justify-center items-center">
           <div className="flex flex-wrap justify-center gap-3 w-[98%]">
             {allProduct &&
-              getRandomData(allProduct , 1).map((product, idx) => (
-                <Card2 key={idx} item={product} allCartItem={allCartItem?.cartItem}/>
+              getRandomData(allProduct, 1).map((product, idx) => (
+                <Card2
+                  key={idx}
+                  item={product}
+                  allCartItem={allCartItem?.cartItem}
+                />
               ))}
           </div>
         </div>
       </div>
 
-
       {/* recomended product */}
-      {/* <div className="w-[100%]">
+      <div className="w-[100%]">
         <div>
-          <h1 className="text-2xl font-sans font-bold px-10 mt-[5%] mb-[2%] select-none">Recomended Product</h1>
+          <h1 className="text-2xl font-sans font-bold px-10 mt-[5%] mb-[2%] select-none">
+            Recomended Product
+          </h1>
         </div>
 
         <div className="w-[100%] flex justify-center items-center">
           <div className="flex flex-wrap justify-center gap-3 w-[98%]">
-            {allProduct?.product &&
+            {allProduct &&
               getRandomData(allProduct, 2).map((product, idx) => (
-                <Card3 key={idx} item={product} />
+                <Card3
+                  key={idx}
+                  item={product}
+                  allCartItem={allCartItem?.cartItem}
+                />
               ))}
           </div>
         </div>
-      </div> */}
+      </div>
 
-
-       {/* Trending product
-       <div className="w-[100%]">
+      {/* Trending product */}
+      <div className="w-[100%]">
         <div className="text-2xl font-sans font-bold px-10 mt-[5%] mb-[2%] select-none">
           <h1>Trending Product</h1>
         </div>
@@ -70,16 +78,19 @@ function Home() {
         <div className="w-[100%] flex justify-center items-center">
           <div className="flex flex-wrap justify-center gap-3 w-[98%]">
             {allProduct &&
-              getRandomData(allProduct?.product, 3).map((product, idx) => (
-                <Card4 key={idx} item={product} />
+              getRandomData(allProduct, 3).map((product, idx) => (
+                <Card4
+                  key={idx}
+                  item={product}
+                  allCartItem={allCartItem?.cartItem}
+                />
               ))}
           </div>
         </div>
       </div>
 
-
       {/*Trending product */}
-      {/* <div className="w-[100%]">
+      <div className="w-[100%]">
         <div className="text-2xl font-sans font-bold px-10 mt-[5%] mb-[2%] select-none">
           <h1>Limited Stock</h1>
         </div>
@@ -87,13 +98,12 @@ function Home() {
         <div className="w-[100%] flex justify-center items-center">
           <div className="flex flex-wrap justify-center gap-3 w-[98%]">
             {allProduct &&
-              getRandomData(allProduct?.product, 0).map((product, idx) => (
-                <Card1 key={idx} item={product} />
+              getRandomData(allProduct, 0).map((product, idx) => (
+                <Card1 key={idx} item={product} allCartItem={allCartItem} />
               ))}
           </div>
         </div>
-      </div>  */}
-     
+      </div>
     </>
   );
 }

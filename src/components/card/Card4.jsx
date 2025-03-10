@@ -7,10 +7,12 @@ import {
 } from "../../../api/apiCallingForCart";
 import { useDispatch } from "react-redux";
 import { handleAddToCart } from "../../../utils/handleAddToCart";
-export default function Card4({ item }) {
+import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
+import { isExisting } from "../../helper/helper";
+export default function Card4({ item, allCartItem }) {
   const [addInCart, { isError, isLoading, isSuccess }] = useAddInCartMutation();
   const [removeFromCart, removeRespo] = useRemoveFromCartMutation();
-  const dispatch = useDispatch();
+  console.log(isExisting(allCartItem, item));
   return (
     <div className="w-64 p-6 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-white text-center  select-none">
       {/* Product Image */}
@@ -36,21 +38,22 @@ export default function Card4({ item }) {
 
       {/* Action Buttons */}
       <div className="flex justify-center gap-4 mt-4">
-        {!item?.qty >= 1 ? (
+        {!isExisting(allCartItem, item?._id) ? (
           <button
             className="bg-orange-500 text-white p-2 h-[2.5rem] rounded shadow hover:bg-orange-600"
-            onClick={() => handleAddToCart(item, dispatch, addInCart)}
+            onClick={() => handleAddToCart(item, addInCart)}
           >
             Add to Cart
           </button>
         ) : (
           <button
-            className="bg-red-500 text-white p-2 h-[2.5rem] rounded shadow hover:bg-orange-600"
-            onClick={() => deleteItemFromCart(item, dispatch, removeFromCart)}
+            className="bg-red-500 text-white p-2 h-[2.5rem] rounded shadow hover:bg-red-600"
+            onClick={() => deleteItemFromCart(item, removeFromCart)}
           >
-            Remove to Cart
+            Remove from Cart
           </button>
         )}
+
         <button className="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600">
           WishList
         </button>

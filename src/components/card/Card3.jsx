@@ -5,11 +5,13 @@ import { CiHeart } from "react-icons/ci";
 import { useAddInCartMutation, useRemoveFromCartMutation } from "../../../api/apiCallingForCart";
 import { useDispatch } from "react-redux";
 import { handleAddToCart } from "../../../utils/handleAddToCart";
+import { isExisting } from "../../helper/helper";
+import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
 
-export default function Card3({ item }) {
+export default function Card3({ item,allCartItem }) {
   const [addInCart,{isError,isLoading,isSuccess}] = useAddInCartMutation()
   const [removeFromCart,removeResponse] = useRemoveFromCartMutation()
-  const dispatch = useDispatch()
+  
   return (
     <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-red-50 to-white relative  select-none">
       {/* Sale Tag */}
@@ -38,7 +40,7 @@ export default function Card3({ item }) {
       <div className="flex justify-between mt-4">
         <button className="text-green-600 text-2xl" >
           {
-            !item?.qty>=1 ? <FaCartArrowDown onClick={()=>handleAddToCart(item,dispatch,addInCart)}/> : <BsCartXFill color="red" onClick={()=>deleteItemFromCart(item,dispatch,removeFromCart)}/>
+              !isExisting(allCartItem,item?._id) ? <FaCartArrowDown onClick={()=>handleAddToCart(item,addInCart)}/> : <BsCartXFill color="red" onClick={()=>deleteItemFromCart(item,removeFromCart)}/>
           }
         </button>
         <button className="text-red-500 text-2xl">

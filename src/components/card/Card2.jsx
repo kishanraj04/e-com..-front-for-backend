@@ -9,12 +9,12 @@ import {
   useAddInCartMutation,
   useRemoveFromCartMutation,
 } from "../../../api/apiCallingForCart";
+import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
 
 export default function Card2({ item, allCartItem }) {
   const userId = useSelector((state) => state?.auth?.loggedInUserName?._id);
   const [addInCart, cartResp] = useAddInCartMutation();
   const [removeFromCart, respStatus] = useRemoveFromCartMutation();
-  const dispatch = useDispatch();
   return (
     <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-red-50 relative  select-none">
       {/* Product Name and Quantity */}
@@ -43,7 +43,7 @@ export default function Card2({ item, allCartItem }) {
       <div className="flex justify-between mt-4">
         <button className="text-green-600 text-2xl">
         {
-          !isExisting(allCartItem,item?._id) ? <FaCartArrowDown onClick={()=>handleAddToCart(item,dispatch,addInCart)}/> : <BsCartXFill color="red" onClick={()=>deleteItemFromCart(item,dispatch,removeFromCart)}/>
+          !isExisting(allCartItem,item?._id) ? <FaCartArrowDown onClick={()=>handleAddToCart(item,addInCart)}/> : <BsCartXFill color="red" onClick={()=>deleteItemFromCart(item,removeFromCart)}/>
         }
         </button>
         <button className="text-red-500 text-2xl">

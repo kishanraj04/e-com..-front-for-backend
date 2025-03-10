@@ -26,8 +26,4 @@ export function isExisting(data,id)
     return false
   }
   return data.some((item)=>item?.productId==id)
-
-  // console.log(data._id);
-  // if(data && id) return  
-  // data.some((item)=>console.log( id))
 }

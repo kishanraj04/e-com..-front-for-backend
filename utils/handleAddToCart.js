@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-export const handleAddToCart = async(item,dispatch,addInCart)=>{
+export const handleAddToCart = async(item,addInCart)=>{
    
     try {
         const cartResp = await addInCart({productId:item?._id,qty:1})

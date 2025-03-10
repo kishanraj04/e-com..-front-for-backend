@@ -20,6 +20,7 @@ import DetailedPage from "./pages/DetailedPage.jsx";
 import Home from "./pages/Home.jsx";
 import MarketPlace from "./pages/MarketPlace.jsx";
 import rootStore from "../store/configStore.js";
+import CartPage from "./pages/CartPage.jsx";
 
 
 export const DirectLoginAuth = ()=>{
@@ -52,6 +53,7 @@ const routes = createBrowserRouter([
       { path: "/home", element: <Home /> },
       { path: "/home/About", element: <AboutUs /> },
       { path: "/home/Contact", element: <Contact /> },
+      {path:"/home/cart" , element:<CartPage/>},
       { path: "/home/MarketPlace", element: <MarketPlace /> },
       {path:"/home/category/:category",element:<CategoryPage/>},
       {path:"/home/product/detail/:id",element:<DetailedPage/>}
