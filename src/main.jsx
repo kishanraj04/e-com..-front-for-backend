@@ -21,12 +21,12 @@ import Home from "./pages/Home.jsx";
 import MarketPlace from "./pages/MarketPlace.jsx";
 import rootStore from "../store/configStore.js";
 import CartPage from "./pages/CartPage.jsx";
+import { updatePageNumber } from "../store/globalVariableSlic.js";
 
 
 export const DirectLoginAuth = ()=>{
   const {data:directLoginData,isError,isSuccess} = useDirectLoginUserQuery()
   const {data:allProduct,allProductResp} = useGetAllProductQuery()
-  // console.log(allProduct);
   const dispatch = useDispatch()
 
   if(allProduct?.isLoading){
@@ -35,6 +35,7 @@ export const DirectLoginAuth = ()=>{
 
   useEffect(()=>{
     if(isSuccess){
+      dispatch(updatePageNumber({pageNo:allProduct?.length}))
       dispatch(updateLoggedInUserStatus(directLoginData?.user))
     }
   },[isSuccess])

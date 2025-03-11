@@ -24,7 +24,7 @@ export default function Navbar() {
   // const dispatch = useDispatch()
   return (
     <>
-      <header className="bg-white shadow-md w-full select-none">
+      <header className="bg-white shadow-md w-full select-none sticky top-0 z-10">
         {/* Promotional Banner */}
         <div className="bg-blue-600 text-white text-center py-2 text-sm flex justify-around">
           <p className="text-black font-bold font-serif text-xl">Welcome ❤️ <span className="text-orange-400 font-serif text-xl">{loggedInUserName || "YOU"}</span></p>

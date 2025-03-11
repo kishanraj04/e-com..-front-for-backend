@@ -26,11 +26,13 @@ function CartDetails() {
     skip: !loggedInUserId,
   });
 
+  // console.log("all cart item ",allCartItem);
+
   const cartData = getCartData(allProduct, allCartItem);
   return (
     <>
       {/* Cart Items Section */}
-      <div className="w-full lg:w-3/4 bg-white shadow rounded-lg p-6">
+      <div className="w-full lg:w-3/4 bg-white shadow rounded-lg p-6 h-screen overflow-y-scroll ">
         <h2 className="text-2xl font-bold mb-4">
           YOUR BAG ({cartData?.length} ITEMS)
         </h2>

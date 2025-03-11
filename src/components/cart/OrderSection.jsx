@@ -8,9 +8,8 @@ function OrderSection() {
   const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
     skip: !loggedInUserId,
   });
-  totalPrice("ac ",allCartItem)
-
-  const subtotal = 20;
+  
+  const totalprice = totalPrice(allCartItem)
   return (
     <>
       {/* Order Summary */}
@@ -19,7 +18,7 @@ function OrderSection() {
         <div className="py-4 space-y-2">
           <div className="flex justify-between">
             <span>Subtotal</span>
-            <span className="font-bold">${subtotal || 10}</span>
+            <span className="font-bold">${totalprice || 10}</span>
           </div>
           <div className="flex justify-between">
             <span>Shipping</span>
@@ -31,11 +30,11 @@ function OrderSection() {
           </div>
           <div className="flex justify-between border-t pt-3 text-lg font-bold">
             <span>Total</span>
-            <span>${subtotal}</span>
+            <span>${totalprice}</span>
           </div>
           <p className="text-sm text-gray-500">
             Or 4 interest-free installments of{" "}
-            <span className="font-bold">${(subtotal / 4).toFixed(2)}</span> with
+            <span className="font-bold">${(totalprice / 4).toFixed(2)}</span> with
             Afterpay.
           </p>
         </div>

@@ -12,6 +12,13 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
       providesTags:['Product'],
       transformResponse:(response)=>response?.product
     }),
+    getPageWiseProduct:builder.query({
+      query:(no)=>({
+       url: `page/limit/${no}`,
+      credentials:"include",
+      providesTags:["Product"]
+      })
+    }),
     getCategory:builder.query({
       query:(category)=>({
         url:`product/category/${category}`,
@@ -37,4 +44,4 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
   }),                 
 });
 
-export const {useCreateProductMutation,useDeleteReviewMutation,useDeleteSingleProductQuery,useGetAllProductQuery,useGetAllReviewQuery,useGetSinglePorductQuery,usePriceFilterQuery,useProductViewQuery,useSearchProductQuery,useUpdateProductMutation,useGetCategoryQuery} = apicallingForProduct;
+export const {useCreateProductMutation,useDeleteReviewMutation,useDeleteSingleProductQuery,useGetAllProductQuery,useGetAllReviewQuery,useGetSinglePorductQuery,usePriceFilterQuery,useProductViewQuery,useSearchProductQuery,useUpdateProductMutation,useGetCategoryQuery,useGetPageWiseProductQuery} = apicallingForProduct;

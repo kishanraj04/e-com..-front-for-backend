@@ -5,12 +5,14 @@ import { apicallingForOrder } from "../api/apiCallingForOrder";
 import { authReducer } from "./authSlice";
 import { apiCallingForCart } from "../api/apiCallingForCart";
 import apiSlice from "../api/commonApiSlice";
+import { globalVariableReducer } from "./globalVariableSlic";
 
 const rootStore = configureStore({
   reducer: {
     [apicallingForOrder.reducerPath]: apicallingForOrder.reducer,
     [apiSlice.reducerPath]:apiSlice.reducer,
     auth:authReducer,
+    global:globalVariableReducer
     
   },
   middleware: (getDefaultMiddleware) =>

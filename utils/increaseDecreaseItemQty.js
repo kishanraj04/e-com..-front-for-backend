@@ -11,7 +11,6 @@ export const increaseCartItemQty = async(increaseItemQty,id)=>{
 
 export const decreaseCartItemQty = async(decreaseItemQty,id)=>{
    try {
-      console.log("run");
       const decreaseResp = await decreaseItemQty(id)
    console.log("res ",decreaseResp);  
    } catch (error) {

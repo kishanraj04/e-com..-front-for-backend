@@ -30,5 +30,9 @@ export function isExisting(data,id)
 
 
 export function totalPrice(allCartItem){
-  console.log(allCartItem);
+  let total = 0
+  allCartItem?.cartItem?.forEach(element => {
+    total+=(element?.qty*element?.price)
+  });
+  return Math.floor(total)
 }
