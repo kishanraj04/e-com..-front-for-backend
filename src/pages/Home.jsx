@@ -17,7 +17,6 @@ function Home() {
   const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
     skip: !loggedInUserId,
   });
-  console.log("all cart item ", allCartItem?.cartItem);
   const { data: allProduct, allProductResp } = useGetAllProductQuery();
 
   return (

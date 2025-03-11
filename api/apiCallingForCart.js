@@ -32,8 +32,26 @@ export const apiCallingForCart = apiSlice.injectEndpoints({
      
       providesTags:['Cart']
     }),
+
+    increaseItemQty : builder.mutation({
+      query : (pid)=>({
+        url:`increase/cart/${pid}`,
+        method:"PUT",
+        credentials:"include"
+      }),
+      invalidatesTags:["Cart"]
+    }),
+
+    decreaseItemQty : builder.mutation({
+      query : (pid)=>({
+        url:`decrease/cart/${pid}`,
+        method:"PUT",
+        credentials:"include"
+      }),
+      invalidatesTags:["Cart"]
+    })
   }),
 });
 
 // ✅ Correct export names based on endpoint keys
-export const { useAddInCartMutation, useRemoveFromCartMutation,useGetAllCartItemQuery } = apiCallingForCart;
+export const { useAddInCartMutation, useRemoveFromCartMutation,useGetAllCartItemQuery,useIncreaseItemQtyMutation,useDecreaseItemQtyMutation } = apiCallingForCart;

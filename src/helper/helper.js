@@ -27,3 +27,8 @@ export function isExisting(data,id)
   }
   return data.some((item)=>item?.productId==id)
 }
+
+
+export function totalPrice(allCartItem){
+  console.log(allCartItem);
+}

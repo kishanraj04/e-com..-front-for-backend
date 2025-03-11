@@ -1,11 +1,18 @@
-import React from 'react'
+import React from "react";
+import { useGetAllCartItemQuery } from "../../../api/apiCallingForCart";
+import { useSelector } from "react-redux";
+import { totalPrice } from "../../helper/helper";
 
 function OrderSection() {
-    const subtotal = 20
+  const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
+  const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
+    skip: !loggedInUserId,
+  });
+  totalPrice("ac ",allCartItem)
+
+  const subtotal = 20;
   return (
     <>
-    
-
       {/* Order Summary */}
       <div className="w-full lg:w-1/4 bg-white shadow rounded-lg p-6">
         <h2 className="text-xl font-bold border-b pb-3">Order Summary</h2>
@@ -44,7 +51,7 @@ function OrderSection() {
         </button>
       </div>
     </>
-  )
+  );
 }
 
-export default OrderSection
+export default OrderSection;

@@ -1,20 +1,32 @@
 import React from "react";
 import { useGetAllProductQuery } from "../../../api/apiCallingForProduct";
 import { useSelector } from "react-redux";
-import { useGetAllCartItemQuery } from "../../../api/apiCallingForCart";
+import {
+  useDecreaseItemQtyMutation,
+  useGetAllCartItemQuery,
+  useIncreaseItemQtyMutation,
+  useRemoveFromCartMutation,
+} from "../../../api/apiCallingForCart";
 import { getCartData } from "../../../utils/getCartData";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { handleAddToCart } from "../../../utils/handleAddToCart";
+import {
+  decreaseCartItemQty,
+  increaseCartItemQty,
+} from "../../../utils/increaseDecreaseItemQty";
+import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
 
 function CartDetails() {
   const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
-
+  const [increaseItemQty, increaseResp] = useIncreaseItemQtyMutation();
+  const [removerFromCart, removeResp] = useRemoveFromCartMutation();
+  const [decreaseItemQty, decreaseResp] = useDecreaseItemQtyMutation();
   const { data: allProduct, allProductResp } = useGetAllProductQuery();
   const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
     skip: !loggedInUserId,
   });
 
   const cartData = getCartData(allProduct, allCartItem);
-  console.log(cartData);
   return (
     <>
       {/* Cart Items Section */}
@@ -48,7 +60,7 @@ function CartDetails() {
 
                 <div className="flex justify-center items-center w-[10%]">
                   <p className="font-bold text-center">
-                    ${Math.floor(item?.price) || 20}
+                    ${Math.floor(item?.price)* item?.qty|| 20}
                   </p>
                 </div>
 
@@ -56,16 +68,33 @@ function CartDetails() {
                 <div className="flex items-center justify-center  w-[40%]">
                   <button
                     className="p-2 bg-gray-200 hover:bg-gray-300"
-                    onClick={() => decreaseQuantity(item?.id)}
+                    // onClick={() => decreaseQuantity(item?.id)}
                   >
-                    <FaMinus />
+                    <FaMinus
+                      onClick={() => {
+                        if (item?.qty > 1) {
+                          decreaseCartItemQty(decreaseItemQty, item?._id);
+                        } else {
+                          deleteItemFromCart(item, removerFromCart);
+                        }
+                      }}
+                    />
                   </button>
                   <span className="px-4">{item?.qty}</span>
-                  <button
-                    className="p-2 bg-gray-200 hover:bg-gray-300"
-                    onClick={() => increaseQuantity(item?.id)}
-                  >
-                    <FaPlus />
+                  <button className="p-2 bg-gray-200 hover:bg-gray-300">
+                    <FaPlus
+                      onClick={
+                        item?.qty >= item?.stock
+                          ? undefined
+                          : () =>
+                              increaseCartItemQty(increaseItemQty, item?._id)
+                      }
+                      className={
+                        item?.qty >= item?.stock
+                          ? "cursor-not-allowed opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
                   </button>
                 </div>
               </div>
