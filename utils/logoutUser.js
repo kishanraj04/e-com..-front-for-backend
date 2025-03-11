@@ -1,15 +1,15 @@
 import { useLogOutUserMutation } from "../api/apiCallingForUser"
-import { updateLoggedInUserStatus } from "../store/authSlice";
+import { logOut, updateLoggedInUserStatus } from "../store/authSlice";
 
 export const logoutUser = async(logoutUser,navigate,dispatch)=>
 {
     
     try {
         const logoutResponse =await logoutUser()
-        console.log(logoutResponse);
+        console.log("logut resp ",logoutResponse);
         if(logoutResponse?.data?.success)
         {
-            dispatch(updateLoggedInUserStatus({status:false}))
+            dispatch(logOut())
             navigate('/')
         }
     } catch (error) {

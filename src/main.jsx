@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import { useGetAllCartItemQuery } from "../api/apiCallingForCart.js";
 import { useGetAllProductQuery } from "../api/apiCallingForProduct.js";
 import { useDirectLoginUserQuery } from "../api/apiCallingForUser.js";
-import { updateLoggedInUserStatus } from "../store/authSlice.js";
+import { loggedInUser, updateLoggedInUserStatus } from "../store/authSlice.js";
 import App from "./App.jsx";
 import SignInSignUp from "./components/LoginSignup/LoginSignUp.jsx";
 import "./index.css";
@@ -36,7 +36,7 @@ export const DirectLoginAuth = ()=>{
   useEffect(()=>{
     if(isSuccess){
       dispatch(updatePageNumber({pageNo:allProduct?.length}))
-      dispatch(updateLoggedInUserStatus(directLoginData?.user))
+      dispatch(loggedInUser(directLoginData?.user))
     }
   },[isSuccess])
 }

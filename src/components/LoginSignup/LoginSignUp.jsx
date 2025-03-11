@@ -25,7 +25,7 @@ const SignInSignUp = () => {
   const [loginUser, loginRes] = useLoginUserMutation();
   const dispatch = useDispatch()
   const loggedInUserStatus = useSelector((state)=>state.auth?.loggedInUser)
-
+ 
   useEffect(() => {
     if (loggedInUserStatus) {
       navigate('/home');

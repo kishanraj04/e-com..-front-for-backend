@@ -8,17 +8,17 @@ const authSlice = createSlice({
     initialState,
     reducers:{
         updateLoggedInUserStatus:(state,action)=>{
+            state.loggedInUser = null; 
+        },
+        loggedInUser:(state,action)=>{
             state.loggedInUser = action.payload
         },
-        loggedInUserName:(state,action)=>{
-            state.loggedInUserName = action.payload
-        },
         logOut: (state) => {
-            state.loggedInUserName = null;  // Clear user data
-            state.isAuthenticated = false;  // Mark user as logged out
+            state.loggedInUser = "";  // Clear user data
+            // state.isAuthenticated = false;  // Mark user as logged out
           },
     }
 })
 
 export const authReducer = authSlice.reducer
-export const {updateLoggedInUserStatus,loggedInUserName,logOut} = authSlice.actions
+export const {updateLoggedInUserStatus,loggedInUser,logOut} = authSlice.actions

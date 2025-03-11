@@ -12,16 +12,16 @@ import { IoMdLogOut } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useLogOutUserMutation } from "../../api/apiCallingForUser";
 import { logoutUser } from "../../utils/logoutUser";
-import { loggedInUserName } from "../../store/authSlice";
+import { loggedInUser } from "../../store/authSlice";
 
 
 export default function Navbar() {
   const [toggleNav, setToggleNav] = useState(false);
   const loggedInUserName = useSelector((state)=>state?.auth?.loggedInUser?.name)
   console.log(loggedInUserName);
-  // const [logOutUser , {isError,isSuccess,data}] = useLogOutUserMutation()
-  // const navigate = useNavigate()
-  // const dispatch = useDispatch()
+  const [logOutUser , {isError,isSuccess,data}] = useLogOutUserMutation()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   return (
     <>
       <header className="bg-white shadow-md w-full select-none sticky top-0 z-10">
@@ -64,7 +64,7 @@ export default function Navbar() {
                 ].map(({ title, icon }, idx) => (
                   <IconLink title={title} icon={icon} key={idx} />
                 ))}
-                  {/* <IoMdLogOut size={'2rem'} color="blue" onClick={()=>logoutUser(logOutUser,navigate,dispatch)}/> */}
+                  <IoMdLogOut size={'2rem'} color="blue" onClick={()=>logoutUser(logOutUser,navigate,dispatch)}/>
                 {/* Cart Item Count */}
                 <p className="absolute right-12 bottom-6 border border-red-400 w-5 h-5 flex justify-center items-center rounded-lg text-sm">
                   0
