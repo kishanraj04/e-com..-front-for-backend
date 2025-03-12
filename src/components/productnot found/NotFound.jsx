@@ -3,7 +3,7 @@ import notfound from '../../../public/images/notfound.jpg'
 
 function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center p-5 mt-24 text-center p-4">
+    <div className="flex flex-col items-center justify-center p-5 mt-24 text-center p-4 select-none">
       <img
         src={notfound}
         alt="Product Not Found"
