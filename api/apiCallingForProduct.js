@@ -34,7 +34,13 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
       })
     }),
     deleteSingleProduct:builder.query({}),
-    searchProduct:builder.query({}),
+    searchProduct:builder.query({
+      query:(productname)=>({
+        url:`product/search/${productname}`,
+        method:"GET",
+        credentials:"include"
+      })
+    }),
     priceFilter:builder.query({}),
     productView:builder.query({}),
     getAllReview:builder.query({}),
@@ -44,4 +50,4 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
   }),                 
 });
 
-export const {useCreateProductMutation,useDeleteReviewMutation,useDeleteSingleProductQuery,useGetAllProductQuery,useGetAllReviewQuery,useGetSinglePorductQuery,usePriceFilterQuery,useProductViewQuery,useSearchProductQuery,useUpdateProductMutation,useGetCategoryQuery,useGetPageWiseProductQuery} = apicallingForProduct;
+export const {useCreateProductMutation,useDeleteReviewMutation,useDeleteSingleProductQuery,useGetAllProductQuery,useGetAllReviewQuery,useGetSinglePorductQuery,usePriceFilterQuery,useProductViewQuery,useLazySearchProductQuery,useUpdateProductMutation,useGetCategoryQuery,useGetPageWiseProductQuery} = apicallingForProduct;

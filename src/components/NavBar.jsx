@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ShoppingCart, Menu, X, Heart, User, Search } from "lucide-react";
 import LinkTag from "../custom/LinkTag";
 import { CiHeart } from "react-icons/ci";
@@ -13,15 +13,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLogOutUserMutation } from "../../api/apiCallingForUser";
 import { logoutUser } from "../../utils/logoutUser";
 import { loggedInUser } from "../../store/authSlice";
+import { BsSearch } from "react-icons/bs";
+import { useLazySearchProductQuery } from "../../api/apiCallingForProduct";
+import { handleProductSearch } from "../../utils/handleProductSearch";
 
 
 export default function Navbar() {
   const [toggleNav, setToggleNav] = useState(false);
   const loggedInUserName = useSelector((state)=>state?.auth?.loggedInUser?.name)
-  console.log(loggedInUserName);
+  const searchRef = useRef("")
   const [logOutUser , {isError,isSuccess,data}] = useLogOutUserMutation()
+  const [trigger,{isError:searchError,isSuccess:searchSuccess,data:searchData}] = useLazySearchProductQuery()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const {pathname} = useLocation()
   return (
     <>
       <header className="bg-white shadow-md w-full select-none sticky top-0 z-10">
@@ -38,12 +43,14 @@ export default function Navbar() {
               <div className="text-2xl font-bold text-gray-800">E-Shop</div>
 
               {/* Search Bar (Hidden on small screens) */}
-              <div className="hidden md:flex flex-1 mx-4">
+              <div className="hidden md:flex justify-center items-center flex-1 mx-4 w-[30%]">
                 <input
                   type="text"
                   placeholder="Search products..."
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-[90%] px-4 py-2 border rounded-r-0 focus:outline-none"
+                  ref={searchRef}
                 />
+                <BsSearch className="w-[10%] px-4 py-2 border rounded-r-3xl h-[2.5rem] border-l-0 bg-red-700" onClick={()=>handleProductSearch(navigate,trigger,searchRef?.current?.value)}/>
               </div>
 
               {/* Nav Links (Desktop) */}

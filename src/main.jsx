@@ -22,6 +22,7 @@ import MarketPlace from "./pages/MarketPlace.jsx";
 import rootStore from "../store/configStore.js";
 import CartPage from "./pages/CartPage.jsx";
 import { updatePageNumber } from "../store/globalVariableSlic.js";
+import SearchPage from "./pages/SearchPage.jsx";
 
 
 export const DirectLoginAuth = ()=>{
@@ -57,7 +58,8 @@ const routes = createBrowserRouter([
       {path:"/home/cart" , element:<CartPage/>},
       { path: "/home/MarketPlace", element: <MarketPlace /> },
       {path:"/home/category/:category",element:<CategoryPage/>},
-      {path:"/home/product/detail/:id",element:<DetailedPage/>}
+      {path:"/home/product/detail/:id",element:<DetailedPage/>},
+      {path:"/home/search",element:<SearchPage/>}
     ],
   },
 ]);
