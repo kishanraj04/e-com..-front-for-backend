@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { useSaveContactMutation } from '../../api/apiCallingForContact';
 
 function Contact() {
 
@@ -15,9 +16,10 @@ function Contact() {
   const nameRef = useRef(null)
   const emailRef = useRef(null)
   const messageRef = useRef(null)
+  
+  const [saveContact,contactResp] = useSaveContactMutation()
 
-
-  const handleContactSubmit = (e) => {
+  const handleContactSubmit = async(e) => {
     e.preventDefault();
     
     console.log(
@@ -25,6 +27,14 @@ function Contact() {
       emailRef.current?.value, 
       messageRef.current?.value
     );
+    const contact = {
+      name:  nameRef.current?.value, 
+      email: emailRef.current?.value,
+      message: messageRef.current?.value
+    }
+
+    const resp = await saveContact(contact)
+   console.log("cr ",resp);
   };
 
   return (
