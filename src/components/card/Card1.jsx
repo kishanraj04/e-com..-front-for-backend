@@ -14,7 +14,11 @@ import {
 import { isExisting } from "../../helper/helper";
 import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
 import { handleAddToWishList } from "../../../utils/handleAddToWishList";
-import { useAddWishListItemMutation, useDeleteWishListItemMutation, useGetAllWishListItemQuery } from "../../../api/apiCallingForWishList";
+import {
+  useAddWishListItemMutation,
+  useDeleteWishListItemMutation,
+  useGetAllWishListItemQuery,
+} from "../../../api/apiCallingForWishList";
 import { RiHeartFill } from "react-icons/ri";
 import { handleDeleteFromWishList } from "../../../utils/handleDeleteFromWishList";
 
@@ -24,7 +28,8 @@ const Card1 = ({ item, allCartItem }) => {
   const [removeFromCart, removeRespo] = useRemoveFromCartMutation();
   const { data: wishListData } = useGetAllWishListItemQuery();
   const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
-   const [deleteItemFromWishList,deleteWishListResp] = useDeleteWishListItemMutation()
+  const [deleteItemFromWishList, deleteWishListResp] =
+    useDeleteWishListItemMutation();
   return (
     <div className="bg-white shadow-lg rounded-2xl p-4 w-[15rem] border border-gray-200 select-none">
       {/* Product Image & Favorite Icon */}
@@ -45,7 +50,11 @@ const Card1 = ({ item, allCartItem }) => {
               onClick={() => handleAddToWishList(item, addWishListItem)}
             />
           ) : (
-            <RiHeartFill onClick={() => handleDeleteFromWishList(item,deleteItemFromWishList)}/>
+            <RiHeartFill
+              onClick={() =>
+                handleDeleteFromWishList(item, deleteItemFromWishList)
+              }
+            />
           )}
         </button>
       </div>

@@ -28,7 +28,7 @@ function CartDetails() {
 
   // console.log("all cart item ",allCartItem);
 
-  const cartData = getCartData(allProduct, allCartItem);
+  const cartData = getCartData(allProduct, allCartItem?.cartItem);
   return (
     <>
       {/* Cart Items Section */}

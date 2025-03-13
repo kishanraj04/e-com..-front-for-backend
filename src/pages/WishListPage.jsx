@@ -1,21 +1,17 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import Wishlist from "../components/wishlist/WishList";
+import { useGetAllWishListItemQuery } from "../../api/apiCallingForWishList";
 
 function WishListPage() {
-
-  const navigate = useNavigate()
-  const isLoggedInUserStatus = useSelector((state)=>state.auth.isLoggedIn)
-  console.log(isLoggedInUserStatus);
   
-  useEffect(()=>{
-    console.log("lo ",isLoggedInUserStatus);
-    if(isLoggedInUserStatus==false) {navigate('/')}
-  },[])
 
   return (
-    <div>WishListPage</div>
-  )
+    <>
+      <Wishlist />
+    </>
+  );
 }
 
-export default WishListPage
+export default WishListPage;
