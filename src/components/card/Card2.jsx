@@ -14,8 +14,10 @@ import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
 import { handleAddToWishList } from "../../../utils/handleAddToWishList";
 import {
   useAddWishListItemMutation,
+  useDeleteWishListItemMutation,
   useGetAllWishListItemQuery,
 } from "../../../api/apiCallingForWishList";
+import { handleDeleteFromWishList } from "../../../utils/handleDeleteFromWishList";
 
 export default function Card2({ item, allCartItem }) {
   const userId = useSelector((state) => state?.auth?.loggedInUserName?._id);
@@ -23,7 +25,8 @@ export default function Card2({ item, allCartItem }) {
   const [removeFromCart, respStatus] = useRemoveFromCartMutation();
   const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
   const { data: wishListData } = useGetAllWishListItemQuery();
-  console.log(wishListData);
+  const [deleteItemFromWishList,deleteWishListResp] = useDeleteWishListItemMutation()
+  // console.log("di ",deletei);
   return (
     <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-red-50 relative  select-none">
       {/* Product Name and Quantity */}
@@ -63,7 +66,7 @@ export default function Card2({ item, allCartItem }) {
         <button className="text-red-500 text-2xl">
           {
             !isExisting(wishListData?.wishListData,item?._id) ?<CiHeart onClick={() => handleAddToWishList(item, addWishListItem)} />
-            : <RiHeartFill/>
+            : <RiHeartFill onClick={() => handleDeleteFromWishList(item,deleteItemFromWishList)}/>
           }
         </button>
       </div>

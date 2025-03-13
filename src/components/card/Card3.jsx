@@ -12,14 +12,15 @@ import { isExisting } from "../../helper/helper";
 import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
 import { RiHeartFill } from "react-icons/ri";
 import { handleAddToWishList } from "../../../utils/handleAddToWishList";
-import { useAddWishListItemMutation, useGetAllWishListItemQuery } from "../../../api/apiCallingForWishList";
+import { useAddWishListItemMutation, useDeleteWishListItemMutation, useGetAllWishListItemQuery } from "../../../api/apiCallingForWishList";
+import { handleDeleteFromWishList } from "../../../utils/handleDeleteFromWishList";
 
 export default function Card3({ item, allCartItem }) {
   const [addInCart, { isError, isLoading, isSuccess }] = useAddInCartMutation();
   const [removeFromCart, removeResponse] = useRemoveFromCartMutation();
   const { data: wishListData } = useGetAllWishListItemQuery();
   const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
-
+  const [deleteItemFromWishList,deleteWishListResp] = useDeleteWishListItemMutation()
   return (
     <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-red-50 to-white relative  select-none">
       {/* Sale Tag */}
@@ -62,7 +63,7 @@ export default function Card3({ item, allCartItem }) {
               onClick={() => handleAddToWishList(item, addWishListItem)}
             />
           ) : (
-            <RiHeartFill />
+            <RiHeartFill onClick={() => handleDeleteFromWishList(item,deleteItemFromWishList)}/>
           )}
         </button>
       </div>

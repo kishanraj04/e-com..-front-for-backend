@@ -10,12 +10,14 @@ import { handleAddToCart } from "../../../utils/handleAddToCart";
 import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
 import { isExisting } from "../../helper/helper";
 import { handleAddToWishList } from "../../../utils/handleAddToWishList";
-import { useAddWishListItemMutation, useGetAllWishListItemQuery } from "../../../api/apiCallingForWishList";
+import { useAddWishListItemMutation, useDeleteWishListItemMutation, useGetAllWishListItemQuery } from "../../../api/apiCallingForWishList";
+import { handleDeleteFromWishList } from "../../../utils/handleDeleteFromWishList";
 export default function Card4({ item, allCartItem }) {
   const [addInCart, { isError, isLoading, isSuccess }] = useAddInCartMutation();
   const [removeFromCart, removeRespo] = useRemoveFromCartMutation();
   const { data: wishListData } = useGetAllWishListItemQuery();
   const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
+    const [deleteItemFromWishList,deleteWishListResp] = useDeleteWishListItemMutation()
   return (
     <div className="w-64 p-6 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-white text-center  select-none">
       {/* Product Image */}
@@ -65,7 +67,7 @@ export default function Card4({ item, allCartItem }) {
             WishList
           </button>
         ) : (
-          <button className="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600">
+          <button className="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600" onClick={() => handleDeleteFromWishList(item,deleteItemFromWishList)}>
             Remove
           </button>
         )}
