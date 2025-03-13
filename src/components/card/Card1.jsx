@@ -16,6 +16,7 @@ import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
 import { handleAddToWishList } from "../../../utils/handleAddToWishList";
 import { useAddWishListItemMutation, useGetAllWishListItemQuery } from "../../../api/apiCallingForWishList";
 import { RiHeartFill } from "react-icons/ri";
+import { handleDeleteFromWishList } from "../../../utils/handleDeleteFromWishList";
 
 const Card1 = ({ item, allCartItem }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -43,7 +44,7 @@ const Card1 = ({ item, allCartItem }) => {
               onClick={() => handleAddToWishList(item, addWishListItem)}
             />
           ) : (
-            <RiHeartFill />
+            <RiHeartFill onClick={() => handleDeleteFromWishList(item)}/>
           )}
         </button>
       </div>

@@ -24,9 +24,18 @@ const apiCallingForWishList = apiSlice.injectEndpoints({
                 credentials:'include'
             }),
             providesTags:["wishList"]
+        }),
+
+        deleteWishListItem:builder.mutation({
+            query:(pid)=>({
+                url:`wish-list/delete/${pid}`,
+                method:"DELETE",
+                credentials:"include"
+            }),
+            invalidatesTags:["wishList"]
         })
 
     })
 })
 
-export const {useAddWishListItemMutation,useGetAllWishListItemQuery} = apiCallingForWishList
+export const {useAddWishListItemMutation,useGetAllWishListItemQuery,useDeleteWishListItemMutation} = apiCallingForWishList
