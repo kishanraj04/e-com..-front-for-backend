@@ -2,17 +2,15 @@ import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useSaveContactMutation } from '../../api/apiCallingForContact';
+import {toast} from 'react-toastify'
+
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
 
 function Contact() {
 
-  // const navigate = useNavigate()
-  // const isLoggedInUserStatus = useSelector((state)=>state.auth.isLoggedIn)
-  // console.log(isLoggedInUserStatus);
-  
-  // useEffect(()=>{
-  //   console.log("lo ",isLoggedInUserStatus);
-  //   if(isLoggedInUserStatus==false) {navigate('/')}
-  // },[])
   const nameRef = useRef(null)
   const emailRef = useRef(null)
   const messageRef = useRef(null)
@@ -21,12 +19,21 @@ function Contact() {
 
   const handleContactSubmit = async(e) => {
     e.preventDefault();
+    console.log((nameRef?.current?.value?.length)>=2,nameRef?.current?.value?.length);
+    if(nameRef?.current?.value?.length<=2){
+       toast.error("name is to short")
+       return
+    }
+
+    else if(!isValidEmail(emailRef?.current?.value)){
+       toast.error("invalid email")
+       return
+    }
+    else if(messageRef?.current?.value?.length<=20){
+      toast.error("message is to short")
+      return
+    }
     
-    console.log(
-      nameRef.current?.value, 
-      emailRef.current?.value, 
-      messageRef.current?.value
-    );
     const contact = {
       name:  nameRef.current?.value, 
       email: emailRef.current?.value,
@@ -34,7 +41,11 @@ function Contact() {
     }
 
     const resp = await saveContact(contact)
-   console.log("cr ",resp);
+    if(resp?.data){
+      toast.success("message saved")
+    }else{
+      toast.error("message not send")
+    }
   };
 
   return (
