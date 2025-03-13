@@ -6,10 +6,13 @@ const apiCallingForWishList = apiSlice.injectEndpoints({
     endpoints:(builder)=>({
 
         addWishListItem:builder.mutation({
-            query:(body)=>({
+            query:(data)=>({
                 url:'wish-list/add',
                 method:"POST",
-                credentials:"include"
+               
+                credentials:"include",
+                body:data,
+                
             })
         })
 
