@@ -10,11 +10,15 @@ import {
   useRemoveFromCartMutation,
 } from "../../../api/apiCallingForCart";
 import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
+import { handleAddToWishList } from "../../../utils/handleAddToWishList";
+import { useAddWishListItemMutation } from "../../../api/apiCallingForWishList";
 
 export default function Card2({ item, allCartItem }) {
   const userId = useSelector((state) => state?.auth?.loggedInUserName?._id);
   const [addInCart, cartResp] = useAddInCartMutation();
   const [removeFromCart, respStatus] = useRemoveFromCartMutation();
+  const [addWishListItem,addWishListResp] = useAddWishListItemMutation()
+  
   return (
     <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-red-50 relative  select-none">
       {/* Product Name and Quantity */}
@@ -47,7 +51,7 @@ export default function Card2({ item, allCartItem }) {
         }
         </button>
         <button className="text-red-500 text-2xl">
-          <CiHeart />
+          <CiHeart onClick={()=>handleAddToWishList(item)}/>
         </button>
       </div>
     </div>
