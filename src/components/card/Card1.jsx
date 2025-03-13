@@ -13,11 +13,16 @@ import {
 } from "../../../api/apiCallingForCart";
 import { isExisting } from "../../helper/helper";
 import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
+import { handleAddToWishList } from "../../../utils/handleAddToWishList";
+import { useAddWishListItemMutation, useGetAllWishListItemQuery } from "../../../api/apiCallingForWishList";
+import { RiHeartFill } from "react-icons/ri";
 
-const Card1 = ({ item,allCartItem}) => {
+const Card1 = ({ item, allCartItem }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [addInCart, { isError, isLoading, isSuccess }] = useAddInCartMutation();
   const [removeFromCart, removeRespo] = useRemoveFromCartMutation();
+  const { data: wishListData } = useGetAllWishListItemQuery();
+  const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
   return (
     <div className="bg-white shadow-lg rounded-2xl p-4 w-[15rem] border border-gray-200 select-none">
       {/* Product Image & Favorite Icon */}
@@ -33,7 +38,13 @@ const Card1 = ({ item,allCartItem}) => {
           className="absolute top-2 right-2 text-red-500 hover:text-red-600"
           onClick={() => setIsFavorite(!isFavorite)}
         >
-          <CiHeart />
+          {!isExisting(wishListData?.wishListData, item?._id) ? (
+            <CiHeart
+              onClick={() => handleAddToWishList(item, addWishListItem)}
+            />
+          ) : (
+            <RiHeartFill />
+          )}
         </button>
       </div>
 
@@ -60,19 +71,21 @@ const Card1 = ({ item,allCartItem}) => {
         </div>
 
         {/* Add to Cart Button */}
-       {!isExisting(allCartItem?.cartItem,item?._id) ? <button
+        {!isExisting(allCartItem?.cartItem, item?._id) ? (
+          <button
             className="mt-4 w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg transition"
-            onClick={() => handleAddToCart(item,addInCart)}
+            onClick={() => handleAddToCart(item, addInCart)}
           >
             Add to Cart
-          </button> :  <button
+          </button>
+        ) : (
+          <button
             className="mt-4 w-full bg-gradient-to-r from-pink-500 to-purple-500 text-black py-2 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg transition"
-            onClick={() => deleteItemFromCart(item,addInCart)}
+            onClick={() => deleteItemFromCart(item, addInCart)}
           >
             Remove to Cart
           </button>
-          
-        }
+        )}
       </div>
     </div>
   );

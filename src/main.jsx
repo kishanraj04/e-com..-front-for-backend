@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider, useDispatch } from "react-redux";
-import {
-  createBrowserRouter,
-  RouterProvider
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useGetAllCartItemQuery } from "../api/apiCallingForCart.js";
 import { useGetAllProductQuery } from "../api/apiCallingForProduct.js";
@@ -23,30 +20,35 @@ import rootStore from "../store/configStore.js";
 import CartPage from "./pages/CartPage.jsx";
 import { updatePageNumber } from "../store/globalVariableSlic.js";
 import SearchPage from "./pages/SearchPage.jsx";
+import { useGetAllWishListItemQuery } from "../api/apiCallingForWishList.js";
 
+export const DirectLoginAuth = () => {
+  const {
+    data: directLoginData,
+    isError,
+    isSuccess,
+  } = useDirectLoginUserQuery();
+  const { data: allProduct } = useGetAllProductQuery();
+  const { data: wishListData } = useGetAllWishListItemQuery();
 
-export const DirectLoginAuth = ()=>{
-  const {data:directLoginData,isError,isSuccess} = useDirectLoginUserQuery()
-  const {data:allProduct,allProductResp} = useGetAllProductQuery()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  if(allProduct?.isLoading){
-    return <h1>loding</h1>
+  if (allProduct?.isLoading) {
+    return <h1>loding</h1>;
   }
 
-  useEffect(()=>{
-    if(isSuccess){
-      dispatch(updatePageNumber({pageNo:allProduct?.length}))
-      dispatch(loggedInUser(directLoginData?.user))
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(updatePageNumber({ pageNo: allProduct?.length }));
+      dispatch(loggedInUser(directLoginData?.user));
     }
-  },[isSuccess])
-}
-
+  }, [isSuccess]);
+};
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <SignInSignUp />
+    element: <SignInSignUp />,
   },
   {
     path: "/home",
@@ -55,20 +57,19 @@ const routes = createBrowserRouter([
       { path: "/home", element: <Home /> },
       { path: "/home/About", element: <AboutUs /> },
       { path: "/home/Contact", element: <Contact /> },
-      {path:"/home/cart" , element:<CartPage/>},
+      { path: "/home/cart", element: <CartPage /> },
       { path: "/home/MarketPlace", element: <MarketPlace /> },
-      {path:"/home/category/:category",element:<CategoryPage/>},
-      {path:"/home/product/detail/:id",element:<DetailedPage/>},
-      {path:"/home/search",element:<SearchPage/>}
+      { path: "/home/category/:category", element: <CategoryPage /> },
+      { path: "/home/product/detail/:id", element: <DetailedPage /> },
+      { path: "/home/search", element: <SearchPage /> },
     ],
   },
 ]);
-
 
 createRoot(document.getElementById("root")).render(
   <Provider store={rootStore}>
     <ToastContainer position="top-right" autoClose={1000} />
     <RouterProvider router={routes} />
-    <DirectLoginAuth/>
+    <DirectLoginAuth />
   </Provider>
 );

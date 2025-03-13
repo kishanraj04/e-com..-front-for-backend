@@ -13,10 +13,20 @@ const apiCallingForWishList = apiSlice.injectEndpoints({
                 credentials:"include",
                 body:data,
                 
-            })
+            }),
+            invalidatesTags:["wishList"]
+        }),
+
+        getAllWishListItem:builder.query({
+            query:()=>({
+                url:"wish-list/data",
+                method:"GET",
+                credentials:'include'
+            }),
+            providesTags:["wishList"]
         })
 
     })
 })
 
-export const {useAddWishListItemMutation} = apiCallingForWishList
+export const {useAddWishListItemMutation,useGetAllWishListItemQuery} = apiCallingForWishList

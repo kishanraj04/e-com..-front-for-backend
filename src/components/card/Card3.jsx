@@ -2,16 +2,24 @@ import { Link } from "react-router";
 import { FaCartArrowDown } from "react-icons/fa";
 import { BsCartXFill } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
-import { useAddInCartMutation, useRemoveFromCartMutation } from "../../../api/apiCallingForCart";
+import {
+  useAddInCartMutation,
+  useRemoveFromCartMutation,
+} from "../../../api/apiCallingForCart";
 import { useDispatch } from "react-redux";
 import { handleAddToCart } from "../../../utils/handleAddToCart";
 import { isExisting } from "../../helper/helper";
 import { deleteItemFromCart } from "../../../utils/deleteItemFromCart";
+import { RiHeartFill } from "react-icons/ri";
+import { handleAddToWishList } from "../../../utils/handleAddToWishList";
+import { useAddWishListItemMutation, useGetAllWishListItemQuery } from "../../../api/apiCallingForWishList";
 
-export default function Card3({ item,allCartItem }) {
-  const [addInCart,{isError,isLoading,isSuccess}] = useAddInCartMutation()
-  const [removeFromCart,removeResponse] = useRemoveFromCartMutation()
-  
+export default function Card3({ item, allCartItem }) {
+  const [addInCart, { isError, isLoading, isSuccess }] = useAddInCartMutation();
+  const [removeFromCart, removeResponse] = useRemoveFromCartMutation();
+  const { data: wishListData } = useGetAllWishListItemQuery();
+  const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
+
   return (
     <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-red-50 to-white relative  select-none">
       {/* Sale Tag */}
@@ -38,13 +46,24 @@ export default function Card3({ item,allCartItem }) {
 
       {/* Action Buttons */}
       <div className="flex justify-between mt-4">
-        <button className="text-green-600 text-2xl" >
-          {
-              !isExisting(allCartItem,item?._id) ? <FaCartArrowDown onClick={()=>handleAddToCart(item,addInCart)}/> : <BsCartXFill color="red" onClick={()=>deleteItemFromCart(item,removeFromCart)}/>
-          }
+        <button className="text-green-600 text-2xl">
+          {!isExisting(allCartItem, item?._id) ? (
+            <FaCartArrowDown onClick={() => handleAddToCart(item, addInCart)} />
+          ) : (
+            <BsCartXFill
+              color="red"
+              onClick={() => deleteItemFromCart(item, removeFromCart)}
+            />
+          )}
         </button>
         <button className="text-red-500 text-2xl">
-          <CiHeart />
+          {!isExisting(wishListData?.wishListData, item?._id) ? (
+            <CiHeart
+              onClick={() => handleAddToWishList(item, addWishListItem)}
+            />
+          ) : (
+            <RiHeartFill />
+          )}
         </button>
       </div>
     </div>
