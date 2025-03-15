@@ -22,6 +22,7 @@ export function findIndexValue(data,id)
 
 export function isExisting(data,id)
 {
+  console.log("da ",data , id);
   if(!data || !id){
     return false
   }

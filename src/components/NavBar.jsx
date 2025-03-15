@@ -16,13 +16,19 @@ import { loggedInUser } from "../../store/authSlice";
 import { BsSearch } from "react-icons/bs";
 import { useLazySearchProductQuery } from "../../api/apiCallingForProduct";
 import { handleProductSearch } from "../../utils/handleProductSearch";
+import { useGetAllCartItemQuery } from "../../api/apiCallingForCart";
 
 
 export default function Navbar() {
   const [toggleNav, setToggleNav] = useState(false);
   const loggedInUserName = useSelector((state)=>state?.auth?.loggedInUser?.name)
+  console.log("  l ",loggedInUserName);
   const searchRef = useRef("")
   const [logOutUser , {isError,isSuccess,data}] = useLogOutUserMutation()
+   const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
+  const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
+      skip: !loggedInUserId,
+    });
   const [trigger,{isError:searchError,isSuccess:searchSuccess,data:searchData}] = useLazySearchProductQuery()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -73,8 +79,8 @@ export default function Navbar() {
                 ))}
                   <IoMdLogOut size={'2rem'} color="blue" onClick={()=>logoutUser(logOutUser,navigate,dispatch)}/>
                 {/* Cart Item Count */}
-                <p className="absolute right-12 bottom-6 border border-red-400 w-5 h-5 flex justify-center items-center rounded-lg text-sm">
-                  0
+                <p className="absolute right-[92px] bottom-6 border border-red-400 w-5 h-5 flex justify-center items-center rounded-lg text-sm">
+                  {allCartItem?.cartItem?.length}
                 </p>
               </div>
             </div>

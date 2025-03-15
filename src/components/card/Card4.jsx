@@ -17,7 +17,7 @@ export default function Card4({ item, allCartItem }) {
   const [removeFromCart, removeRespo] = useRemoveFromCartMutation();
   const { data: wishListData } = useGetAllWishListItemQuery();
   const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
-    const [deleteItemFromWishList,deleteWishListResp] = useDeleteWishListItemMutation()
+  const [deleteItemFromWishList,deleteWishListResp] = useDeleteWishListItemMutation()
   return (
     <div className="w-64 p-6 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-white text-center  select-none">
       {/* Product Image */}

@@ -38,9 +38,9 @@ function CartDetails() {
         </h2>
         <div className="space-y-6">
           {cartData &&
-            cartData.map((item) => (
+            cartData.map((item,idx) => (
               <div
-                key={item?.id}
+                key={idx}
                 className="flex items-center justify-between p-4 border rounded-lg"
               >
                 <div className="flex items-center gap-4 w-[50%]">

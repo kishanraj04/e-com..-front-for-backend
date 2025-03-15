@@ -59,13 +59,13 @@ function MarketPlace() {
         // }}
         navigation={true}
         modules={[Pagination, Navigation]}
-        className="mySwiper select-none w-[30rem]"
+        className="mySwiper select-none w-[20rem]"
       >
         {Array.from({ length: totalPages }, (_, i) => (
           <SwiperSlide
             key={i}
             className={`flex justify-center items-center bg-gray-200 rounded-lg select-none text-lg font-bold shadow-md text-center ${pageno==i+1?"bg-gray-500":""}`}
-            style={{ width: "100px", height: "50px" }} // Inline styles for precise control
+            style={{ width: "100px", height: "30px" }} // Inline styles for precise control
             onClick={() => setPageno(i+1)}
           >
             {i + 1}
