@@ -134,7 +134,7 @@ function DetailedPage() {
                     handleDeleteFromWishList(singleProduct?.product, deleteItemFromWishList)
                   }
                 >
-                  Remove
+                  Remove 💔
                 </button>
               )}
             </div>

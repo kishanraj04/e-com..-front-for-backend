@@ -22,6 +22,7 @@ import { updatePageNumber } from "../store/globalVariableSlic.js";
 import SearchPage from "./pages/SearchPage.jsx";
 import { useGetAllWishListItemQuery } from "../api/apiCallingForWishList.js";
 import WishListPage from "./pages/WishListPage.jsx";
+import CheckoutPage from "./pages/Checkout.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -63,7 +64,8 @@ const routes = createBrowserRouter([
       { path: "/home/category/:category", element: <CategoryPage /> },
       { path: "/home/product/detail/:id", element: <DetailedPage /> },
       { path: "/home/search", element: <SearchPage /> },
-      {path:"/home/wish-list",element:<WishListPage/>}
+      {path:"/home/wish-list",element:<WishListPage/>},
+      {path:"/home/checkout",element:<CheckoutPage/>}
     ],
   },
 ]);

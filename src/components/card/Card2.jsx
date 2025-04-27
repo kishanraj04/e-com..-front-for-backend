@@ -20,13 +20,14 @@ import {
 import { handleDeleteFromWishList } from "../../../utils/handleDeleteFromWishList";
 
 export default function Card2({ item, allCartItem }) {
+
   const userId = useSelector((state) => state?.auth?.loggedInUserName?._id);
   const [addInCart, cartResp] = useAddInCartMutation();
   const [removeFromCart, respStatus] = useRemoveFromCartMutation();
   const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
   const { data: wishListData } = useGetAllWishListItemQuery();
   const [deleteItemFromWishList,deleteWishListResp] = useDeleteWishListItemMutation()
-  // console.log("di ",deletei);
+
   return (
     <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-red-50 relative  select-none">
       {/* Product Name and Quantity */}
@@ -47,7 +48,7 @@ export default function Card2({ item, allCartItem }) {
           </Link>
         </div>
         <span className="absolute top-0 right-10 bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded-full shadow">
-          ₹{item?.price ? Math.floor(item.price) : "N/A"}
+          ₹{item?.price ? Math.floor(item?.price) : "N/A"}
         </span>
       </div>
 

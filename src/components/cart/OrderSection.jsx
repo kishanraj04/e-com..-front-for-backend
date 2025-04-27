@@ -2,6 +2,7 @@ import React from "react";
 import { useGetAllCartItemQuery } from "../../../api/apiCallingForCart";
 import { useSelector } from "react-redux";
 import { totalPrice } from "../../helper/helper";
+import { Link } from "react-router";
 
 function OrderSection() {
   const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
@@ -39,7 +40,7 @@ function OrderSection() {
           </p>
         </div>
         <button className="w-full bg-black text-white py-3 rounded hover:bg-gray-800">
-          Proceed to Checkout
+          <Link to="/home/checkout">Proceed to Checkout</Link>
         </button>
         <button className="w-full flex justify-center items-center gap-2 mt-3 border py-3 rounded hover:bg-gray-100">
           <img

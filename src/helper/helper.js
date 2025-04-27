@@ -35,5 +35,6 @@ export function totalPrice(allCartItem){
   allCartItem?.cartItem?.forEach(element => {
     total+=(element?.qty*element?.price)
   });
+  console.log("t ",total);
   return Math.floor(total)
 }
