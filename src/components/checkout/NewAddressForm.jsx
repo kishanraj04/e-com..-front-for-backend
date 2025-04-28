@@ -1,24 +1,38 @@
-import React, { useState } from 'react';
-import { useSaveAddressMutation, useSaveContactMutation } from '../../../api/apiCallingForContact';
-import { saveDeliveryAddress } from '../../../utils/saveDeliveryAddress';
+import React, { useContext, useEffect, useState } from "react";
+import {
+  useSaveAddressMutation,
+  useSaveContactMutation,
+  useUpdateDeliveryAddressMutation,
+} from "../../../api/apiCallingForContact";
+import {
+  saveDeliveryAddress,
+  updateDeliveryAddressFun,
+} from "../../../utils/saveDeliveryAddress";
+import { GlobalContect } from "../../context/globalContect";
 
-
-const AddressForm = () => {
+const AddressForm = ({ address }) => {
   const [saveDeliveryAddressApi] = useSaveAddressMutation();
-
-  console.log(saveDeliveryAddressApi);
   const [deliveryAddress, setDeliveryAddress] = useState({
-    name: '',
-    contact: '',
-    pincode: '',
-    locality: '',
-    address: '',
-    city: '',
-    state: '',
-    landmark: '',
-    alternatecontact: '',
-    addressType: '',
+    name: "",
+    contact: "",
+    pincode: "",
+    locality: "",
+    address: "",
+    city: "",
+    state: "",
+    landmark: "",
+    alternatecontact: "",
+    addressType: "",
   });
+  const [updateDeliveryAddressApi, updatedResponse] =
+    useUpdateDeliveryAddressMutation();
+
+  useEffect(() => {
+    setDeliveryAddress((prev) => ({
+      ...prev,
+      ...address,
+    }));
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,12 +41,10 @@ const AddressForm = () => {
       [name]: value,
     }));
   };
-
- 
+  const { editFlag, setEditFlag ,setAddNewAddressFlag} = useContext(GlobalContect);
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-blue-50 rounded-xl shadow space-y-6">
-
+    <div className="max-w-2xl mx-auto p-6 bg-blue-50 rounded-xl shadow space-y-6 id">
       {/* Current Location Button */}
       <button className="w-full bg-blue-600 text-white py-2 rounded-md font-semibold flex items-center justify-center gap-2">
         <span>📍</span> Use my current location
@@ -132,7 +144,7 @@ const AddressForm = () => {
             type="radio"
             name="addressType"
             value="Home"
-            checked={deliveryAddress.addressType === 'Home'}
+            checked={deliveryAddress.addressType === address?.addressType}
             onChange={handleChange}
             className="accent-blue-600"
           />
@@ -143,7 +155,7 @@ const AddressForm = () => {
             type="radio"
             name="addressType"
             value="Work"
-            checked={deliveryAddress.addressType === 'Work'}
+            checked={deliveryAddress.addressType === "Work"}
             onChange={handleChange}
             className="accent-blue-600"
           />
@@ -153,17 +165,41 @@ const AddressForm = () => {
 
       {/* Buttons */}
       <div className="flex items-center gap-6">
+        {!editFlag ? (
+          <button
+            onClick={() => {
+              saveDeliveryAddress(deliveryAddress, saveDeliveryAddressApi);
+              setAddNewAddressFlag(false)
+            }}
+            className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-6 rounded-md font-semibold"
+          >
+            SAVE AND DELIVER HERE
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              updateDeliveryAddressFun(
+                deliveryAddress,
+                updateDeliveryAddressApi
+              );
+              setEditFlag("")
+            }}
+            className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-6 rounded-md font-semibold"
+          >
+            Update
+          </button>
+        )}
         <button
-          onClick={()=>saveDeliveryAddress(deliveryAddress,saveDeliveryAddressApi)}
-          className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-6 rounded-md font-semibold"
+          className="text-blue-600 font-semibold"
+          onClick={() => {
+            setEditFlag("");
+            setAddNewAddressFlag(false)
+            // setIsAddress(!isAddress);
+          }}
         >
-          SAVE AND DELIVER HERE
-        </button>
-        <button className="text-blue-600 font-semibold">
           CANCEL
         </button>
       </div>
-
     </div>
   );
 };

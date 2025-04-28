@@ -23,6 +23,7 @@ import SearchPage from "./pages/SearchPage.jsx";
 import { useGetAllWishListItemQuery } from "../api/apiCallingForWishList.js";
 import WishListPage from "./pages/WishListPage.jsx";
 import CheckoutPage from "./pages/Checkout.jsx";
+import { GlobalProvider } from "./context/globalContect";
 
 export const DirectLoginAuth = () => {
   const {
@@ -64,16 +65,17 @@ const routes = createBrowserRouter([
       { path: "/home/category/:category", element: <CategoryPage /> },
       { path: "/home/product/detail/:id", element: <DetailedPage /> },
       { path: "/home/search", element: <SearchPage /> },
-      {path:"/home/wish-list",element:<WishListPage/>},
-      {path:"/home/checkout",element:<CheckoutPage/>}
+      { path: "/home/wish-list", element: <WishListPage /> },
+      { path: "/home/checkout", element: <CheckoutPage /> },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <Provider store={rootStore}>
-    <ToastContainer position="top-right" autoClose={1000} />
-    <RouterProvider router={routes} />
-    <DirectLoginAuth />
-  </Provider>
+  
+    <Provider store={rootStore}>
+      <ToastContainer position="top-right" autoClose={1000} />
+      <RouterProvider router={routes} />
+      <DirectLoginAuth />
+    </Provider>
 );

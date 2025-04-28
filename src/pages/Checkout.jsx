@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useGetAllCartItemQuery } from "../../api/apiCallingForCart";
 import { useSelector } from "react-redux";
 import { totalPrice } from "../helper/helper";
@@ -6,16 +6,15 @@ import OrderSection from "../components/cart/OrderSection";
 import AnotherAddress from "../components/checkout/AnotherAddress";
 import AddressForm from "../components/checkout/NewAddressForm";
 import { useGetAllDeliveryAddressQuery } from "../../api/apiCallingForContact";
+import { GlobalContect } from "../context/globalContect";
 
 const CheckoutPage = () => {
-  const [isAddress,setIsAddress] = useState(false)
   const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
-  console.log("ui ",loggedInUserId);
-  const {data:deliveryAdddress,deliveryResp} =  useGetAllDeliveryAddressQuery(loggedInUserId,{skip:!loggedInUserId})
+  const {isAddress, setIsAddress,setEditFlag} = useContext(GlobalContect)
   const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
     skip: !loggedInUserId,
   });
-  console.log("da ",deliveryAdddress);
+const {addNewAddressFlag,setAddNewAddressFlag} = useContext(GlobalContect)
   const totalprice = totalPrice(allCartItem);
   return (
     <div className="flex">
@@ -41,16 +40,17 @@ const CheckoutPage = () => {
           </h2>
 
           {/* another delivery address */}
-          {
-            deliveryAdddress?.data?.map((address)=><AnotherAddress address={address}/>)
-          }
+         
+          <AnotherAddress/>
 
           {/* Address Options */}
           <div className="space-y-4">
             
-            {isAddress?<AddressForm/> : ''}
+            {addNewAddressFlag?<AddressForm/> : ''}
 
-            <button className="text-blue-600 text-sm font-semibold mt-2" onClick={()=>setIsAddress(!isAddress)}>
+            <button className="text-blue-600 text-sm font-semibold mt-2" onClick={()=>{setAddNewAddressFlag(!isAddress)
+              setEditFlag("")
+            }}>
               + Add a new address
             </button>
           </div>
