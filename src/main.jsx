@@ -24,6 +24,8 @@ import { useGetAllWishListItemQuery } from "../api/apiCallingForWishList.js";
 import WishListPage from "./pages/WishListPage.jsx";
 import CheckoutPage from "./pages/Checkout.jsx";
 import { GlobalProvider } from "./context/globalContect";
+import Payment from "./components/checkout/Payment.jsx";
+import PayByUpi from "./components/checkout/PayByUpi.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -67,15 +69,20 @@ const routes = createBrowserRouter([
       { path: "/home/search", element: <SearchPage /> },
       { path: "/home/wish-list", element: <WishListPage /> },
       { path: "/home/checkout", element: <CheckoutPage /> },
+      { path: "/home/product/payment", element: <Payment />, children: [
+        {
+          path:"/home/product/payment/upi",
+          element:<PayByUpi/>
+        }
+      ] },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
-  
-    <Provider store={rootStore}>
-      <ToastContainer position="top-right" autoClose={1000} />
-      <RouterProvider router={routes} />
-      <DirectLoginAuth />
-    </Provider>
+  <Provider store={rootStore}>
+    <ToastContainer position="top-right" autoClose={1000} />
+    <RouterProvider router={routes} />
+    <DirectLoginAuth />
+  </Provider>
 );

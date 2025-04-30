@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGetAllCartItemQuery } from "../../../api/apiCallingForCart";
 import { useSelector } from "react-redux";
-import { totalPrice } from "../../helper/helper";
+import { priceForOrderSummary, totalPrice } from "../../helper/helper";
 import { Link } from "react-router";
 
-function OrderSection() {
-  const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
-  const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
-    skip: !loggedInUserId,
-  });
+function OrderSection({allCartItem,flagForOrderSummary}) {
+  const [totalPrices,setToatalPrice] = useState(0);
+  console.log(allCartItem);
+  useEffect(()=>{
+    if(flagForOrderSummary){
+      setToatalPrice(priceForOrderSummary(allCartItem))
+    }else{
+       setToatalPrice(totalPrice(allCartItem))    
+    }
+  },[allCartItem])
   
-  const totalprice = totalPrice(allCartItem)
+  // const totalprice = totalPrice(allCartItem)
   return (
     <>
       {/* Order Summary */}
@@ -19,7 +24,7 @@ function OrderSection() {
         <div className="py-4 space-y-2">
           <div className="flex justify-between">
             <span>Subtotal</span>
-            <span className="font-bold">${totalprice || 10}</span>
+            <span className="font-bold">${Math.floor(totalPrices) || 10}</span>
           </div>
           <div className="flex justify-between">
             <span>Shipping</span>
@@ -31,11 +36,11 @@ function OrderSection() {
           </div>
           <div className="flex justify-between border-t pt-3 text-lg font-bold">
             <span>Total</span>
-            <span>${totalprice}</span>
+            <span>${Math.floor(totalPrices)}</span>
           </div>
           <p className="text-sm text-gray-500">
             Or 4 interest-free installments of{" "}
-            <span className="font-bold">${(totalprice / 4).toFixed(2)}</span> with
+            <span className="font-bold">${(Math.floor(totalPrices) / 4).toFixed(2)}</span> with
             Afterpay.
           </p>
         </div>
