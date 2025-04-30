@@ -13,10 +13,9 @@ export default function Payment() {
           <div className="space-y-4">
             {[
               ["UPI","/home/product/payment/upi"],
-              ["Credit / Debit / ATM Card"],
-              ["EMI"],
-              ["Net Banking"],
-              ["Have a Flipkart Gift Card?"],
+              ["Credit / Debit / ATM Card","/home/product/payment/card"],
+              ["Net Banking","/home/product/payment/net-bankin"],
+              ["Have a Flipkart Gift Card?","/home/product/payment/gift-card"],
               ["Cash on Delivery"],
               ["Wallet"],
             ].map((item) => (

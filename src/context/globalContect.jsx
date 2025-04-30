@@ -9,7 +9,7 @@ export const GlobalProvider = ({ children }) => {
   const [deliverHereFlag, setIsDeliverHereFlag] = useState(false);
   const [allCartDataForOrderSummary, setAllCartDataForOrderSummary] = useState([]);
   const [itemQtyForOrderSummary, setItemQtyForOrderSummary] = useState({});
-
+  const [itemPriceForOrdSum,setItemPriceForOrdSum] = useState(0);
   useEffect(() => {
     
     const updatedCart = allCartDataForOrderSummary.map(product => {
@@ -35,6 +35,7 @@ export const GlobalProvider = ({ children }) => {
         setAllCartDataForOrderSummary,
         itemQtyForOrderSummary,
         setItemQtyForOrderSummary,
+        itemPriceForOrdSum,setItemPriceForOrdSum
       }}
     >
       {children}

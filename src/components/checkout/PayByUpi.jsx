@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContect } from "../../context/globalContect";
 
 function PayByUpi() {
+  const { itemPriceForOrdSum } = useContext(GlobalContect);
+  
   return (
     <div className="bg-gray-100 p-4 rounded-lg space-y-4 h-full">
       <div className="flex justify-between items-center">
@@ -21,9 +24,9 @@ function PayByUpi() {
       </button>
       <button
         className="w-full bg-gray-700 text-white py-2 rounded text-sm"
-        disabled={ 12}
+        disabled={12}
       >
-        Pay ₹2,559
+        Pay ₹{itemPriceForOrdSum}
       </button>
     </div>
   );

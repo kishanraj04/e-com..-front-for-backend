@@ -26,6 +26,9 @@ import CheckoutPage from "./pages/Checkout.jsx";
 import { GlobalProvider } from "./context/globalContect";
 import Payment from "./components/checkout/Payment.jsx";
 import PayByUpi from "./components/checkout/PayByUpi.jsx";
+import PayByCard from "./components/checkout/PayByCard.jsx";
+import PayByNetBanking from "./components/checkout/PayByNetBanking.jsx";
+import PayByGiftCard from "./components/checkout/PayByGiftCard.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -73,6 +76,18 @@ const routes = createBrowserRouter([
         {
           path:"/home/product/payment/upi",
           element:<PayByUpi/>
+        },
+        {
+          path:"/home/product/payment/card",
+          element:<PayByCard/>
+        },
+        {
+          path:"/home/product/payment/net-bankin",
+          element:<PayByNetBanking/>
+        },
+        {
+          path:"/home/product/payment/gift-card",
+          element:<PayByGiftCard/>
         }
       ] },
     ],

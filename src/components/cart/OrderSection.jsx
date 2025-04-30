@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useGetAllCartItemQuery } from "../../../api/apiCallingForCart";
 import { useSelector } from "react-redux";
 import { priceForOrderSummary, totalPrice } from "../../helper/helper";
 import { Link } from "react-router";
+import { GlobalContect } from "../../context/globalContect";
 
 function OrderSection({allCartItem,flagForOrderSummary}) {
   const [totalPrices,setToatalPrice] = useState(0);
+  const {itemPriceForOrdSum,setItemPriceForOrdSum} = useContext(GlobalContect)
   console.log(allCartItem);
   useEffect(()=>{
     if(flagForOrderSummary){
       setToatalPrice(priceForOrderSummary(allCartItem))
+      setItemPriceForOrdSum(Math.floor(priceForOrderSummary(allCartItem)))
     }else{
        setToatalPrice(totalPrice(allCartItem))    
     }
