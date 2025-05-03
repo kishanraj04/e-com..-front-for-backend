@@ -41,6 +41,15 @@ const apiCallingForContact = apiSlice.injectEndpoints({
       invalidatesTags: ["deliveryAddress"],   
     }),
 
+    deleteDeliveryAddress:builder.mutation({
+      query:(id)=>({
+        url:`user/delete/delivery-address/${id}`,
+        method:"DELETE",
+        credentials:"include"
+      }),
+      invalidatesTags:["deliveryAddress"]
+    })
+
   }),
 });
 
@@ -48,5 +57,6 @@ export const {
   useSaveContactMutation, 
   useSaveAddressMutation, 
   useGetAllDeliveryAddressQuery, 
-  useUpdateDeliveryAddressMutation 
+  useUpdateDeliveryAddressMutation,
+  useDeleteDeliveryAddressMutation
 } = apiCallingForContact;

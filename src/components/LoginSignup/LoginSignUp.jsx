@@ -68,8 +68,8 @@ const SignInSignUp = () => {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100 select-none">
-      <div className="relative w-4/5 max-w-4xl h-[600px] shadow-lg rounded-lg overflow-hidden">
+    <div className="flex h-screen items-center justify-center bg-gray-100 select-none ">
+      <div className="relative w-4/5 max-w-4xl h-[600px] shadow-lg rounded-lg overflow-hidden flex-col">
         {/* Left Section: Sign In */}
         <div
           className={`absolute w-1/2 h-full bg-white p-8 flex flex-col justify-center transform transition-transform duration-500 ease-in-out ${

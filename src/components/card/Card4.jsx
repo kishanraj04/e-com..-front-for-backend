@@ -19,7 +19,7 @@ export default function Card4({ item, allCartItem }) {
   const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
   const [deleteItemFromWishList,deleteWishListResp] = useDeleteWishListItemMutation()
   return (
-    <div className="w-64 p-6 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-white text-center  select-none">
+    <div className="w-full p-6 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-white text-center  select-none">
       {/* Product Image */}
       <div className="flex justify-center">
         <Link to={`/home/product/detail/${item?._id}`} state={item?._id}>

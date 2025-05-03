@@ -14,13 +14,14 @@ function SearchPage() {
   const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
     skip: !loggedInUserId,
   });
+  console.log(state);
   const searchData = state?.data?.data;
   return (
     <>
     {
       !searchData?<NotFound/> :  <div className="w-[100%]">
 
-      <div className="w-[100%] flex justify-center items-center">
+      <div className="w-[100%] flex justify-center items-center mt-4">
         <div className="flex flex-wrap justify-center gap-3 w-[98%]">
           {searchData &&
             searchData.map((product, idx) => (

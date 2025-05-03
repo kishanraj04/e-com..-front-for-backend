@@ -29,6 +29,7 @@ import PayByUpi from "./components/checkout/PayByUpi.jsx";
 import PayByCard from "./components/checkout/PayByCard.jsx";
 import PayByNetBanking from "./components/checkout/PayByNetBanking.jsx";
 import PayByGiftCard from "./components/checkout/PayByGiftCard.jsx";
+import Dashbord from "./pages/Dashbord.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -92,6 +93,10 @@ const routes = createBrowserRouter([
       ] },
     ],
   },
+  {
+    path:'/admin/dashboard',
+    element:<Dashbord/>
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(

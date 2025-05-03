@@ -20,16 +20,17 @@ import {
 import { handleDeleteFromWishList } from "../../../utils/handleDeleteFromWishList";
 
 export default function Card2({ item, allCartItem }) {
-
   const userId = useSelector((state) => state?.auth?.loggedInUserName?._id);
   const [addInCart, cartResp] = useAddInCartMutation();
   const [removeFromCart, respStatus] = useRemoveFromCartMutation();
   const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
   const { data: wishListData } = useGetAllWishListItemQuery();
-  const [deleteItemFromWishList,deleteWishListResp] = useDeleteWishListItemMutation()
+  const [deleteItemFromWishList, deleteWishListResp] =
+    useDeleteWishListItemMutation();
 
   return (
-    <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-red-50 relative  select-none">
+    <div className="w-full p-4 border rounded-lg shadow-md bg-gradient-to-br from-yellow-50 to-red-50 relative select-none">
+
       {/* Product Name and Quantity */}
       <div className="flex justify-between items-start">
         <h2 className="font-semibold">{item?.title}</h2>
@@ -65,10 +66,17 @@ export default function Card2({ item, allCartItem }) {
           )}
         </button>
         <button className="text-red-500 text-2xl">
-          {
-            !isExisting(wishListData?.wishListData,item?._id) ?<CiHeart onClick={() => handleAddToWishList(item, addWishListItem)} />
-            : <RiHeartFill onClick={() => handleDeleteFromWishList(item,deleteItemFromWishList)}/>
-          }
+          {!isExisting(wishListData?.wishListData, item?._id) ? (
+            <CiHeart
+              onClick={() => handleAddToWishList(item, addWishListItem)}
+            />
+          ) : (
+            <RiHeartFill
+              onClick={() =>
+                handleDeleteFromWishList(item, deleteItemFromWishList)
+              }
+            />
+          )}
         </button>
       </div>
     </div>

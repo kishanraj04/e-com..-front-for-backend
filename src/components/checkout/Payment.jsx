@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
+import { GlobalContect } from "../../context/globalContect";
 
 export default function Payment() {
   const [selectedOption, setSelectedOption] = useState("UPI");
   const [upiId, setUpiId] = useState("");
-  const navigate = useNavigate()
+  const { itemPriceForOrdSum } = useContext(GlobalContect);
+
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto bg-white shadow-md rounded-lg grid grid-cols-1 md:grid-cols-12">
@@ -12,23 +15,29 @@ export default function Payment() {
         <div className="md:col-span-4 border-r p-4">
           <div className="space-y-4">
             {[
-              ["UPI","/home/product/payment/upi"],
-              ["Credit / Debit / ATM Card","/home/product/payment/card"],
-              ["Net Banking","/home/product/payment/net-bankin"],
-              ["Have a Flipkart Gift Card?","/home/product/payment/gift-card"],
+              ["UPI", "/home/product/payment/upi"],
+              ["Credit / Debit / ATM Card", "/home/product/payment/card"],
+              ["Net Banking", "/home/product/payment/net-bankin"],
+              ["Have a Flipkart Gift Card?", "/home/product/payment/gift-card"],
               ["Cash on Delivery"],
               ["Wallet"],
             ].map((item) => (
               <div
                 key={item}
                 className={`p-4 rounded cursor-pointer border ${
-                  selectedOption === item[0] ? "border-blue-500 bg-blue-500" : "hover:shadow"
-                } ${["Cash on Delivery", "Wallet"].includes(item[0]) ? "text-gray-400 cursor-not-allowed" : ""}`}
-                onClick={() =>
-                  {
-                    navigate(item[1])
-                    !["Cash on Delivery", "Wallet"].includes(item[0]) && setSelectedOption(item[0])}
-                }
+                  selectedOption === item[0]
+                    ? "border-blue-500 bg-blue-500"
+                    : "hover:shadow"
+                } ${
+                  ["Cash on Delivery", "Wallet"].includes(item[0])
+                    ? "text-gray-400 cursor-not-allowed"
+                    : ""
+                }`}
+                onClick={() => {
+                  navigate(item[1]);
+                  !["Cash on Delivery", "Wallet"].includes(item[0]) &&
+                    setSelectedOption(item[0]);
+                }}
               >
                 <h4 className="font-semibold text-sm">{item[0]}</h4>
                 {item[0] === "UPI" && (
@@ -56,7 +65,7 @@ export default function Payment() {
 
         {/* Center - UPI Form Block */}
         <div className="md:col-span-4 border-r p-4">
-          <Outlet/>
+          <Outlet />
         </div>
 
         {/* Right - Summary */}
@@ -64,8 +73,8 @@ export default function Payment() {
           <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
             <h4 className="font-semibold mb-3">Price Details</h4>
             <div className="flex justify-between text-sm mb-2">
-              <span>Price (5 items)</span>
-              <span>₹2,556</span>
+              <span>Price </span>
+              <span>₹{itemPriceForOrdSum}</span>
             </div>
             <div className="flex justify-between text-sm mb-2">
               <span>Delivery Charges</span>
@@ -78,20 +87,19 @@ export default function Payment() {
             <hr className="my-2" />
             <div className="flex justify-between font-semibold text-base">
               <span>Total Amount</span>
-              <span>₹2,559</span>
+              <span>₹{itemPriceForOrdSum+3}</span>
             </div>
           </div>
 
           <div className="bg-green-50 border border-green-200 p-4 rounded-lg flex items-center justify-between">
             <div>
-              <p className="text-green-800 font-semibold text-sm">5% Cashback</p>
-              <p className="text-xs text-green-600">Claim now with payment offers</p>
+              <p className="text-green-800 font-semibold text-sm">
+                5% Cashback
+              </p>
+              <p className="text-xs text-green-600">
+                Claim now with payment offers
+              </p>
             </div>
-            <img
-              src="https://img.icons8.com/color/32/axis-bank.png"
-              alt="Axis Logo"
-              className="w-6 h-6"
-            />
           </div>
         </div>
       </div>

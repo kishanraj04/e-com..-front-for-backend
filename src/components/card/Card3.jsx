@@ -22,7 +22,7 @@ export default function Card3({ item, allCartItem }) {
   const [addWishListItem, addWishListResp] = useAddWishListItemMutation();
   const [deleteItemFromWishList,deleteWishListResp] = useDeleteWishListItemMutation()
   return (
-    <div className="w-64 p-4 border rounded-lg shadow-md bg-gradient-to-br from-red-50 to-white relative  select-none">
+    <div className="w-full p-4 border rounded-lg shadow-md bg-gradient-to-br from-red-50 to-white relative  select-none">
       {/* Sale Tag */}
       <span className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded">
         sale

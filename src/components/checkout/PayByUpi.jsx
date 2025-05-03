@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GlobalContect } from "../../context/globalContect";
 
 function PayByUpi() {
   const { itemPriceForOrdSum } = useContext(GlobalContect);
-  
+  const [upiId,setUpiId] = useState('')
   return (
     <div className="bg-gray-100 p-4 rounded-lg space-y-4 h-full">
       <div className="flex justify-between items-center">
@@ -15,7 +15,7 @@ function PayByUpi() {
       <input
         type="text"
         placeholder="Enter your UPI ID"
-        value={10}
+        value={upiId}
         onChange={(e) => setUpiId(e.target.value)}
         className="border w-full px-3 py-2 rounded text-sm"
       />

@@ -155,8 +155,8 @@ function DetailedPage() {
           </h1>
         </div>
 
-        <div className="w-[100%] flex justify-center items-center">
-          <div className="flex flex-wrap justify-center gap-3 w-[98%]">
+        <div className="w-[100%] flex justify-center items-center p-4">
+          <div className="grid grid-cols-2 max-sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-8 gap-4">
             {categoryData?.data &&
               categoryData?.data?.map((product, idx) => (
                 <Card3 key={idx} item={product} />

@@ -14,10 +14,9 @@ const CartPage = () => {
   });
   console.log(allCartItem);
   return (
-    <div className="p-6 bg-gray-100 min-h-screen flex flex-col lg:flex-row justify-center gap-6">
+    <div className="p-4 sm:p-6 bg-gray-100 min-h-screen flex flex-col lg:flex-row items-start justify-center gap-6">
       <CartDetails />
-
-      <OrderSection allCartItem={allCartItem?.cartItem}/>
+      <OrderSection allCartItem={allCartItem?.cartItem} />
     </div>
   );
 };

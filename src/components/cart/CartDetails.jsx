@@ -32,75 +32,67 @@ function CartDetails() {
   return (
     <>
       {/* Cart Items Section */}
-      <div className="w-full lg:w-3/4 bg-white shadow rounded-lg p-6 h-screen overflow-y-scroll ">
-        <h2 className="text-2xl font-bold mb-4">
+      <div className="w-full lg:w-3/4 bg-white shadow rounded-lg p-4 sm:p-6 h-[70vh] lg:h-screen overflow-y-auto">
+        <h2 className="text-xl sm:text-2xl font-bold mb-4">
           YOUR BAG ({cartData?.length} ITEMS)
         </h2>
-        <div className="space-y-6">
-          {cartData &&
-            cartData.map((item,idx) => (
-              <div
-                key={idx}
-                className="flex items-center justify-between p-4 border rounded-lg"
-              >
-                <div className="flex items-center gap-4 w-[50%]">
-                  <img
-                    src={item?.images[0]}
-                    alt={item?.name}
-                    className="w-20 h-20 object-cover rounded"
-                  />
-                  <div>
-                    <h3 className="font-semibold">{item?.name}</h3>
-                    <p className="text-sm text-gray-500">
-                      Rating: {item?.title} Stars
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Rating: {item?.rating} Stars
-                    </p>
-                  </div>
-                </div>
 
-                <div className="flex justify-center items-center w-[10%]">
-                  <p className="font-bold text-center">
-                    ${Math.floor(item?.price)* item?.qty|| 20}
+        <div className="space-y-4">
+          {cartData?.map((item, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 border rounded-lg"
+            >
+              {/* Product Info */}
+              <div className="flex items-center gap-4 w-full sm:w-[50%]">
+                <img
+                  src={item?.images[0]}
+                  alt={item?.name}
+                  className="w-20 h-20 object-cover rounded"
+                />
+                <div>
+                  <h3 className="font-semibold">{item?.name}</h3>
+                  <p className="text-sm text-gray-500">Title: {item?.title}</p>
+                  <p className="text-sm text-gray-500">
+                    Rating: {item?.rating} Stars
                   </p>
                 </div>
-
-                {/* Quantity Controls */}
-                <div className="flex items-center justify-center  w-[40%]">
-                  <button
-                    className="p-2 bg-gray-200 hover:bg-gray-300"
-                    // onClick={() => decreaseQuantity(item?.id)}
-                  >
-                    <FaMinus
-                      onClick={() => {
-                        if (item?.qty > 1) {
-                          decreaseCartItemQty(decreaseItemQty, item?._id);
-                        } else {
-                          deleteItemFromCart(item, removerFromCart);
-                        }
-                      }}
-                    />
-                  </button>
-                  <span className="px-4">{item?.qty}</span>
-                  <button className="p-2 bg-gray-200 hover:bg-gray-300">
-                    <FaPlus
-                      onClick={
-                        item?.qty >= item?.stock
-                          ? undefined
-                          : () =>
-                              increaseCartItemQty(increaseItemQty, item?._id)
-                      }
-                      className={
-                        item?.qty >= item?.stock
-                          ? "cursor-not-allowed opacity-50"
-                          : "cursor-pointer"
-                      }
-                    />
-                  </button>
-                </div>
               </div>
-            ))}
+
+              {/* Price */}
+              <div className="w-full sm:w-[10%] text-center font-bold">
+                ${Math.floor(item?.price) * item?.qty || 20}
+              </div>
+
+              {/* Quantity Controls */}
+              <div className="flex items-center gap-2 w-full sm:w-[30%] justify-start sm:justify-center">
+                <button
+                  className="p-2 bg-gray-200 hover:bg-gray-300 rounded"
+                  onClick={() =>
+                    item?.qty > 1
+                      ? decreaseCartItemQty(decreaseItemQty, item?._id)
+                      : deleteItemFromCart(item, removerFromCart)
+                  }
+                >
+                  <FaMinus />
+                </button>
+                <span className="px-2">{item?.qty}</span>
+                <button
+                  className={`p-2 rounded ${
+                    item?.qty >= item?.stock
+                      ? "bg-gray-300 cursor-not-allowed opacity-50"
+                      : "bg-gray-200 hover:bg-gray-300"
+                  }`}
+                  onClick={() =>
+                    item?.qty < item?.stock &&
+                    increaseCartItemQty(increaseItemQty, item?._id)
+                  }
+                >
+                  <FaPlus />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </>

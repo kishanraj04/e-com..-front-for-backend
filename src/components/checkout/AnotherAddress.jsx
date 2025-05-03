@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
+  useDeleteDeliveryAddressMutation,
   useGetAllDeliveryAddressQuery,
 } from "../../../api/apiCallingForContact";
 import AddressForm from "./NewAddressForm";
 import { GlobalContect } from "../../context/globalContect";
+import { MdDeleteOutline } from "react-icons/md";
+import { deleteUserDeliveryAddress } from "../../../utils/saveDeliveryAddress";
 
 function AnotherAddress() {
   const [idFlag, setIdFlag] = useState("");  // selected id
   const [userDeliveryAddress, setUserDeliveryAddress] = useState([]);
-  
+  const [deleteUserDelAddress,deleteResp] = useDeleteDeliveryAddressMutation()
   const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
   
   const { data: deliveryAdddress } = useGetAllDeliveryAddressQuery(loggedInUserId, { skip: !loggedInUserId });
@@ -96,7 +99,8 @@ function AnotherAddress() {
 
           {/* Deliver Here Button */}
           {idFlag === address._id &&  (
-            <button
+           <div className="flex justify-between items-center">
+             <button
               className="bg-orange-400 text-white py-1 px-4 rounded"
               onClick={()=>{handleDeliverHere()
                 setIsDeliverHereFlag(true)
@@ -104,7 +108,10 @@ function AnotherAddress() {
             >
               Deliver Here
             </button>
+            <MdDeleteOutline size={"1.3rem"} color="red" onClick={()=>deleteUserDeliveryAddress(deleteUserDelAddress,address?._id)}/>
+           </div>
           )}
+          
         </div>
       ))}
     </>

@@ -23,3 +23,15 @@ export const updateDeliveryAddressFun = async(address,updateAddressValue)=>{
         toast.error(error?.message)
     }
 }
+
+export const deleteUserDeliveryAddress = async(deleteDelAddress,id)=>{
+    try {
+        const deletedResp = await deleteDelAddress(id)
+        console.log(deletedResp);
+        if(deletedResp?.data?.success){
+            toast.success("address deleted")
+        }
+    } catch (error) {
+        toast.error("deletion failed")
+    }
+}

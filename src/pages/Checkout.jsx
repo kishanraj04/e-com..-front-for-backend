@@ -21,7 +21,7 @@ const CheckoutPage = () => {
   }, [location.pathname]);
   
   return (
-    <div className="flex">
+    <div className="flex max-sm:flex-col">
       <div className="w-[100%] mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left Side - Login, Address, Order Summary */}
         <div className="md:col-span-2 space-y-6">
