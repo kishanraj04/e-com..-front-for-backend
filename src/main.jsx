@@ -31,6 +31,7 @@ import PayByNetBanking from "./components/checkout/PayByNetBanking.jsx";
 import PayByGiftCard from "./components/checkout/PayByGiftCard.jsx";
 import Dashbord from "./pages/Dashbord.jsx";
 import { DashBoardProvider } from "./context/contextForDashBoard.jsx";
+import Ecommerce from "./components/dashbord/Ecommerce.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -96,7 +97,11 @@ const routes = createBrowserRouter([
   },
   {
     path:'/admin/dashboard',
-    element:<DashBoardProvider><Dashbord/></DashBoardProvider>
+    element:<DashBoardProvider><Dashbord/></DashBoardProvider>,
+    children:[{
+      path:'/admin/dashboard/ecommerce',
+      element:<Ecommerce/>
+    }]
   }
 ]);
 
