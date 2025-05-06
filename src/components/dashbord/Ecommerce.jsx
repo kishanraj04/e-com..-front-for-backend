@@ -11,7 +11,7 @@ export default function Ecommerce() {
         <Card title="Sales by Country" value="India ₹95K (65%)" />
       </div>
 
-      <div className="grid grid-cols-1 min-w-[80%]  md:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 min-w-[70%]  md:grid-cols-3 gap-4 mb-6">
         <div className="bg-white rounded-2xl p-4 shadow-md col-span-2">
           <h2 className="text-lg font-semibold mb-2">Earning Report</h2>
           {/* Placeholder chart */}
@@ -36,7 +36,7 @@ export default function Ecommerce() {
         </div>
       </div>
 
-      {/* <div className="bg-white rounded-2xl  w-[70%] p-4 shadow-md">
+      <div className="bg-white rounded-2xl min-w-[70%] shadow-md max-sm:hidden">
         <h2 className="text-lg font-semibold mb-4">Recent Orders</h2>
         <table className="w-full text-sm text-left">
           <thead>
@@ -70,7 +70,7 @@ export default function Ecommerce() {
             </tr>
           </tbody>
         </table>
-      </div> */}
+      </div>
     </div>
   );
 }

@@ -32,6 +32,9 @@ import PayByGiftCard from "./components/checkout/PayByGiftCard.jsx";
 import Dashbord from "./pages/Dashbord.jsx";
 import { DashBoardProvider } from "./context/contextForDashBoard.jsx";
 import Ecommerce from "./components/dashbord/Ecommerce.jsx";
+import Analytics from "./components/dashbord/Analytics.jsx";
+import All_Product from "./components/dashbord/All_Product.jsx";
+import Add_product from "./components/dashbord/Add_product.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -75,34 +78,55 @@ const routes = createBrowserRouter([
       { path: "/home/search", element: <SearchPage /> },
       { path: "/home/wish-list", element: <WishListPage /> },
       { path: "/home/checkout", element: <CheckoutPage /> },
-      { path: "/home/product/payment", element: <Payment />, children: [
-        {
-          path:"/home/product/payment/upi",
-          element:<PayByUpi/>
-        },
-        {
-          path:"/home/product/payment/card",
-          element:<PayByCard/>
-        },
-        {
-          path:"/home/product/payment/net-bankin",
-          element:<PayByNetBanking/>
-        },
-        {
-          path:"/home/product/payment/gift-card",
-          element:<PayByGiftCard/>
-        }
-      ] },
+      {
+        path: "/home/product/payment",
+        element: <Payment />,
+        children: [
+          {
+            path: "/home/product/payment/upi",
+            element: <PayByUpi />,
+          },
+          {
+            path: "/home/product/payment/card",
+            element: <PayByCard />,
+          },
+          {
+            path: "/home/product/payment/net-bankin",
+            element: <PayByNetBanking />,
+          },
+          {
+            path: "/home/product/payment/gift-card",
+            element: <PayByGiftCard />,
+          },
+        ],
+      },
     ],
   },
   {
-    path:'/admin/dashboard',
-    element:<DashBoardProvider><Dashbord/></DashBoardProvider>,
-    children:[{
-      path:'/admin/dashboard/ecommerce',
-      element:<Ecommerce/>
-    }]
-  }
+    path: "/admin/dashboard",
+    element: (
+      <DashBoardProvider>
+        <Dashbord />
+      </DashBoardProvider>
+    ),
+    children: [
+      {
+        path: "/admin/dashboard/Ecommerce",
+        element: <Ecommerce />,
+      },
+      {
+        path:"/admin/dashboard/Analytics",
+        element:<Analytics/>
+      },
+      {
+        path:"/admin/dashboard/All Product",
+        element:<All_Product/>
+      },{
+        path:"/admin/dashboard/Add Product",
+        element:<Add_product/>
+      }
+    ],
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(

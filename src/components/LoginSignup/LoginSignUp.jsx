@@ -41,6 +41,7 @@ const SignInSignUp = () => {
           email: emailRef.current.value,
           password: passwordRef.current.value,
         }).unwrap();
+        console.log(singInResponse);
         if (singInResponse.success) {
           toast.success("Login Success");
           dispatch(updateLoggedInUserStatus(singInResponse))

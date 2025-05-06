@@ -9,7 +9,7 @@ function DashBoardHeader() {
   const [searchInput, setSearchInput] = useState("");
 
   return (
-    <header className="bg-black text-white w-full shadow-md">
+    <header className="bg-black text-white w-full shadow-md min-h-[4rem]">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Logo & Sidebar Toggle */}
         <div className="flex items-center justify-between w-full md:w-auto">

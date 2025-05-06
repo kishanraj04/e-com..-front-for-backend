@@ -33,6 +33,14 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
         credentials:'include'
       })
     }),
+    getAllCategory:builder.query({
+      query:()=>({
+          url:'product/distinct/category',
+          credentials:"include",
+
+      }),
+      providesTags:["Product"]
+    }),
     deleteSingleProduct:builder.query({}),
     searchProduct:builder.query({
       query:(productname)=>({
@@ -50,4 +58,4 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
   }),                 
 });
 
-export const {useCreateProductMutation,useDeleteReviewMutation,useDeleteSingleProductQuery,useGetAllProductQuery,useGetAllReviewQuery,useGetSinglePorductQuery,usePriceFilterQuery,useProductViewQuery,useLazySearchProductQuery,useUpdateProductMutation,useGetCategoryQuery,useGetPageWiseProductQuery} = apicallingForProduct;
+export const {useCreateProductMutation,useDeleteReviewMutation,useDeleteSingleProductQuery,useGetAllProductQuery,useGetAllReviewQuery,useGetSinglePorductQuery,usePriceFilterQuery,useProductViewQuery,useLazySearchProductQuery,useUpdateProductMutation,useGetCategoryQuery,useGetPageWiseProductQuery,useGetAllCategoryQuery} = apicallingForProduct;

@@ -57,7 +57,7 @@ function Home() {
     { title: "Rs. 1000 and above", price: 1000 },
   ];
   const { data: allProduct, allProductResp } = useGetAllProductQuery();
-  console.log(priceRange);
+  // console.log(priceRange);
   return (
     <>
       {/* banner */}

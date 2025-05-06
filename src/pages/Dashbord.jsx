@@ -12,21 +12,21 @@ function Dashbord() {
       <DashBoardHeader />
 
       <div
-        className={`grid h-[25rem]  grid-cols-[auto_1fr] w-full duration-700 bg-transparent  transition-all duration-300 ${
+        className={`grid h-[25rem] w-[100%]  grid-cols-[auto_1fr] duration-700 bg-transparent  transition-all  ${
           theam ? "bg-black" : "bg-white"
         }`}
       >
         <div
-          className={`transition-all h-[25rem]  duration-300 z-50 overflow-hidden ${
-            !toggleSideBar ? "w-[100%]" : "w-0"
+          className={`transition-all h-[25rem] min-w-[100%]  duration-300 z-50 overflow-hidden ${
+            !toggleSideBar ? "min-w-[100%]" : "w-0"
           }`}
         >
           <DashBoardSideBar />
         </div>
 
         <div
-          className={`w-full transition-all duration-300 ${
-            theam ? "bg-black duration-700" : "bg-white"
+          className={` transition-all min-w-[80%]  duration-300 ${
+            !theam ? "bg-black duration-700" : "bg-white"
           }`}
         >
             <Outlet />
