@@ -13,6 +13,7 @@ function AnotherAddress() {
   const [idFlag, setIdFlag] = useState("");  // selected id
   const [userDeliveryAddress, setUserDeliveryAddress] = useState([]);
   const [deleteUserDelAddress,deleteResp] = useDeleteDeliveryAddressMutation()
+  const {finalDeliveryAdddress,setFinalDeliveryAddress} = useContext(GlobalContect)
   const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
   
   const { data: deliveryAdddress } = useGetAllDeliveryAddressQuery(loggedInUserId, { skip: !loggedInUserId });
@@ -58,7 +59,10 @@ function AnotherAddress() {
               type="radio"
               name="address"
               checked={address._id === idFlag}
-              onChange={() => setIdFlag(address._id)}
+              onChange={() => {
+                setIdFlag(address._id)
+                setFinalDeliveryAddress(address)
+              }}
             />
             <div className="flex w-full justify-between">
               <p className="font-semibold">

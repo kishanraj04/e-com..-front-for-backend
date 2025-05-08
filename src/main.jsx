@@ -35,6 +35,7 @@ import Ecommerce from "./components/dashbord/Ecommerce.jsx";
 import Analytics from "./components/dashbord/Analytics.jsx";
 import All_Product from "./components/dashbord/All_Product.jsx";
 import Add_product from "./components/dashbord/Add_product.jsx";
+import PayByCash from "./components/checkout/PayByCash.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -97,6 +98,10 @@ const routes = createBrowserRouter([
           {
             path: "/home/product/payment/gift-card",
             element: <PayByGiftCard />,
+          },
+          {
+            path: "/home/product/payment/cash-on-delivery",
+            element: <PayByCash/>,
           },
         ],
       },

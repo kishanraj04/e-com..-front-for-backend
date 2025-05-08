@@ -12,6 +12,7 @@ import { GlobalContect } from "../../context/globalContect";
 
 const AddressForm = ({ address }) => {
   const [saveDeliveryAddressApi] = useSaveAddressMutation();
+  
   const [deliveryAddress, setDeliveryAddress] = useState({
     name: "",
     contact: "",
@@ -24,6 +25,7 @@ const AddressForm = ({ address }) => {
     alternatecontact: "",
     addressType: "",
   });
+  
   const [updateDeliveryAddressApi, updatedResponse] =
     useUpdateDeliveryAddressMutation();
 
@@ -137,31 +139,6 @@ const AddressForm = ({ address }) => {
         />
       </div>
 
-      {/* Address Type */}
-      <div className="flex items-center gap-6">
-        <label className="flex items-center gap-2">
-          <input
-            type="radio"
-            name="addressType"
-            value="Home"
-            checked={deliveryAddress.addressType === address?.addressType}
-            onChange={handleChange}
-            className="accent-blue-600"
-          />
-          <span>Home (All day delivery)</span>
-        </label>
-        <label className="flex items-center gap-2">
-          <input
-            type="radio"
-            name="addressType"
-            value="Work"
-            checked={deliveryAddress.addressType === "Work"}
-            onChange={handleChange}
-            className="accent-blue-600"
-          />
-          <span>Work (Delivery between 10 AM - 5 PM)</span>
-        </label>
-      </div>
 
       {/* Buttons */}
       <div className="flex items-center gap-6">

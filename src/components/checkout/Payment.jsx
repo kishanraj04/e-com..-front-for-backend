@@ -19,23 +19,18 @@ export default function Payment() {
               ["Credit / Debit / ATM Card", "/home/product/payment/card"],
               ["Net Banking", "/home/product/payment/net-bankin"],
               ["Have a Flipkart Gift Card?", "/home/product/payment/gift-card"],
-              ["Cash on Delivery"],
-              ["Wallet"],
+              ["Cash on Delivery","/home/product/payment/cash-on-delivery"],
             ].map((item) => (
               <div
                 key={item}
-                className={`p-4 rounded cursor-pointer border ${
+                className={`p-4 rounded cursor-pointer border select-none ${
                   selectedOption === item[0]
                     ? "border-blue-500 bg-blue-500"
                     : "hover:shadow"
-                } ${
-                  ["Cash on Delivery", "Wallet"].includes(item[0])
-                    ? "text-gray-400 cursor-not-allowed"
-                    : ""
                 }`}
                 onClick={() => {
                   navigate(item[1]);
-                  !["Cash on Delivery", "Wallet"].includes(item[0]) &&
+                  ![].includes(item[0]) &&
                     setSelectedOption(item[0]);
                 }}
               >

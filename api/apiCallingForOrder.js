@@ -1,18 +1,21 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import apiSlice from "./commonApiSlice";
 
-export const apicallingForOrder = createApi({
-  reducerPath:'orderApi',
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
+export const apiCallingForOrder = apiSlice.injectEndpoints({
+  reducerPath: "orderApi",
   endpoints: (builder) => ({
-
-    // order specific endpoints
-    orderProduct:builder.mutation({}),
-    getAllOrder:builder.query({}),
-    getSingleProduct:builder.query({}),
-    getMyOrder:builder.query({}),
-    updateShipp:builder.mutation({})
-
+    orderTheProduct: builder.mutation({
+      query: (data) => ({
+        url: "order",
+        method: "POST",
+        credentials: "include",
+        body: data,
+      }),
+      invalidatesTags:["Product"]
+    }),   
   }),
 });
 
-export const {useGetAllOrderQuery,useGetMyOrderQuery,useGetSingleProductQuery,useOrderProductMutation,useUpdateShippMutation} = apicallingForOrder;
+export const {
+  useOrderTheProductMutation
+} = apiCallingForOrder;

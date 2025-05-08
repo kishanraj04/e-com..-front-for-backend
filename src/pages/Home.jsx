@@ -157,9 +157,9 @@ function Home() {
               <CiFilter size={"2rem"} />
               <h1 className="font-bold text-2xl ml-2">Category</h1>
             </div>
-            {category?.map((category) => (
+            {category?.map((category,idx) => (
               <CheckBox
-                key={category?.title}
+                key={idx}
                 type="checkbox"
                 name={category}
                 title={category}

@@ -10,11 +10,14 @@ export const GlobalProvider = ({ children }) => {
   const [allCartDataForOrderSummary, setAllCartDataForOrderSummary] = useState(
     []
   );
-  const [catFilter,setCatFilter] = useState([])
+  const [totalPrices, setToatalPrice] = useState(0);
+
+  const [catFilter, setCatFilter] = useState([]);
+  const [finalDeliveryAdddress, setFinalDeliveryAddress] = useState([]);
   const [itemQtyForOrderSummary, setItemQtyForOrderSummary] = useState({});
   const [itemPriceForOrdSum, setItemPriceForOrdSum] = useState(0);
   const [filterToggle, setFilterToggle] = useState(false);
-  const [priceRange,setPriceRange] = useState([])
+  const [priceRange, setPriceRange] = useState([]);
   useEffect(() => {
     const updatedCart = allCartDataForOrderSummary.map((product) => {
       const qty = itemQtyForOrderSummary[product?._id];
@@ -41,9 +44,15 @@ export const GlobalProvider = ({ children }) => {
         setItemQtyForOrderSummary,
         itemPriceForOrdSum,
         setItemPriceForOrdSum,
-        filterToggle,setFilterToggle,
-        catFilter,setCatFilter,
-        priceRange,setPriceRange
+        filterToggle,
+        setFilterToggle,
+        catFilter,
+        setCatFilter,
+        priceRange,
+        setPriceRange,
+        finalDeliveryAdddress,
+        setFinalDeliveryAddress,
+        totalPrices, setToatalPrice
       }}
     >
       {children}

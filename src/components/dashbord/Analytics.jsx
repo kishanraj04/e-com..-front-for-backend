@@ -13,7 +13,7 @@ function Analytics() {
     isLoading: isCatLoading,
   } = useGetAllCategoryQuery();
   const { data: allProduct, allProductResp } = useGetAllProductQuery();
-  if (isCatLoading) return <p>Loading...</p>;
+  if (isCatLoading) return <p>Loading...</p>
   if (isCatError || !category?.categories)
     return <p>Error loading categories</p>;
 
@@ -22,13 +22,13 @@ function Analytics() {
   // const dummyStockData = Array(categoryNames.length).fill(10);
 
   return (
-    <div>
+    <div className="flex flex-col gap-2  w-full">
       {/* bar graph that show the category and their stocks */}
-      <div className="border-[2px]">
+      <div className="border-[2px] ">
         <Chart
           type="bar"
           width="95%"
-          height={300}
+          height={500}
           series={[
             {
               name: "Total Stocks",
@@ -69,6 +69,27 @@ function Analytics() {
                 },
               },
             ],
+          }}
+        />
+      </div>
+
+      <div className="border-[2px]">
+        <Chart
+          type="pie"
+          width="95%"
+          height={500}
+          series={[]}
+          options={{
+            labels: ["a", "b", "c", "d"],
+            noData: {
+              text: "Empty Data",
+              align: "center",
+              verticalAlign: "middle",
+              style: {
+                fontSize: "14px",
+                color: "white",
+              },
+            },
           }}
         />
       </div>

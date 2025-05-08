@@ -6,8 +6,7 @@ import { Link } from "react-router";
 import { GlobalContect } from "../../context/globalContect";
 
 function OrderSection({ allCartItem, flagForOrderSummary }) {
-  const [totalPrices, setToatalPrice] = useState(0);
-  const { itemPriceForOrdSum, setItemPriceForOrdSum } =
+  const { itemPriceForOrdSum, setItemPriceForOrdSum,totalPrices, setToatalPrice } =
     useContext(GlobalContect);
   useEffect(() => {
     if (flagForOrderSummary) {
