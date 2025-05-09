@@ -19,7 +19,8 @@ export const apicallingForUser = apiSlice.injectEndpoints({
         url:'signUp',
         method:'POST',
         body:userData
-      })
+      }),
+      invalidatesTags:["User"]
     }),
     directLoginUser: builder.query({
       query:()=>({
@@ -45,11 +46,19 @@ export const apicallingForUser = apiSlice.injectEndpoints({
         url:'all-user',
         method:"GET",
         credentials:"include"
-      })
+      }),
+      providesTags:["User"]
     }),
     getSinglUser:builder.query({}),
     changeUserRole:builder.mutation({}),
-    deleteUser:builder.mutation({}),
+    deleteUser:builder.mutation({
+      query:(id)=>({
+        url:`delete/user/${id}`,
+        method:"DELETE",
+        credentials:"include"
+      }),
+      invalidatesTags:["User"]
+    }),
 
 
   }),

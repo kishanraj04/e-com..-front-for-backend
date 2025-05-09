@@ -27,7 +27,7 @@ function Analytics() {
     };
 
     fetchAndSetData();
-  }, []);
+  }, [allOrder]);
 
   if (isCatLoading) return <p>Loading...</p>;
   if (isCatError || !category?.categories)

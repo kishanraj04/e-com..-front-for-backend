@@ -5,42 +5,42 @@ import { getCartData } from "../../../utils/getCartData";
 import { useGetAllProductQuery } from "../../../api/apiCallingForProduct";
 import { handleDeleteFromWishList } from "../../../utils/handleDeleteFromWishList";
 
-const wishlistItems = [
-  {
-    id: 1,
-    name: "Divastri Women Kurta Pant Dupatta Set",
-    price: 436,
-    originalPrice: 2599,
-    discount: "83% off",
-    image: "https://via.placeholder.com/80",
-    unavailable: true,
-  },
-  {
-    id: 2,
-    name: "Royal Export Women Kurta Pant Dupatta Set",
-    price: "Not Available",
-    image: "https://via.placeholder.com/80",
-    unavailable: true,
-  },
-  {
-    id: 3,
-    name: "Roadster Full Sleeve Color Block Men Sweatshirt",
-    price: 640,
-    originalPrice: 1999,
-    discount: "67% off",
-    image: "https://via.placeholder.com/80",
-    unavailable: true,
-  },
-  {
-    id: 4,
-    name: "HRX by Hrithik Roshan Full Sleeve Solid Men Jacket",
-    price: 980,
-    originalPrice: 1999,
-    discount: "50% off",
-    image: "https://via.placeholder.com/80",
-    unavailable: false,
-  },
-];
+// const wishlistItems = [
+//   {
+//     id: 1,
+//     name: "Divastri Women Kurta Pant Dupatta Set",
+//     price: 436,
+//     originalPrice: 2599,
+//     discount: "83% off",
+//     image: "https://via.placeholder.com/80",
+//     unavailable: true,
+//   },
+//   {
+//     id: 2,
+//     name: "Royal Export Women Kurta Pant Dupatta Set",
+//     price: "Not Available",
+//     image: "https://via.placeholder.com/80",
+//     unavailable: true,
+//   },
+//   {
+//     id: 3,
+//     name: "Roadster Full Sleeve Color Block Men Sweatshirt",
+//     price: 640,
+//     originalPrice: 1999,
+//     discount: "67% off",
+//     image: "https://via.placeholder.com/80",
+//     unavailable: true,
+//   },
+//   {
+//     id: 4,
+//     name: "HRX by Hrithik Roshan Full Sleeve Solid Men Jacket",
+//     price: 980,
+//     originalPrice: 1999,
+//     discount: "50% off",
+//     image: "https://via.placeholder.com/80",
+//     unavailable: false,
+//   },
+// ];
 
 const Wishlist = () => {
   const { data: wishListData } = useGetAllWishListItemQuery();

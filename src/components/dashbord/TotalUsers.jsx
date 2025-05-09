@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useGetAllUserQuery } from "../../../api/apiCallingForUser";
+import { useDeleteUserMutation, useGetAllUserQuery } from "../../../api/apiCallingForUser";
 import { DashBoardContext } from "../../context/contextForDashBoard";
+import { deleteUser } from "../../../utils/logoutUser";
 
 function TotalUsers() {
   const {
@@ -10,6 +11,7 @@ function TotalUsers() {
     isError,
     error,
   } = useGetAllUserQuery();
+  const [deleteUserMethod,deleteResp] = useDeleteUserMutation()
   const [allUsers,setAllUsers] = useState([]);
   const {searchValue,setSearchValue} = useContext(DashBoardContext)
 
@@ -58,19 +60,21 @@ function TotalUsers() {
                 <tbody>
                   {allUsers.filter((user)=>user?.email?.toLowerCase().includes(searchValue.toLowerCase())).map((user) => (
                     <tr
-                      key={user.id}
+                      key={user?.id}
                       className="border-b hover:bg-gray-50 transition duration-200"
                     >
-                      <td className="py-3 px-4">{user.name}</td>
-                      <td className="py-3 px-4">{user.email}</td>
-                      <td className="py-3 px-4">{user.contact}</td>
+                      <td className="py-3 px-4">{user?.name}</td>
+                      <td className="py-3 px-4">{user?.email}</td>
+                      <td className="py-3 px-4">{user?.contact}</td>
                       <td className="py-3 px-4 text-center">
                         <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded">
                           Update
                         </button>
                       </td>
                       <td className="py-3 px-4 text-center">
-                        <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+                        <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded" onClick={()=>{
+                            deleteUser(deleteUserMethod,user?._id)
+                        }}>
                           Delete
                         </button>
                       </td>
