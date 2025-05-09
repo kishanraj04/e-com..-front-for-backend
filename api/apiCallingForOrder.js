@@ -12,10 +12,17 @@ export const apiCallingForOrder = apiSlice.injectEndpoints({
         body: data,
       }),
       invalidatesTags:["Product"]
-    }),   
+    }), 
+    getAllProductOrder:builder.query({
+      query:()=>({
+        url:'all-order',
+        method:"GET",
+        credentials:"include",
+      })
+    })  
   }),
 });
 
 export const {
-  useOrderTheProductMutation
+  useOrderTheProductMutation,useGetAllProductOrderQuery
 } = apiCallingForOrder;

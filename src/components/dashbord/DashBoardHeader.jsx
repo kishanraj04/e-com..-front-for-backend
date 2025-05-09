@@ -5,8 +5,8 @@ import { RiMenuFold3Line } from "react-icons/ri";
 import { DashBoardContext } from "../../context/contextForDashBoard";
 
 function DashBoardHeader() {
-  const { toggleSideBar, setToggleSideBar } = useContext(DashBoardContext);
-  const [searchInput, setSearchInput] = useState("");
+  const { toggleSideBar, setToggleSideBar,searchValue,setSearchValue} = useContext(DashBoardContext);
+  // const [searchInput, setSearchInput] = useState("");
 
   return (
     <header className="bg-black text-white w-full shadow-md min-h-[4rem]">
@@ -56,8 +56,8 @@ function DashBoardHeader() {
           <div className="flex flex-grow md:flex-grow-0 w-full md:w-80">
             <input
               type="text"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
               className="w-full px-3 py-1 text-sm text-black rounded-l-md focus:outline-none"
               placeholder="Search products..."
             />

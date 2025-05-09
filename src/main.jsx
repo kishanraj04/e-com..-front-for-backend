@@ -36,6 +36,7 @@ import Analytics from "./components/dashbord/Analytics.jsx";
 import All_Product from "./components/dashbord/All_Product.jsx";
 import Add_product from "./components/dashbord/Add_product.jsx";
 import PayByCash from "./components/checkout/PayByCash.jsx";
+import TotalUsers from "./components/dashbord/TotalUsers.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -129,6 +130,10 @@ const routes = createBrowserRouter([
       },{
         path:"/admin/dashboard/Add Product",
         element:<Add_product/>
+      },
+      {
+        path:"/admin/dashboard/User List",
+        element:<TotalUsers/>
       }
     ],
   },

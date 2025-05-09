@@ -8,9 +8,8 @@ function PayByCash() {
 
   const {allCartDataForOrderSummary,finalDeliveryAdddress,totalPrices} = useContext(GlobalContect)
   const idAndQty = allCartDataForOrderSummary.map((item)=>{
-    return {pid:item?._id,qty:item?.qty,price:item?.price}
+    return {pid:item?._id,qty:item?.qty,price:item?.price,category:item?.category}
   })
-  console.log(finalDeliveryAdddress);
   const [makeOrder,orderResp] = useOrderTheProductMutation()
   return (
     <div className='w-full'>

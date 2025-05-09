@@ -40,7 +40,13 @@ export const apicallingForUser = apiSlice.injectEndpoints({
     getMyProfile:builder.query({}),
     updateUserPassword:builder.mutation({}),
     updateUserProfile:builder.mutation({}),
-    getAllUser:builder.query({}),
+    getAllUser:builder.query({
+      query:()=>({
+        url:'all-user',
+        method:"GET",
+        credentials:"include"
+      })
+    }),
     getSinglUser:builder.query({}),
     changeUserRole:builder.mutation({}),
     deleteUser:builder.mutation({}),

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import {
   useGetAllCategoryQuery,
   useGetAllProductQuery,
 } from "../../../api/apiCallingForProduct";
 import { getStockForCat } from "../../../utils/dashBoard";
+import { useGetAllProductOrderQuery } from "../../../api/apiCallingForOrder";
+import { getCatAndQty } from "../../../utils/makeOrder";
 
 function Analytics() {
   const {
@@ -13,13 +15,26 @@ function Analytics() {
     isLoading: isCatLoading,
   } = useGetAllCategoryQuery();
   const { data: allProduct, allProductResp } = useGetAllProductQuery();
-  if (isCatLoading) return <p>Loading...</p>
+  const { data: allOrder } = useGetAllProductOrderQuery();
+  const [orderCategory, setOrderCategory] = useState([]);
+  const [orderQty, setOrderQty] = useState([]);
+  useEffect(() => {
+    const fetchAndSetData = async () => {
+      const res = await getCatAndQty(allOrder);
+      console.log(res);
+      setOrderCategory(res?.categories);
+      setOrderQty(res?.quantities);
+    };
+
+    fetchAndSetData();
+  }, []);
+
+  if (isCatLoading) return <p>Loading...</p>;
   if (isCatError || !category?.categories)
     return <p>Error loading categories</p>;
 
   const categoryNames = category?.categories?.map((cat) => cat);
   const stocks = getStockForCat(allProduct, categoryNames);
-  // const dummyStockData = Array(categoryNames.length).fill(10);
 
   return (
     <div className="flex flex-col gap-2  w-full">
@@ -78,9 +93,9 @@ function Analytics() {
           type="pie"
           width="95%"
           height={500}
-          series={[]}
+          series={orderQty} 
           options={{
-            labels: ["a", "b", "c", "d"],
+            labels: orderCategory, 
             noData: {
               text: "Empty Data",
               align: "center",

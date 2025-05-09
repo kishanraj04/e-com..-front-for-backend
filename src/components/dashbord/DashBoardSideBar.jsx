@@ -8,10 +8,16 @@ import {
 import { FaUser, FaBoxOpen } from "react-icons/fa";
 import { RiFileList2Line } from "react-icons/ri";
 import { DashBoardContext } from "../../context/contextForDashBoard";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { logoutUser } from "../../../utils/logoutUser";
+import { useLogOutUserMutation } from "../../../api/apiCallingForUser";
+import { useDispatch } from "react-redux";
 function DashBoardSideBar() {
   const { toggleSideBar, setToggleSideBar } = useContext(DashBoardContext);
   const [toggle,setToggle] = useState('')
+  const dispatch = useDispatch()
+    const [logOutUser, { isError, isSuccess, data }] = useLogOutUserMutation();
+  const navigate = useNavigate();
   const navItems = [
     { icon: <MdDashboard size="1.5rem" />, title: "Dashboard" , fields:['Ecommerce','Analytics']},
     { icon: <FaUser size="1.5rem" />, title: "User" ,fields:['Logout','Forget Password','User List','User Profile']},
@@ -43,7 +49,12 @@ function DashBoardSideBar() {
         <div className={`${toggle!=item.title?"hidden":""} w-full flex flex-col  pl-4 gap-2 transition-all duration-900 ease-in-out`}>
           {
             item?.fields?.map((field)=><Link to={`/admin/dashboard/${field}`}>
-              <p className="p-1 text-xl font-serif font-bold bg-orange-50 w-full hover:bg-orange-300 duration-500">{field}</p>
+              <p className="p-1 text-xl font-serif font-bold bg-orange-50 w-full hover:bg-orange-300 duration-500" onClick={async()=>{
+                if(field=='Logout'){
+                 const resp =  await logoutUser(logOutUser,navigate,dispatch)
+                 console.log(resp);
+                }
+              }}>{field}</p>
             </Link>)
           }
         </div>

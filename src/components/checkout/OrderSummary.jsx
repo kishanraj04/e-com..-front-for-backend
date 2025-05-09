@@ -23,7 +23,7 @@ function OrderSummary() {
   }, [allProduct, allCartItem]);
 
   useEffect(() => {
-    setAllCartDataForOrderSummary([...cartData]);
+    setAllCartDataForOrderSummary([...cartData.filter((cartItem)=>cartItem?.stock>=1)]);
   }, [cartData]);
 
   // Function to update quantity
@@ -40,7 +40,8 @@ function OrderSummary() {
 
   // Function to remove item
   const handleRemove = (productId) => {
-    const filteredCart = allCartDataForOrderSummary.filter((item) => item._id !== productId);
+    // console.log(allCartDataForOrderSummary);
+    const filteredCart = allCartDataForOrderSummary.filter((item) => item._id !== productId && item?.stock!=0);
     setAllCartDataForOrderSummary(filteredCart);
 
     setItemQty((prevQty) => {
