@@ -5,7 +5,6 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/v1/" }),
   endpoints: (builder) => ({
-    // products endpoints
     getAllProduct: builder.query({
       query: () => "all-product",
       providesTags: ["Product"],
@@ -39,7 +38,14 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
       }),
       providesTags: ["Product"],
     }),
-    deleteSingleProduct: builder.query({}),
+    deleteSingleProduct: builder.mutation({
+      query:(id)=>({
+        url:`product/${id}`,
+        method:"DELETE",
+        credentials:"include"
+      }),
+      invalidatesTags:["more_prod"]
+    }),
     searchProduct: builder.query({
       query: (productname) => ({
         url: `product/search/${productname}`,
@@ -56,7 +62,8 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
         url:`product/showmore/${range}`,
         method:"GET",
         credentials:"include"
-      })
+      }),
+      providesTags:["more_prod"]
     })
   }),
 });
@@ -64,7 +71,7 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
 export const {
   useCreateProductMutation,
   useDeleteReviewMutation,
-  useDeleteSingleProductQuery,
+  useDeleteSingleProductMutation,
   useGetAllProductQuery,
   useGetAllReviewQuery,
   useGetSinglePorductQuery,

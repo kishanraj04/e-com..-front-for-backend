@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useShowMoreProdQuery } from "../../../api/apiCallingForProduct";
+import { useDeleteSingleProductMutation,  useShowMoreProdQuery } from "../../../api/apiCallingForProduct";
 import Spinner from "../spinner/Spinner";
+import { toast } from "react-toastify";
 
 const products = [
   {
@@ -52,6 +53,7 @@ const products = [
 
 const All_Product = () => {
   const [rangeVal, setRangeVal] = useState(1);
+  const [deleteSingleProd,deletedResp] = useDeleteSingleProductMutation()
   const { data: moreProd, isLoading: moreProdLoading } =
     useShowMoreProdQuery(rangeVal);
   console.log(moreProd);
@@ -60,8 +62,16 @@ const All_Product = () => {
     console.log("Update product:", id);
   };
 
-  const handleDelete = (id) => {
-    console.log("Delete product:", id);
+  const handleDelete = async(id) => {
+    try {
+      const resp = await deleteSingleProd(id)
+      if(resp){
+        toast.success("product deleted")
+      }
+      console.log(resp);
+    } catch (error) {
+      
+    }
   };
 
   return (
