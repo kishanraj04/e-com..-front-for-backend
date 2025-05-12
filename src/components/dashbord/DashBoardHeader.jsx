@@ -3,9 +3,11 @@ import { MdOutlineMenuOpen } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { RiMenuFold3Line } from "react-icons/ri";
 import { DashBoardContext } from "../../context/contextForDashBoard";
+import { useNavigate } from "react-router";
 
 function DashBoardHeader() {
   const { toggleSideBar, setToggleSideBar,searchValue,setSearchValue} = useContext(DashBoardContext);
+  const navigate = useNavigate()
   // const [searchInput, setSearchInput] = useState("");
 
   return (
@@ -13,7 +15,7 @@ function DashBoardHeader() {
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Logo & Sidebar Toggle */}
         <div className="flex items-center justify-between w-full md:w-auto">
-          <h1 className="text-2xl font-bold">E-Shope</h1>
+          <h1 className="text-2xl font-bold select-none" onClick={()=>{navigate('/home')}}>E-Shope</h1>
 
           {/* Mobile toggle */}
           <div className="md:hidden ml-4">

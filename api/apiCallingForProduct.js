@@ -51,6 +51,13 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
     productView: builder.query({}),
     getAllReview: builder.query({}),
     deleteReview: builder.mutation({}),
+    showMoreProd:builder.query({
+      query:(range)=>({
+        url:`product/showmore/${range}`,
+        method:"GET",
+        credentials:"include"
+      })
+    })
   }),
 });
 
@@ -68,4 +75,5 @@ export const {
   useGetCategoryQuery,
   useGetPageWiseProductQuery,
   useGetAllCategoryQuery,
+  useShowMoreProdQuery
 } = apicallingForProduct;

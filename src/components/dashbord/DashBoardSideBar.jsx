@@ -20,7 +20,7 @@ function DashBoardSideBar() {
   const navigate = useNavigate();
   const navItems = [
     { icon: <MdDashboard size="1.5rem" />, title: "Dashboard" , fields:['Ecommerce','Analytics']},
-    { icon: <FaUser size="1.5rem" />, title: "User" ,fields:['Logout','Forget Password','User List','User Profile']},
+    { icon: <FaUser size="1.5rem" />, title: "User" ,fields:['Logout','Forget Password','User List']},
     { icon: <FaBoxOpen size="1.5rem" />, title: "Product" ,fields:['All Product','Add Product']},
     { icon: <RiFileList2Line size="1.5rem" />, title: "Invoice",fields:['Ecommerce','Analytics','Crm'] },
   ];

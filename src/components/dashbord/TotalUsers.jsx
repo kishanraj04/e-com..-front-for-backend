@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDeleteUserMutation, useGetAllUserQuery } from "../../../api/apiCallingForUser";
 import { DashBoardContext } from "../../context/contextForDashBoard";
 import { deleteUser } from "../../../utils/logoutUser";
+import { useNavigate } from "react-router";
 
 function TotalUsers() {
   const {
@@ -12,6 +13,7 @@ function TotalUsers() {
     error,
   } = useGetAllUserQuery();
   const [deleteUserMethod,deleteResp] = useDeleteUserMutation()
+  const navigate = useNavigate()
   const [allUsers,setAllUsers] = useState([]);
   const {searchValue,setSearchValue} = useContext(DashBoardContext)
 
@@ -67,7 +69,9 @@ function TotalUsers() {
                       <td className="py-3 px-4">{user?.email}</td>
                       <td className="py-3 px-4">{user?.contact}</td>
                       <td className="py-3 px-4 text-center">
-                        <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded">
+                        <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded" onClick={()=>{
+                                   navigate("/admin/dashboard/update User",{state:{user}})
+                        }}>
                           Update
                         </button>
                       </td>

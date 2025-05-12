@@ -59,9 +59,18 @@ export const apicallingForUser = apiSlice.injectEndpoints({
       }),
       invalidatesTags:["User"]
     }),
+    updateSingleUserData:builder.mutation({
+      query:(data)=>({
+        url:"user/update/single",
+        method:"PUT",
+        body:data,
+        credentials:"include"
+      }),
+      invalidatesTags:["User"]
+    })
 
 
   }),
 });
 
-export const {useLoginUserMutation,useLogOutUserMutation,useSingnUpUserMutation,useDirectLoginUserQuery,useGetAllUserQuery,useGetMyProfileQuery,useChangeUserRoleMutation,useDeleteUserMutation,useGetSinglUserQuery,use } = apicallingForUser;
+export const {useLoginUserMutation,useLogOutUserMutation,useSingnUpUserMutation,useDirectLoginUserQuery,useGetAllUserQuery,useGetMyProfileQuery,useChangeUserRoleMutation,useDeleteUserMutation,useGetSinglUserQuery,useUpdateSingleUserDataMutation } = apicallingForUser;

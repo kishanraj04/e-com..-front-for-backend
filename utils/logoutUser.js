@@ -30,3 +30,17 @@ export const deleteUser = async(method,id)=>{
         toast.error(error.message)
     }
 }
+
+// update user 
+export const updateUser = async(method,data)=>{
+    try {
+        const updateResp = await method(data)
+        if(updateResp?.data?.success){
+            toast.success("user updated")
+        }else{
+            toast.error("failed to update")
+        }
+    } catch (error) {
+        toast.error(error.message)
+    }
+}
