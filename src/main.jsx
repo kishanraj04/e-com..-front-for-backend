@@ -38,6 +38,7 @@ import Add_product from "./components/dashbord/Add_product.jsx";
 import PayByCash from "./components/checkout/PayByCash.jsx";
 import TotalUsers from "./components/dashbord/TotalUsers.jsx";
 import UpdateForm from "./components/dashbord/UpdateForm.jsx";
+import CreateProductForm from "./components/dashbord/CreateProductForm.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -130,7 +131,7 @@ const routes = createBrowserRouter([
         element:<All_Product/>
       },{
         path:"/admin/dashboard/Add Product",
-        element:<Add_product/>
+        element:<CreateProductForm/>
       },
       {
         path:"/admin/dashboard/User List",

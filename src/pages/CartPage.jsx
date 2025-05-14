@@ -12,7 +12,6 @@ const CartPage = () => {
   const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
     skip: !loggedInUserId,
   });
-  console.log(allCartItem);
   return (
     <div className="p-4 sm:p-6 bg-gray-100 min-h-screen flex flex-col lg:flex-row items-start justify-center gap-6">
       <CartDetails />

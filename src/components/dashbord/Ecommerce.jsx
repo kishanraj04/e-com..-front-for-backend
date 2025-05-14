@@ -1,14 +1,22 @@
 import React from "react";
 import Card from "./Card";
+import { useGetAllUserQuery, useGetRegisterUserInThisWeekQuery } from "../../../api/apiCallingForUser";
+import { useGetAllProductOrderQuery } from "../../../api/apiCallingForOrder";
+import { useGetAllProductQuery } from "../../../api/apiCallingForProduct";
 
 export default function Ecommerce() {
+  const { data: totalUsers } = useGetAllUserQuery();
+  const { data: allOrder } = useGetAllProductOrderQuery();
+  const { data: allProduct, allProductResp } = useGetAllProductQuery();
+  const {data:userThisWeek,isLoading:uLoading} = useGetRegisterUserInThisWeekQuery()
+  console.log(userThisWeek,uLoading);
   return (
     <div className="p-6 bg-gray-100 min-h-screen -z-50 min-w-[70%] bg-yellow-100">
       <div className="grid grid-cols-1 w-full md:grid-cols-4 gap-4 mb-6">
         <Card title="Total Revenue" value="₹500,000" />
-        <Card title="Total Customers" value="1,500" />
-        <Card title="Total Orders" value="2,000" />
-        <Card title="Sales by Country" value="India ₹95K (65%)" />
+        <Card title="Total Customers" value={totalUsers?.allUsers?.length} />
+        <Card title="Total Orders" value={allOrder?.allOrder?.length} />
+        <Card title="Total Product" value={allProduct?.length}/>
       </div>
 
       <div className="grid grid-cols-1 min-w-[70%]  md:grid-cols-3 gap-4 mb-6">
@@ -32,7 +40,7 @@ export default function Ecommerce() {
 
         <div className="grid grid-rows-2 gap-4">
           <Card title="Total Traffic" value="1,254 (Today)" subtext="+10%" />
-          <Card title="Customers" value="247 (This Week)" subtext="-5%" />
+          <Card title="Customers" value={`${userThisWeek?.count} (This Week)`} subtext="-5%" />
         </div>
       </div>
 
@@ -41,17 +49,17 @@ export default function Ecommerce() {
         <table className="w-full text-sm text-left">
           <thead>
             <tr className="text-gray-500">
-                {
-                   [
-                    "ID",
-                    "Product Name",
-                    "Quantity",
-                    "Actual Price (₹)",
-                    "Sale Price (₹)",
-                    "Date",
-                    "Status"
-                  ].map((item)=><th>{item}</th>)
-                }
+              {[
+                "ID",
+                "Product Name",
+                "Quantity",
+                "Actual Price (₹)",
+                "Sale Price (₹)",
+                "Date",
+                "Status",
+              ].map((item) => (
+                <th>{item}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -74,5 +82,3 @@ export default function Ecommerce() {
     </div>
   );
 }
-
-

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useDeleteSingleProductMutation,  useShowMoreProdQuery } from "../../../api/apiCallingForProduct";
 import Spinner from "../spinner/Spinner";
 import { toast } from "react-toastify";
+import { DashBoardContext } from "../../context/contextForDashBoard";
 
 const products = [
   {
@@ -56,7 +57,7 @@ const All_Product = () => {
   const [deleteSingleProd,deletedResp] = useDeleteSingleProductMutation()
   const { data: moreProd, isLoading: moreProdLoading } =
     useShowMoreProdQuery(rangeVal);
-  console.log(moreProd);
+  const {searchValue} = useContext(DashBoardContext)
 
   const handleUpdate = (id) => {
     console.log("Update product:", id);
@@ -68,7 +69,6 @@ const All_Product = () => {
       if(resp){
         toast.success("product deleted")
       }
-      console.log(resp);
     } catch (error) {
       
     }
@@ -81,7 +81,7 @@ const All_Product = () => {
       ) : (
         <div className="p-6 bg-gray-50 min-h-screen">
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {moreProd?.products?.map((prod, idx) => (
+            {moreProd?.products?.filter((item)=>item?.title?.toLowerCase().includes(searchValue))?.map((prod, idx) => (
               <div
                 key={prod?._id}
                 className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-5 flex flex-col justify-between"

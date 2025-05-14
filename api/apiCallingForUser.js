@@ -67,10 +67,18 @@ export const apicallingForUser = apiSlice.injectEndpoints({
         credentials:"include"
       }),
       invalidatesTags:["User"]
+    }),
+    getRegisterUserInThisWeek:builder.query({
+      query:()=>({
+        url:'user/this-week',
+        method:"GET",
+        credentials:"include"
+      }),
+      providesTags:['User']
     })
 
 
   }),
 });
 
-export const {useLoginUserMutation,useLogOutUserMutation,useSingnUpUserMutation,useDirectLoginUserQuery,useGetAllUserQuery,useGetMyProfileQuery,useChangeUserRoleMutation,useDeleteUserMutation,useGetSinglUserQuery,useUpdateSingleUserDataMutation } = apicallingForUser;
+export const {useLoginUserMutation,useLogOutUserMutation,useSingnUpUserMutation,useDirectLoginUserQuery,useGetAllUserQuery,useGetMyProfileQuery,useChangeUserRoleMutation,useDeleteUserMutation,useGetSinglUserQuery,useUpdateSingleUserDataMutation,useGetRegisterUserInThisWeekQuery } = apicallingForUser;

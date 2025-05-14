@@ -7,6 +7,7 @@ import {
 import { getStockForCat } from "../../../utils/dashBoard";
 import { useGetAllProductOrderQuery } from "../../../api/apiCallingForOrder";
 import { getCatAndQty } from "../../../utils/makeOrder";
+import Spinner from "../spinner/Spinner";
 
 function Analytics() {
   const {
@@ -21,7 +22,6 @@ function Analytics() {
   useEffect(() => {
     const fetchAndSetData = async () => {
       const res = await getCatAndQty(allOrder);
-      console.log(res);
       setOrderCategory(res?.categories);
       setOrderQty(res?.quantities);
     };
@@ -29,7 +29,8 @@ function Analytics() {
     fetchAndSetData();
   }, [allOrder]);
 
-  if (isCatLoading) return <p>Loading...</p>;
+
+  if (isCatLoading || orderCategory?.length==0) return <Spinner/>;
   if (isCatError || !category?.categories)
     return <p>Error loading categories</p>;
 
