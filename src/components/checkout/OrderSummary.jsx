@@ -15,7 +15,6 @@ function OrderSummary() {
   });
 
   const navigate = useNavigate()
-  // const [allCartData, setAllCartData] = useState([]);
  
 
   const cartData = useMemo(() => {
@@ -50,6 +49,10 @@ function OrderSummary() {
       return updatedQty;
     });
   };
+
+  if(allCartDataForOrderSummary?.length==0){
+    navigate('/home/cart')
+  }
 
 
   return (

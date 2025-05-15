@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider, useDispatch } from "react-redux";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useGetAllCartItemQuery } from "../api/apiCallingForCart.js";
 import { useGetAllProductQuery } from "../api/apiCallingForProduct.js";
@@ -39,6 +39,7 @@ import PayByCash from "./components/checkout/PayByCash.jsx";
 import TotalUsers from "./components/dashbord/TotalUsers.jsx";
 import UpdateForm from "./components/dashbord/UpdateForm.jsx";
 import CreateProductForm from "./components/dashbord/CreateProductForm.jsx";
+import ProductUpdateForm from "./components/dashbord/ProductUpdataForm.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -50,6 +51,9 @@ export const DirectLoginAuth = () => {
   const { data: wishListData } = useGetAllWishListItemQuery();
 
   const dispatch = useDispatch();
+  // if(!directLoginData){
+  //   navigate('/')
+  // }
 
   if (allProduct?.isLoading) {
     return <h1>loding</h1>;
@@ -140,6 +144,10 @@ const routes = createBrowserRouter([
       {
         path:"/admin/dashboard/update User",
         element:<UpdateForm/>
+      },
+      {
+        path:'/admin/dashboard/update/product',
+        element:<ProductUpdateForm/>
       }
     ],
   },

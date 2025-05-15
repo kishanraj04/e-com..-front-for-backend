@@ -1,12 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import DashBoardHeader from "../components/dashbord/DashBoardHeader";
 import DashBoardSideBar from "../components/dashbord/DashBoardSideBar";
 import { DashBoardContext } from "../context/contextForDashBoard";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
+import { useDirectLoginUserQuery } from "../../api/apiCallingForUser";
+import { useSelector } from "react-redux";
 
 function Dashbord() {
   const { toggleSideBar, setToggleSideBar, theam } =
     useContext(DashBoardContext);
+      const navigate = useNavigate()
+
+  
+  const {
+      data: directLoginData,
+      isError,
+      isSuccess,
+    } = useDirectLoginUserQuery();
   return (
     <>
       <DashBoardHeader />

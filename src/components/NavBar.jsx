@@ -10,7 +10,7 @@ import { RxCross1 } from "react-icons/rx";
 import IconLink from "../custom/IconLink";
 import { IoMdLogOut } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { useLogOutUserMutation } from "../../api/apiCallingForUser";
+import { useDirectLoginUserQuery, useLogOutUserMutation } from "../../api/apiCallingForUser";
 import { logoutUser } from "../../utils/logoutUser";
 import { loggedInUser } from "../../store/authSlice";
 import { BsSearch } from "react-icons/bs";
@@ -27,6 +27,9 @@ export default function Navbar() {
     (state) => state?.auth?.loggedInUser?.name
   );
   const [inpVal, setIpVal] = useState("");
+  const {
+      data: directLoginData
+    } = useDirectLoginUserQuery();
   const [logOutUser, { isError, isSuccess, data }] = useLogOutUserMutation();
   const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
   const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {

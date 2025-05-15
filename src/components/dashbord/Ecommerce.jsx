@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./Card";
-import { useGetAllUserQuery, useGetRegisterUserInThisWeekQuery } from "../../../api/apiCallingForUser";
+import { useGetAllUserQuery, useGetRegisterUserInThisWeekQuery, useGetTodayRegisterUserQuery } from "../../../api/apiCallingForUser";
 import { useGetAllProductOrderQuery } from "../../../api/apiCallingForOrder";
 import { useGetAllProductQuery } from "../../../api/apiCallingForProduct";
 
@@ -9,7 +9,9 @@ export default function Ecommerce() {
   const { data: allOrder } = useGetAllProductOrderQuery();
   const { data: allProduct, allProductResp } = useGetAllProductQuery();
   const {data:userThisWeek,isLoading:uLoading} = useGetRegisterUserInThisWeekQuery()
-  console.log(userThisWeek,uLoading);
+  const {data:userToday,isLoading:tLoading} = useGetTodayRegisterUserQuery()
+  
+  console.log(allOrder);
   return (
     <div className="p-6 bg-gray-100 min-h-screen -z-50 min-w-[70%] bg-yellow-100">
       <div className="grid grid-cols-1 w-full md:grid-cols-4 gap-4 mb-6">
@@ -39,8 +41,8 @@ export default function Ecommerce() {
         </div>
 
         <div className="grid grid-rows-2 gap-4">
-          <Card title="Total Traffic" value="1,254 (Today)" subtext="+10%" />
-          <Card title="Customers" value={`${userThisWeek?.count} (This Week)`} subtext="-5%" />
+          <Card title="Today Register User" value={`${userToday?.registeredToday}`} subtext="+10%" />
+          <Card title="Customers This Week" value={`${userThisWeek?.count}`} subtext="-5%" />
         </div>
       </div>
 
@@ -50,11 +52,10 @@ export default function Ecommerce() {
           <thead>
             <tr className="text-gray-500">
               {[
-                "ID",
-                "Product Name",
-                "Quantity",
-                "Actual Price (₹)",
-                "Sale Price (₹)",
+                "User ID",
+                "Total Product",
+                "Total Quantity",
+                "Total Price (₹)",
                 "Date",
                 "Status",
               ].map((item) => (
@@ -63,19 +64,25 @@ export default function Ecommerce() {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-t">
-              <td>ORD-1234</td>
-              <td>Wireless Headphones</td>
-              <td>1</td>
-              <td>2,499</td>
-              <td>1,999</td>
+            {
+              allOrder?.allOrder?.map((item)=>{
+                return <tr className="border-t">
+             
+              <td>{item?._id}</td>
+              <td>{item?.orderItems?.length}</td>
+              <td>{
+                item?.orderItems?.reduce((acc,current)=>{
+                  return acc+(current?.qty)
+                },0)
+                }</td>
+              <td>{item?.totalPrice}</td>
               <td>2024-04-17</td>
               <td>
-                <span className="text-green-600 bg-green-100 px-2 py-1 rounded-full text-xs">
-                  Shipped
-                </span>
+                <button className="bg-orange-300 p-1 rounded-md text-white">Update</button>
               </td>
             </tr>
+              })
+            }
           </tbody>
         </table>
       </div>

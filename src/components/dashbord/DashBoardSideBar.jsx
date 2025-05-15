@@ -47,16 +47,29 @@ function DashBoardSideBar() {
         </div>
 
         <div className={`${toggle!=item.title?"hidden":""} w-full flex flex-col  pl-4 gap-2 transition-all duration-900 ease-in-out`}>
-          {
-            item?.fields?.map((field)=><Link to={`/admin/dashboard/${field}`}>
-              <p className="p-1 text-xl font-serif font-bold bg-orange-50 w-full hover:bg-orange-300 duration-500" onClick={async()=>{
-                if(field=='Logout'){
-                 const resp =  await logoutUser(logOutUser,navigate,dispatch)
-                 console.log(resp);
-                }
-              }}>{field}</p>
-            </Link>)
-          }
+          
+           {item?.fields?.map((field) =>
+  field === "Logout" ? (
+    <p
+      key={field}
+      className="p-1 text-xl font-serif font-bold bg-orange-50 w-full hover:bg-orange-300 duration-500"
+      onClick={async () => {
+        const resp = await logoutUser(logOutUser, navigate, dispatch);
+        console.log(resp);
+      }}
+    >
+      {field}
+    </p>
+  ) : (
+    <Link key={field} to={`/admin/dashboard/${field}`}>
+      <p className="p-1 text-xl font-serif font-bold bg-orange-50 w-full hover:bg-orange-300 duration-500">
+        {field}
+      </p>
+    </Link>
+  )
+)}
+
+          
         </div>
        </div>
       ))}

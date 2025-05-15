@@ -75,10 +75,16 @@ export const apicallingForUser = apiSlice.injectEndpoints({
         credentials:"include"
       }),
       providesTags:['User']
+    }),
+    getTodayRegisterUser:builder.query({
+      query:()=>({
+        url:'user/register-today',
+        method:"GET",
+        credentials:"include"
+      }),
+      providesTags:["User"]
     })
-
-
   }),
 });
 
-export const {useLoginUserMutation,useLogOutUserMutation,useSingnUpUserMutation,useDirectLoginUserQuery,useGetAllUserQuery,useGetMyProfileQuery,useChangeUserRoleMutation,useDeleteUserMutation,useGetSinglUserQuery,useUpdateSingleUserDataMutation,useGetRegisterUserInThisWeekQuery } = apicallingForUser;
+export const {useLoginUserMutation,useLogOutUserMutation,useSingnUpUserMutation,useDirectLoginUserQuery,useGetAllUserQuery,useGetMyProfileQuery,useChangeUserRoleMutation,useDeleteUserMutation,useGetSinglUserQuery,useUpdateSingleUserDataMutation,useGetRegisterUserInThisWeekQuery,useGetTodayRegisterUserQuery } = apicallingForUser;

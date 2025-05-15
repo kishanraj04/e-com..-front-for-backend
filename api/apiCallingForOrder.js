@@ -11,14 +11,15 @@ export const apiCallingForOrder = apiSlice.injectEndpoints({
         credentials: "include",
         body: data,
       }),
-      invalidatesTags:["Product"]
+      invalidatesTags:["Product","orders"]
     }), 
     getAllProductOrder:builder.query({
       query:()=>({
         url:'all-order',
         method:"GET",
         credentials:"include",
-      })
+      }),
+      providesTags:["orders"]
     })  
   }),
 });

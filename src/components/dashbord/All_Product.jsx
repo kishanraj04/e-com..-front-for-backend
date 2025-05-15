@@ -3,6 +3,7 @@ import { useDeleteSingleProductMutation,  useShowMoreProdQuery } from "../../../
 import Spinner from "../spinner/Spinner";
 import { toast } from "react-toastify";
 import { DashBoardContext } from "../../context/contextForDashBoard";
+import { useNavigate } from "react-router";
 
 const products = [
   {
@@ -58,10 +59,7 @@ const All_Product = () => {
   const { data: moreProd, isLoading: moreProdLoading } =
     useShowMoreProdQuery(rangeVal);
   const {searchValue} = useContext(DashBoardContext)
-
-  const handleUpdate = (id) => {
-    console.log("Update product:", id);
-  };
+  const navigate = useNavigate()
 
   const handleDelete = async(id) => {
     try {
@@ -121,7 +119,7 @@ const All_Product = () => {
 
                 <div className="flex justify-end gap-3">
                   <button
-                    onClick={() => handleUpdate(prod?._id)}
+                    onClick={() =>{navigate("/admin/dashboard/update/product" , {state:prod})}}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
                   >
                     Update
