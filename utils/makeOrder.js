@@ -1,9 +1,11 @@
 export const makeYourOrder = async(method,data)=>{
       try {
         const resp = await method(data)
-        console.log(resp);
+ 
+        
       } catch (error) {
-        console.log(error.message);
+       
+        
       }
 }
 
@@ -31,6 +33,6 @@ export const getCatAndQty = async(allOrder)=>{
     categories.push(key);
     quantities.push(value);
   }
-  console.log(categories,quantities);
+  
   return {categories,quantities}
 }

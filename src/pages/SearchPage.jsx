@@ -14,7 +14,7 @@ function SearchPage() {
   const { data: allCartItem } = useGetAllCartItemQuery(loggedInUserId, {
     skip: !loggedInUserId,
   });
-  console.log(state);
+  
   const searchData = state?.data?.data;
   return (
     <>

@@ -7,7 +7,8 @@ import { useDirectLoginUserQuery } from '../../api/apiCallingForUser';
 function AuthLayout({children}) {
     const navigate = useNavigate()
     const loggedInUserStatus = useSelector((state)=>state.auth?.loggedInUser)
-    console.log("authlayout");
+   
+    
     useEffect(()=>{
         if(!loggedInUserStatus){
             navigate('/')

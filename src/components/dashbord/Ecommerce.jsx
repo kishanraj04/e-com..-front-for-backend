@@ -3,15 +3,16 @@ import Card from "./Card";
 import { useGetAllUserQuery, useGetRegisterUserInThisWeekQuery, useGetTodayRegisterUserQuery } from "../../../api/apiCallingForUser";
 import { useGetAllProductOrderQuery } from "../../../api/apiCallingForOrder";
 import { useGetAllProductQuery } from "../../../api/apiCallingForProduct";
+import { useNavigate } from "react-router";
 
 export default function Ecommerce() {
   const { data: totalUsers } = useGetAllUserQuery();
   const { data: allOrder } = useGetAllProductOrderQuery();
   const { data: allProduct, allProductResp } = useGetAllProductQuery();
   const {data:userThisWeek,isLoading:uLoading} = useGetRegisterUserInThisWeekQuery()
+  const navigate = useNavigate()
   const {data:userToday,isLoading:tLoading} = useGetTodayRegisterUserQuery()
   
-  console.log(allOrder);
   return (
     <div className="p-6 bg-gray-100 min-h-screen -z-50 min-w-[70%] bg-yellow-100">
       <div className="grid grid-cols-1 w-full md:grid-cols-4 gap-4 mb-6">
@@ -63,10 +64,10 @@ export default function Ecommerce() {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="font-sarif">
             {
               allOrder?.allOrder?.map((item)=>{
-                return <tr className="border-t">
+                return <tr className="border-t font-serif">
              
               <td>{item?._id}</td>
               <td>{item?.orderItems?.length}</td>
@@ -78,7 +79,9 @@ export default function Ecommerce() {
               <td>{item?.totalPrice}</td>
               <td>2024-04-17</td>
               <td>
-                <button className="bg-orange-300 p-1 rounded-md text-white">Update</button>
+                <button className="bg-orange-300 p-1 rounded-md text-black font-serif" onClick={()=>{
+                  navigate('/admin/dashboard/update/product/status',{state:{item}})
+                }}>{item?.orderStatus}</button>
               </td>
             </tr>
               })

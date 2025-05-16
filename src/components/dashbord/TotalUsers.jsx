@@ -45,7 +45,7 @@ function TotalUsers() {
           User Not Found
         </h1>
       ) : (
-        <div className="flex flex-col justify-center items-center w-full gap-4">
+        <div className="flex flex-col bg-black justify-center items-center w-full gap-4 h-[91vh]">
           <h1 className="text-white text-2xl font-bold">Total Users</h1>
           <div className="w-full overflow-x-auto px-4">
             <div className="w-full max-w-7xl mx-auto">

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { useUpdateSingleProductMutation } from '../../../api/apiCallingForProduct';
+import {toast} from 'react-toastify'
 
 const ProductUpdateForm = () => {
   const {state} = useLocation()
+  const [updateProd,updateProdResp] = useUpdateSingleProductMutation()
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -23,6 +26,7 @@ const ProductUpdateForm = () => {
     minimumOrderQuantity: "",
     meta: { createdBy: '', lastUpdated: '' },
   });
+  const navigate = useNavigate()
 
  useEffect(() => {
   if (state) {
@@ -63,11 +67,7 @@ const ProductUpdateForm = () => {
     setFormData((prev) => ({ ...prev, [field]: newArray }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Submitted data:', formData);
-  };
-
+ 
   const renderInput = (label, name, type = 'text', readOnly = false) => (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
@@ -84,7 +84,6 @@ const ProductUpdateForm = () => {
 
   return (
     <form
-      onSubmit={handleSubmit}
       className="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow space-y-6 mt-10"
     >
       <h2 className="text-2xl font-bold">Update Product</h2>
@@ -152,7 +151,21 @@ const ProductUpdateForm = () => {
       <button
         type="submit"
         className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-      >
+       onClick={async(e)=>{
+        e.preventDefault()
+           try {
+            const resp = await updateProd(formData);
+            console.log(resp?.data?.success);
+            if(resp?.data?.success){
+              toast.success("product updated")
+              navigate("/admin/dashboard/All Product")
+            }else{
+              toast.error("failed to update")
+            }
+           } catch (error) {
+            
+           }
+       }}>
         Update
       </button>
     </form>

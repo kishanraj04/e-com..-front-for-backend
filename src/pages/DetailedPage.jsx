@@ -31,7 +31,7 @@ function DetailedPage() {
     isError,
     isLoading,
   } = useGetSinglePorductQuery(state);
-  console.log(singleProduct);
+  
   const category = singleProduct?.product?.category;
   const {
     data: categoryData,
@@ -50,7 +50,8 @@ function DetailedPage() {
   });
   const [addInCart] = useAddInCartMutation();
   const [removeFromCart, removeRespo] = useRemoveFromCartMutation();
-  console.log("IN ", imageNumber);
+
+
   return (
     // <>
     // <h1>

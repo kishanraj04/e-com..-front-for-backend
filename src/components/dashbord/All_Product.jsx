@@ -77,7 +77,7 @@ const All_Product = () => {
       {moreProdLoading ? (
         <Spinner />
       ) : (
-        <div className="p-6 bg-gray-50 min-h-screen">
+        <div className="p-6 min-h-screen min-h-[91vh] bg-black">
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {moreProd?.products?.filter((item)=>item?.title?.toLowerCase().includes(searchValue))?.map((prod, idx) => (
               <div

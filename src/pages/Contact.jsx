@@ -19,7 +19,6 @@ function Contact() {
 
   const handleContactSubmit = async(e) => {
     e.preventDefault();
-    console.log((nameRef?.current?.value?.length)>=2,nameRef?.current?.value?.length);
     if(nameRef?.current?.value?.length<=2){
        toast.error("name is to short")
        return

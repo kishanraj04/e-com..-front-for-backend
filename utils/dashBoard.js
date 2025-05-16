@@ -8,3 +8,9 @@ export const getStockForCat = (allProduct,category)=>{
 
      return totalStock
 }
+
+
+// update order status
+export const updateOrderStatus = async(method,data)=>{
+
+}

@@ -14,7 +14,8 @@ const CheckoutPage = () => {
   const loggedInUserId = useSelector((state) => state?.auth?.loggedInUser?._id);
   const { isAddress, setIsAddress, setEditFlag,allCartDataForOrderSummary, setAllCartDataForOrderSummary,addNewAddressFlag, setAddNewAddressFlag, deliverHereFlag,setIsDeliverHereFlag} = useContext(GlobalContect);
   const totalprice = totalPrice(allCartDataForOrderSummary);
-  console.log(allCartDataForOrderSummary);
+  
+  
   const location = useLocation()
   useEffect(() => {
     setIsDeliverHereFlag(false);

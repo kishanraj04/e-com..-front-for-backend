@@ -81,6 +81,16 @@ export const apicallingForProduct = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Product"],
     }),
+    updateSingleProduct:builder.mutation({
+      query:(body)=>({
+        url:"product/single/update",
+        method:"POST",
+        body:body,
+        credentials:"include",
+        
+      }),
+      invalidatesTags:["more_prod"]
+    })
   }),
 });
 
@@ -100,4 +110,5 @@ export const {
   useGetAllCategoryQuery,
   useShowMoreProdQuery,
   useAddNewProductMutation,
+  useUpdateSingleProductMutation
 } = apicallingForProduct;

@@ -40,6 +40,7 @@ import TotalUsers from "./components/dashbord/TotalUsers.jsx";
 import UpdateForm from "./components/dashbord/UpdateForm.jsx";
 import CreateProductForm from "./components/dashbord/CreateProductForm.jsx";
 import ProductUpdateForm from "./components/dashbord/ProductUpdataForm.jsx";
+import UpdateProductStatus from "./components/dashbord/UpdateProductStatus.jsx";
 
 export const DirectLoginAuth = () => {
   const {
@@ -148,6 +149,10 @@ const routes = createBrowserRouter([
       {
         path:'/admin/dashboard/update/product',
         element:<ProductUpdateForm/>
+      },
+       {
+        path:'/admin/dashboard/update/product/status',
+        element:<UpdateProductStatus/>
       }
     ],
   },
